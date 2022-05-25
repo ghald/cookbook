@@ -23,3 +23,51 @@ collections:
       - { label: 'Description', name: 'description', widget: 'string' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
 
+  - name: 'recettes'
+    label: 'recettes'
+    label-singular: 'recette'
+    folder: 'recettes'
+    slug: '{{title}}'
+    create: true
+    filter: {field: 'type', 'plat'}
+    fields:
+      - {label: 'Intitulé', name: 'intitulé', widget: 'string'}
+      - {label: 'Spécialité (région)', name: 'spécialité', widget: 'string'}
+      - {label: 'Description', name: 'description', widget: 'string'}
+      - label: 'Ingredients'
+        name: 'ingredients'
+        widget: 'object'
+        fields: 
+          - label: 'Frais (fruits légumes)'
+            name: 'frais'
+            widget: 'list'
+            allow_add: true
+            label_singular: '+'
+            fields: 
+              - label: 'Noms'
+                name: 'noms'
+                widget: 'string'
+                # widget: relation
+              - label: 'Quantité'
+                name: 'quantité'
+                widget: 'number'
+                value_type: 'float'
+              - label: 'Poids'
+                name: 'poids'
+                widget: 'select'
+                options: ['Kg', 'grammes', 'nombre']
+          # - label: 'Animaux'
+          #   name : 'animaux'
+          #   widget: 'string'
+          #   # widget: relation
+          #   - label: 'Quantité'
+          #     name: 'quantité'
+          #     widget: 'number'
+          #     value_type: 'float'
+          #   - label: 'Poids'
+          #     name: 'poids'
+          #     widget: 'select'
+          #     options: ['Kg', 'grammes', 'nombre']
+
+
+

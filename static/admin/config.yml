@@ -26,28 +26,28 @@ collections:
   - name: 'recettes'
     label: 'recettes'
     label-singular: 'recette'
-    folder: 'content/recettes'
+    folder: 'recettes'
     slug: '{{title}}'
     create: true
-    # filter: {field: 'type', 'plat'}
+    filter: {field: 'type', 'plat'}
     fields:
       - {label: 'Intitulé', name: 'intitulé', widget: 'string'}
       - {label: 'Spécialité (région)', name: 'spécialité', widget: 'string'}
+      - {label: 'Image', name: 'image', widget: 'image'}
       - {label: 'Description', name: 'description', widget: 'string'}
       - label: 'Ingredients'
         name: 'ingredients'
         widget: 'object'
         fields: 
-          - label: 'Frais (fruits/légumes)'
+          - label: 'Frais (fruits légumes)'
             name: 'frais'
             widget: 'list'
             allow_add: true
-            # label_singular: '+'
-            types: 
+            label_singular: 'Ingrédient'
+            fields: 
               - label: 'Noms'
                 name: 'noms'
-                widget: 'string'
-                # widget: relation
+                widget: 'string'  # widget: relation
               - label: 'Quantité'
                 name: 'quantité'
                 widget: 'number'
@@ -58,16 +58,53 @@ collections:
                 options: ['Kg', 'grammes', 'nombre']
           - label: 'Animaux'
             name : 'animaux'
-            widget: 'string'
-            # widget: relation
-          - label: 'Quantité'
-            name: 'quantité'
-            widget: 'number'
-            value_type: 'float'
-          - label: 'Poids'
-            name: 'poids'
-            widget: 'select'
-            options: ['Kg', 'grammes', 'nombre']
-
-
+            widget: 'list'
+            allow_add: true
+            label_singular: 'Ingrédient'
+            fields:
+              - label: 'Noms'
+                name: 'noms'
+                widget: 'string'  # widget: relation            
+              - label: 'Quantité'
+                name: 'quantité'
+                widget: 'number'
+                value_type: 'float'
+              - label: 'Poids'
+                name: 'poids'
+                widget: 'select'
+                options: ['Kg', 'grammes', 'nombre']
+          - label: 'Sec'
+            name : 'sec'
+            widget: 'list'
+            allow_add: true
+            label_singular: 'Ingrédient'
+            fields:
+              - label: 'Noms'
+                name: 'noms'
+                widget: 'string'  # widget: relation            
+              - label: 'Quantité'
+                name: 'quantité'
+                widget: 'number'
+                value_type: 'float'
+              - label: 'Poids'
+                name: 'poids'
+                widget: 'select'
+                options: ['Kg', 'grammes', 'nombre']                
+          - label: 'Epices & condiments'
+            name : 'epices'
+            widget: 'list'
+            allow_add: true
+            label_singular: 'Ingrédient'
+            fields:
+              - label: 'Noms'
+                name: 'noms'
+                widget: 'string'  # widget: relation            
+              - label: 'Quantité'
+                name: 'quantité'
+                widget: 'number'
+                value_type: 'float'
+              - label: 'Poids'
+                name: 'poids'
+                widget: 'select'
+                options: ['Kg', 'grammes', 'nombre']          
 

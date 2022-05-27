@@ -22,7 +22,56 @@ collections:
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
       - { label: 'Description', name: 'description', widget: 'string' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
-
+  - name: 'test'
+    label: 'Test'
+    folder: 'content/test'
+    create: true
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Publish Date', name: 'date', widget: 'datetime' }
+      - { label: 'Description', name: 'description', widget: 'string' }
+      - { label: 'Body', name: 'body', widget: 'markdown' }      
+      - label: 'Ingredients'
+      name: 'ingredients'
+      widget: 'object'
+      fields: 
+        - label: 'Frais (fruits légumes)'
+          name: 'frais'
+          widget: 'list'
+          allow_add: true
+          label_singular: 'Ingrédient'
+          fields: 
+            - label: 'Noms'
+              name: 'noms'
+              widget: 'string'  # widget: relation
+            - label: 'Quantité'
+              name: 'quantité'
+              widget: 'number'
+              value_type: 'float'
+            - label: 'Poids'
+              name: 'poids'
+              widget: 'select'
+              options: ['Kg', 'grammes', 'nombre']
+        - label: 'Animaux'
+          name : 'animaux'
+          widget: 'list'
+          allow_add: true
+          label_singular: 'Ingrédient'
+          fields:
+            - label: 'Noms'
+              name: 'noms'
+              widget: 'string'  # widget: relation            
+            - label: 'Quantité'
+              name: 'quantité'
+              widget: 'number'
+              value_type: 'float'
+            - label: 'Poids'
+              name: 'poids'
+              widget: 'select'
+              options: ['Kg', 'grammes', 'nombre']
   - name: 'recettes'
     label: 'recettes'
     label-singular: 'recette'

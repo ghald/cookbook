@@ -26,7 +26,7 @@ collections:
   - name: 'recettes'
     label: 'recettes'
     label-singular: 'recette'
-    folder: 'recettes'
+    folder: 'content/recettes'
     slug: '{{title}}'
     create: true
     # filter: {field: 'type', 'plat'}

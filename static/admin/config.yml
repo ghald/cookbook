@@ -21,24 +21,12 @@ collections:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
       - { label: 'Description', name: 'description', widget: 'string' }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
-  - name: 'test'
-    label: 'Test'
-    folder: 'content/test'
-    create: true
-    slug: '{{slug}}'
-    editor:
-      preview: false
-    fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Publish Date', name: 'date', widget: 'datetime' }
-      - { label: 'Description', name: 'description', widget: 'string' }
-      - { label: 'Body', name: 'body', widget: 'markdown' }      
+      - { label: 'Body', name: 'body', widget: 'markdown' } 
   - name: 'recettes'
     label: 'recettes'
     label-singular: 'recette'
     folder: 'recettes'
-    slug: '{{title}}'
+    slug: '{{title}}' #fix?
     create: true
     filter: {field: 'type', 'plat'}
     fields:
@@ -58,7 +46,7 @@ collections:
             fields: 
               - label: 'Noms'
                 name: 'noms'
-                widget: 'string'  # widget: relation
+                widget: 'string'  #TODO? widget: relation
               - label: 'Quantité'
                 name: 'quantité'
                 widget: 'number'
@@ -75,7 +63,7 @@ collections:
             fields:
               - label: 'Noms'
                 name: 'noms'
-                widget: 'string'  # widget: relation            
+                widget: 'string'  #TODO? widget: relation            
               - label: 'Quantité'
                 name: 'quantité'
                 widget: 'number'
@@ -100,7 +88,25 @@ collections:
               - label: 'Poids'
                 name: 'poids'
                 widget: 'select'
-                options: ['Kg', 'grammes', 'nombre']                
+                options: ['Kg', 'grammes', 'nombre']
+          - label: 'Autres'
+            name : 'autres'
+            widget: 'list'
+            allow_add: true
+            label_singular: 'Ingrédient'
+            fields:
+              - label: 'Noms'
+                name: 'noms'
+                widget: 'string'  # widget: relation            
+              - label: 'Quantité'
+                name: 'quantité'
+                widget: 'number'
+                value_type: 'float'
+              - label: 'Poids'
+                name: 'poids'
+                widget: 'select'
+                options: ['Kg', 'grammes', 'litre', 'nombre']          
+                
           - label: 'Epices & condiments'
             name : 'epices'
             widget: 'list'
@@ -117,5 +123,5 @@ collections:
               - label: 'Poids'
                 name: 'poids'
                 widget: 'select'
-                options: ['Kg', 'grammes', 'nombre']          
+                options: ['Kg', 'grammes', 'litre', 'nombre']          
 

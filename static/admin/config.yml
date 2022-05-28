@@ -28,7 +28,7 @@ collections:
     folder: 'recettes'
     slug: '{{title}}' #fix?
     create: true
-    filter: {field: 'type', 'plat'}
+    # filter: {field: 'type', 'plat'}
     fields:
       - {label: 'Intitulé', name: 'intitulé', widget: 'string'}
       - {label: 'Spécialité (région)', name: 'spécialité', widget: 'string'}

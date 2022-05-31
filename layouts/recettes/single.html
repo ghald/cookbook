@@ -1,0 +1,23 @@
+{{ define "main" }}
+
+<div class="col-md-6">
+    {{ if .Params.ingredients.legumes }}
+    {{ range .Params.ingredients.legumes }}
+    <ul class="">
+        {{ . }}
+    </ul>
+    {{ end }}
+    {{ end }}
+</div>
+
+<div class="col-md-6">
+    {{ if .Params.ingredients.legumes }}
+    {{ range .Params.ingredients.legumes }}
+    <li> 
+       {{.nom}} : {{.quantite }} {{.poids }} 
+    </li>
+    {{ end }}
+    {{ end }}
+</div>
+
+{{ end }}

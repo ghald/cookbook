@@ -1,0 +1,14 @@
+# Pour creer une serie d'article type "ingredient" a partir d'un fichier texte ("list"), contenant, sur chaque ligne, un ingredient. Crée un fichier .md du nom de l'ingredient, et le remplit avec le texte contenu dans ``do echo " ... "
+# Remplace la catégorie avec l'input demandé.
+
+echo "Quelle est la catégorie de l'ingredient ("Frais", "Sec", "Animaux", "Autre")"
+
+read CATEGORIE
+
+cat list | while read LINE; do echo "---
+name : "\"$LINE\""
+categorie: "\"$CATEGORIE\""
+alergene: false
+tips : >
+
+--- " > "$LINE.md"; done

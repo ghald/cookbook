@@ -1,38 +1,38 @@
 # Meta Data for SEO
 
 ## Homepage
-title = "Hyas"
+title = "Encas-Parka Cookbook"
 titleSeparator = "-"
-titleAddition = "Modern Hugo Starter"
-description = "Hyas is a Hugo starter helping you build modern websites that are secure, fast, and SEO-ready — by default."
+titleAddition = "Des recettes de cantines"
+description = ""
 
 ## Open Graph
 images = ["hyas.png"]
-ogLocale = "en_US"
-titleHome = "Hyas Hugo Starter"
+ogLocale = "fr"
+titleHome = "Encas-Parka Cookbook"
 
 ## Twitter Cards
-twitterSite = "@gethyas"
-twitterCreator = "@henkverlinde"
+twitterSite = ""
+twitterCreator = ""
 
 ## JSON-LD
 # schemaType = "Person"
 schemaType = "Organization"
-schemaName = "Hyas"
-schemaAuthor = "Henk Verlinde"
-schemaAuthorTwitter = "https://twitter.com/henkverlinde"
-schemaAuthorLinkedIn = "https://www.linkedin.com/in/henkverlinde/"
-schemaAuthorGitHub = "https://github.com/h-enk"
-schemaLocale = "en-US"
+schemaName = "Encas-Parka Cookbook"
+schemaAuthor = "encas-parka"
+# schemaAuthorTwitter = "https://twitter.com/henkverlinde"
+# schemaAuthorLinkedIn = "https://www.linkedin.com/in/henkverlinde/"
+# schemaAuthorGitHub = "https://github.com/h-enk"
+schemaLocale = "fr-FR"
 schemaLogo = "logo-hyas.png"
 schemaLogoWidth = 512
 schemaLogoHeight = 512
 schemaImage = "hyas.png"
 schemaImageWidth = 1280
 schemaImageHeight = 640
-schemaTwitter = "https://twitter.com/gethyas"
+schemaTwitter = ""
 schemaLinkedIn = ""
-schemaGitHub = "https://github.com/h-enk/hyas"
+schemaGitHub = ""
 
 ## Chrome Browser
 themeColor = "#fff"
@@ -53,7 +53,7 @@ fillImage = "1280x720 Center" # normalize image size
 footer = "Powered by <a href=\"https://www.netlify.com/\">Netlify</a>, <a href=\"https://gohugo.io/\">Hugo</a>, and <a href=\"https://gethyas.com/\">Hyas</a>"
 
 # Feed
-copyRight = "Copyright (c) 2020-2021 Henk Verlinde"
+copyRight = ""
 
 # Alert
 alert = false

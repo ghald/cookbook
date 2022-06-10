@@ -1,0 +1,26 @@
+<div class="recipe-card card">
+  {{if .Params.image}}
+  <aside>
+      <a href="{{.Permalink }}">
+      <img class="card-image img-fluid img-cover" src="{{ .Params.image }}" />
+      <div class="recipe-title h3">{{.Title}}</div>
+      {{end}}</a>
+    </aside>
+    <card-body>
+        {{if not .Params.image}}
+        <h2>{{.Title}}</h2>
+        <h3>Plat</h3>
+        {{end}}
+        <p>{{.Description}}</p>
+        <p class="ingredients">
+          <span>Ingredients:&nbsp;</span>
+          {{ range .Params.ingredients.animaux}} {{.nom}} - {{end}} {{ range
+          .Params.ingredients.frais}} {{.nom}} - {{end}} {{ range
+          .Params.ingredients.sec}} {{.nom}} - {{end}} {{ range
+          .Params.ingredients.autres}} {{.nom}} - {{end}} {{ range
+          .Params.ingredients.epices}} {{.nom}} - {{end}}
+        </p>
+      </card-body>
+      <div class="card-footer">test</div>
+  </div>
+

@@ -1,6 +1,7 @@
 ---
-title: Lasagne épinard
-image: /images/plat.webp
+type: plats
+title: Carry poisson
+image: /images/plats.webp
 ingredients:
   frais:
     - nom: oignons

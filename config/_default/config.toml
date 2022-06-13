@@ -2,7 +2,7 @@ baseurl = "/"
 canonifyURLs = false
 disableAliases = true
 disableHugoGeneratorInject = true
-disableKinds = ["taxonomy", "taxonomyTerm"]
+# disableKinds = ["taxonomy", "taxonomyTerm"]
 enableEmoji = true
 enableGitInfo = false
 enableRobotsTXT = true
@@ -45,6 +45,8 @@ rssLimit = 10
 
 [taxonomies]
   category = "categories"
+  recette = "recettes"
+  type = "types"
 
 [permalinks]
   blog = "/:title/"
@@ -62,3 +64,6 @@ rssLimit = 10
     [[related.indices]]
     name = "date"
     weight = 10
+
+
+custom_css = ["assets/css/custom.css"]

@@ -1,6 +1,7 @@
 ---
-title: tarte a la tomate
-image: /images/plat.webp
+type: plats
+title: Carry poulet
+image: /images/plats.webp
 ingredients:
   frais:
     - nom: oignons

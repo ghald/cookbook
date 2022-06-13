@@ -1,52 +1,20 @@
 {{ define "main" }}
 
-
 <h1>{{.Title}}</h1>
-
-
 
 <div class="py-5">
   <div class="row">
-  <div class="container-fluid">
-    <div>
-      {{/*  si "alergene" présent dans le frontmatter  */}}
-      {{ with .Param "ingredients.sec.alergene"}} 
-      {{ if eq . true }} 
-      {{ range .Params.ingredients.sec.alergene }} 
-      Alergene : {{.nom}}
-      {{end}}
-      {{else}}
-      Nop
-      {{end}}
-      {{else}}
-      NOpnop
-      {{end}}
-      {{ with .Param "ingredients.sec.$nom.test"}} 
-      {{ if eq . false }} 
-      test false
-      {{else}}
-      test true
-      {{end}}
-      {{end}}
-    <div>
-      {{/*  si "alergene" présent dans le frontmatter  */}}
-      {{ with .Params.alergenes}}  
-      {{/*  et si égal à true  */}}
-      {{ if eq . true }} 
-      Alergene !
-      {{else}}
-      Nop
-      {{end}}
-      {{end}}
-    </div>
+    <div class="container-fluid">
       <div class="card shadow-sm my-4">
-        <div class="card-header h3 m-0"> Ingredients </div>
+        <div class="card-header h3 m-0">Ingredients</div>
         <div class="card-body">
           <div class="row m-auto justify-content-between">
             {{ if .Params.ingredients.frais }}
             <div class="col-lg-4 col-md-6">
               <div class="m-2 border rounded-3">
-                <h5 class="text-center pb-3 m-2">Frais (Legumes ou fruits)</h5>
+                <h5 class="text-center pb-3 m-2">
+                  Frais (Legumes ou fruits)
+                </h5>
                 {{ range .Params.ingredients.frais }}
                 <ul class="border-top m-0 p-3">
                   {{.nom}} : {{.quantite }} {{.poids }}
@@ -54,11 +22,12 @@
                 {{end}}
               </div>
             </div>
-            {{end}}
-            {{ if .Params.ingredients.sec }}
-            <div class="col-lg-4  col-md-6">
+            {{end}} {{ if .Params.ingredients.sec }}
+            <div class="col-lg-4 col-md-6">
               <div class="m-2 border rounded-3">
-                <h5 class="text-center pb-3  m-2">Sec (Legumineuses, céréales...)</h5>
+                <h5 class="text-center pb-3 m-2">
+                  Sec (Legumineuses, céréales...)
+                </h5>
                 {{ range .Params.ingredients.sec }}
                 <ul class="border-top m-0 p-3">
                   {{.nom}} : {{.quantite }} {{.poids }}
@@ -66,11 +35,10 @@
                 {{end}}
               </div>
             </div>
-            {{end}}
-            {{ if .Params.ingredients.animaux }}
-            <div class="col-lg-4  col-md-6">
+            {{end}} {{ if .Params.ingredients.animaux }}
+            <div class="col-lg-4 col-md-6">
               <div class="m-2 border rounded-3">
-                <h5 class="text-center pb-3  m-2">Animaux</h5>
+                <h5 class="text-center pb-3 m-2">Animaux</h5>
                 {{ range .Params.ingredients.animaux }}
                 <ul class="border-top m-0 p-3">
                   {{.nom}} : {{.quantite }} {{.poids }}
@@ -78,11 +46,10 @@
                 {{end}}
               </div>
             </div>
-            {{end}}
-            {{ if .Params.ingredients.autres }}
-            <div class="col-lg-4  col-md-6">
+            {{end}} {{ if .Params.ingredients.autres }}
+            <div class="col-lg-4 col-md-6">
               <div class="m-2 border rounded-3">
-                <h5 class="text-center pb-3  m-2">Autres</h5>
+                <h5 class="text-center pb-3 m-2">Autres</h5>
                 {{ range .Params.ingredients.autres }}
                 <ul class="border-top m-0 p-3">
                   {{.nom}} : {{.quantite }} {{.poids }}
@@ -90,11 +57,10 @@
                 {{end}}
               </div>
             </div>
-            {{end}}
-            {{ if .Params.ingredients.epices }}
-            <div class="col-lg-4  col-md-6">
+            {{end}} {{ if .Params.ingredients.epices }}
+            <div class="col-lg-4 col-md-6">
               <div class="m-2 border rounded-3">
-                <h5 class="text-center pb-3  m-2">Epices/condiments</h5>
+                <h5 class="text-center pb-3 m-2">Epices/condiments</h5>
                 {{ range .Params.ingredients.epices }}
                 <ul class="border-top m-0 p-3">
                   {{.nom}} : {{.quantite }} {{.poids }}
@@ -107,7 +73,7 @@
         </div>
       </div>
       <div class="card shadow-sm my-4">
-        <div class="card-header h3 m-0"> Préparation </div>
+        <div class="card-header h3 m-0">Préparation</div>
         <div class="card-body">
           <div class="row m-auto justify-content-start">
             {{.Params.preparation | markdownify}}
@@ -115,8 +81,8 @@
         </div>
       </div>
     </div>
-    </div>
   </div>
+</div>
 </div>
 
 {{ end }}

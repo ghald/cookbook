@@ -1,6 +1,7 @@
 ---
+type: plats
 title: Poulet Combava
-image: /images/plat.webp
+image: /images/plats.webp
 ingredients:
   frais:
     - nom: oignons

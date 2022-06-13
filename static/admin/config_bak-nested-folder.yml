@@ -11,23 +11,20 @@ local_backend: true
 # This line should *not* be indented
 # publish_mode: editorial_workflow
 
-media_folder: /static/images
+media_folder: /images
 public_folder: /images
 collections:
   - name: 'recettes'
     label: 'recettes'
     label-singular: 'recette'
     folder: 'content/recettes/'
-    path: '{{type}}/{{slug}}/index'
     nested:
       depth: 5
-      summary: '{{meta.path}}'
     create: true
     fields:
-      - {label: 'Type', name: 'type', widget: 'select', options: ['plats', 'desserts', 'salades', 'tartinades']}
       - {label: 'Intitulé', name: 'title', widget: 'string'}
       - {label: 'Spécialité (région)', name: 'spécialité', widget: 'string', required: false}
-      - {label: 'Image', name: 'image', widget: 'image', required: false}
+      - {label: 'Image', name: 'image', widget: 'image',  default: "/static/images/plat.webp", required: false}
       - {label: 'Description', name: 'description', widget: 'string', required: false}
       - label: 'Ingredients'
         name: 'ingredients'
@@ -171,11 +168,11 @@ collections:
             name: 'astuce'
             widget: 'string'
 
-    # meta: 
-    #  path:  
-    #   widget: string
-    #   label: 'Type'
-    #   index_file: 'index' 
+    meta: 
+     path:  
+      widget: string
+      label: 'Type'
+      index_file: '_index' 
 
   - label: 'Ingredients - Legumes et fruits'
     name: 'ingredients-legumes'

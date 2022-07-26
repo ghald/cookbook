@@ -1,0 +1,8 @@
+.inline-svg {
+  display: inline-block;
+  max-height: 16px;
+  max-width: 16px;
+  top: 0.15rem;
+  position: relative;
+  background: black;
+}

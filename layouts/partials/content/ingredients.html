@@ -1,0 +1,9 @@
+<ul class="border-top m-0 p-3">
+    {{ if .alergene }}
+    <strong>{{.nom}}</strong>
+    <span> <img src='/fonts/fonticons/exclamation-diamond.svg' style='vertical-align: middle; max-width:0.85em' class="align-top" /> </span>
+    : {{.quantite }} {{.poids }}
+    {{else}}
+    <strong>{{.nom}}</strong> : {{.quantite }} {{.poids }}
+    {{end}}
+</ul>

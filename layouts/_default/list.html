@@ -1,18 +1,116 @@
 {{ define "main" }}
-
 <div class="row justify-content-center">
   <div class="col-lg-10">
-    <div class="row">
+    <div class="row my-5">
+      <h2>list /_default</h2>
+      <code>$paginator := .Paginate (.Data.Pages) - range $paginator.Pages</code>
       {{ $paginator := .Paginate (.Data.Pages) -}} {{ range $paginator.Pages -}}
-      <div class="col-lg-3">{{ partial "type-card" . -}}</div>
-      {{end -}}
+      <div class="col-lg-3"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{end -}}<br>
     </div>
-    <div class="row">
+    <div class="row my-5">
+      <br>
+      <code>range .RegularPages </code>
+      {{range .RegularPages }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+    </div>
+    <div class="row my-5">
+      <br>
+      <code>range .Sites.RegularPages </code>
+      {{range .Site.RegularPages }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+    </div>
+    <div class="row my-5">
+      <br>
+      <code>range .Pages </code>
+      {{range .Pages }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+    </div>
+    <hr>
+    <div class="row my-5">
+      <br>
+      <code>range .RegularPagesRecursive</code>
       {{ range .RegularPagesRecursive}}
-      <div class="col-lg-6">{{ partial "recette-card" .}}</div>
-      {{ end -}}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a> </div> {{ end -}} <br>
     </div>
+    <hr>
+    <div class="row my-5">
+      <br>
+      <code>range where .Site.Pages "Params.recette" "plats"</code>
+      {{ range where .Site.Pages "Params.recette" "plats"}}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+    </div>
+    <div class="row my-5">
+      <br>
+      <code>range where .Site.Pages "Params.recette" "salades"</code>
+      {{ range where .Site.Pages "Params.recette" "salades"}}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+    </div>
+    <div class="row my-5">
+      <br>
+      <code>range where .Site.Pages "Params.recette" "tartinades"</code>
+      {{ range where .Site.Pages "Params.recette" "tartinades"}}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+    </div>
+    <div class="row my-5">
+      <br>
+      <code>range where .Site.RegularPages "Params.recette" "desserts"</code>
+      {{ range where .Site.RegularPages "Params.recette" "desserts"}}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+    </div>
+    <hr>
+    <div class="row my-5">
+      <br>
+      <code>range (where .Site.RegularPages "Section" "recettes" )</code>
+      {{ range (where .Site.RegularPages "Section" "recettes" ) }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+    </div>
+    <div class="row my-5">
+      <br>
+      <code>range (where .Site.Pages "Section" "recettes" ) range .Sections</code>
+      {{ range (where .Site.Pages "Section" "recettes" ) }}
+      {{ range .Sections }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}{{ end -}}<br>
+    </div>
+    <div class="row my-5">
+      <br>
+      <code>range (where .Site.Pages "Section" "recettes" )</code>
+      {{ range (where .Site.Pages "Section" "recettes" ) }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+    </div>
+    <div class="row my-5">
+      <br>
+      <code>range (where .Site.Sections "Section" "recettes" )</code>
+      {{ range (where .Site.Sections "Section" "recettes" ) }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+    </div>
+    <div class="row my-5">
+      <br>
+      <code>range (where .Site.RegularPages "Section" "plats" )</code>
+      {{ range (where .Site.RegularPages "Section" "plats" ) }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+      <hr>
+    </div>
+    <div class="row my-5">
+      <br>
+      <code>range (.Site.GetPage "section" "recettes").Pages </code>
+      {{ range (.Site.GetPage "section" "recettes").Pages }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}<br>
+    </div>
+    {{ template "_internal/pagination.html" . -}}
   </div>
-  {{ template "_internal/pagination.html" . -}}
 </div>
 {{ end }}

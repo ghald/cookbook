@@ -1,18 +1,17 @@
 <div class="card recipe-card">
   <aside>
     <a href="{{ .Permalink }}">
-      {{if .Params.image}}
-      <img class="card-image img-fluid img-cover" src="{{ .Params.image }}" />
+      {{if .Params.img}}
+      <img class="card-image img-fluid img-cover" src="/{{.Section}}/{{.Title}}/{{.Params.img }}" />
       {{ else }}
-      
-      <img class="card-image img-fluid img-cover" src="/images/{{.Params.type}}.webp" />
+      <img class="card-image img-fluid img-cover" src="/images/{{.Params.recetteType}}.webp" />
       {{end}}
       <div class="card-recipe-title h4 ">{{.Title}}</div>
-      <div class="card-badge-type translate-middle">{{.Params.type}}</div>
+      <div class="card-badge-type translate-middle">{{.Params.recetteType}}</div>
     </a>
   </aside>
   <div class="card-body">
-      {{if not .Params.image}}
+      {{if not .Params.img}}
       <h2>{{.Title}}</h2>
 
       {{end}}

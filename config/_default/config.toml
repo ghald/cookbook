@@ -46,7 +46,6 @@ rssLimit = 10
 [taxonomies]
   category = "categories"
   recette = "recettes"
-  type = "types"
 
 [permalinks]
   blog = "/:title/"

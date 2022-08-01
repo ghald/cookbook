@@ -12,3 +12,8 @@
   {{ partial "footer/esbuild" (dict "src" "js/gallery.js" "load" "async" "transpile" false) -}}
 {{ end }}
 */}}
+
+{{ if eq .Type "recette" }}
+  {{ partial "footer/esbuild" (dict "src" "js/quantite.js" "load" "async" "transpile" false) -}}
+{{ end }}
+

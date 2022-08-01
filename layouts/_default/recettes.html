@@ -14,6 +14,10 @@
           <p>Contient des produit animaux</p>
         </div>
         <div class="col-lg-10">
+          <form class="form-control form-control-lg">
+            <label for="amount">Nombre d'assietes à servir : </label>
+            <input type="number" id="quantityInput" name="quantityInput" value="100">
+          </form>
           <div class="card shadow-sm my-4">
             <div class="card-header h3 m-0">Ingrédients</div>
             <div class="card-body">
@@ -70,7 +74,7 @@
                   </div>
                 </div>
                 {{end}}
-               
+
               </div>
             </div>
           </div>
@@ -88,4 +92,5 @@
   </div>
 </div>
 </div>
+
 {{ end }}

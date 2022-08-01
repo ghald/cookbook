@@ -18,7 +18,7 @@ collections:
     label: 'recettes: plats'
     label-singular: 'recette: plat'
     folder: 'content/plats'
-    path: '{{title}}/{{title}}'
+    path: '{{slug}}/index'
     create: true
     fields:
       - {label: 'Intitulé', name: 'title', widget: 'string'}
@@ -26,6 +26,7 @@ collections:
       - {label: 'Image', name: 'img', widget: 'image', required: false}
       - {label: 'Description', name: 'description', widget: 'string', required: false}
       - {label: "Layout", name: "layout", widget: "hidden", default: "recettes"}
+      - {label: "Type", name: "type", widget: "hidden", default: "recette"}
       - {label: "recetteType", name: "recetteType", widget: "hidden", default: "plats"}
       - label : 'Régimes'
         name: 'regime'
@@ -138,7 +139,7 @@ collections:
     label: 'recettes: salades'
     label-singular: 'recette: salade'
     folder: 'content/salades'
-    path: '{{title}}/{{title}}'
+    path: '{{slug}}/index'
     create: true
     fields:
       - {label: 'Intitulé', name: 'title', widget: 'string'}
@@ -146,6 +147,7 @@ collections:
       - {label: 'Image', name: 'img', widget: 'image', required: false}
       - {label: 'Description', name: 'description', widget: 'string', required: false}
       - {label: "Layout", name: "layout", widget: "hidden", default: "recettes"}
+      - {label: "Type", name: "type", widget: "hidden", default: "recette"}
       - {label: "recetteType", name: "recetteType", widget: "hidden", default: "salades"}
       - label : 'Régimes'
         name: 'regime'
@@ -259,7 +261,7 @@ collections:
     label: 'recettes: tartinades'
     label-singular: 'recette: tartinade'
     folder: 'content/tartinades'
-    path: '{{title}}/{{title}}'
+    path: '{{slug}}/index'
     create: true
     fields:
       - {label: 'Intitulé', name: 'title', widget: 'string'}
@@ -267,6 +269,7 @@ collections:
       - {label: 'Image', name: 'img', widget: 'image', required: false}
       - {label: 'Description', name: 'description', widget: 'string', required: false}
       - {label: "Layout", name: "layout", widget: "hidden", default: "recettes"}
+      - {label: "Type", name: "type", widget: "hidden", default: "recette"}
       - {label: "recetteType", name: "recetteType", widget: "hidden", default: "tartinades"}
       - label : 'Régimes'
         name: 'regime'
@@ -379,7 +382,7 @@ collections:
     label: 'recettes : desserts'
     label-singular: 'recette: dessert'
     folder: 'content/desserts'
-    path: '{{title}}/{{title}}'
+    path: '{{slug}}/index'
     create: true
     fields:
       - {label: 'Intitulé', name: 'title', widget: 'string'}
@@ -387,6 +390,7 @@ collections:
       - {label: 'Image', name: 'img', widget: 'image', required: false}
       - {label: 'Description', name: 'description', widget: 'string', required: false}
       - {label: "Layout", name: "layout", widget: "hidden", default: "recettes"}
+      - {label: "Type", name: "type", widget: "hidden", default: "recette"}
       - {label: "recetteType", name: "recetteType", widget: "hidden", default: "desserts"}
       - label : 'Régimes'
         name: 'regime'

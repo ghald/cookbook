@@ -34,7 +34,7 @@ collections:
         label_singular: 'Régime'
         required: false
         multiple: true
-        options:  ['Végé', 'Végan', 'Sans-Glut']
+        options:  ['Végétarien', 'Végan', 'Sans-Glut', Sans-lactose]
       - label: 'Ingredients'
         name: 'ingredients'
         widget: 'object'
@@ -155,7 +155,7 @@ collections:
         label_singular: 'Régime'
         required: false
         multiple: true
-        options:  ['Végé', 'Végan', 'Sans-Glut']
+        options:  ['Végétarien', 'Végan', 'Sans-Glut', Sans-lactose]
       - label: 'Ingredients'
         name: 'ingredients'
         widget: 'object'
@@ -266,18 +266,19 @@ collections:
     fields:
       - {label: 'Intitulé', name: 'title', widget: 'string'}
       - {label: 'Spécialité (région)', name: 'spécialité', widget: 'string', required: false}
+      
       - {label: 'Image', name: 'img', widget: 'image', required: false}
       - {label: 'Description', name: 'description', widget: 'string', required: false}
       - {label: "Layout", name: "layout", widget: "hidden", default: "recettes"}
       - {label: "Type", name: "type", widget: "hidden", default: "recette"}
       - {label: "recetteType", name: "recetteType", widget: "hidden", default: "tartinades"}
       - label : 'Régimes'
-        name: 'regime'
+        name: 'regimes'
         widget: "select"
         label_singular: 'Régime'
         required: false
         multiple: true
-        options:  ['Végé', 'Végan', 'Sans-Glut']
+        options:  ['Végétarien', 'Végan', 'Sans-Glut', Sans-Lactose]
       - label: 'Ingredients'
         name: 'ingredients'
         widget: 'object'
@@ -398,7 +399,7 @@ collections:
         label_singular: 'Régime'
         required: false
         multiple: true
-        options:  ['Végé', 'Végan', 'Sans-Glut']
+        options:  ['Végétarien', 'Végan', 'Sans-Glut', Sans-lactose]
       - label: 'Ingredients'
         name: 'ingredients'
         widget: 'object'

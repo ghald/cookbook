@@ -3,11 +3,12 @@ canonifyURLs = false
 disableAliases = true
 disableHugoGeneratorInject = true
 # disableKinds = ["taxonomy", "taxonomyTerm"]
+removePathAccents = true
 enableEmoji = true
 enableGitInfo = false
 enableRobotsTXT = true
 languageCode = "fr-FR"
-paginate = 7
+paginate = 24
 rssLimit = 10
 
 # add redirects/headers
@@ -46,6 +47,10 @@ rssLimit = 10
 [taxonomies]
   category = "categories"
   recette = "recettes"
+  regime = "regimes"
+  ingredient = "ingredients"
+  recetteType = "recetteType"
+  
 
 [permalinks]
   blog = "/:title/"
@@ -63,3 +68,5 @@ rssLimit = 10
     [[related.indices]]
     name = "date"
     weight = 10
+
+custom_css = ["assets/css/custom.css"]

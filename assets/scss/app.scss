@@ -3,6 +3,7 @@
 
 /** Import theme variables */
 @import "common/variables";
+@import "common/custom_variables";
 
 /** Import Bootstrap */
 @import "bootstrap/scss/bootstrap";
@@ -28,5 +29,6 @@
 //CUSTOM Cookbook import
 @import "components/postcard";
 @import "components/recipe-card";
+@import "components/recette-card";
 @import "components/breadcrumb";
-@import "/components/custom"
+@import "components/custom"

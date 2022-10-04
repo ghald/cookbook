@@ -7,6 +7,7 @@
   text-align: center;
   color: white;
   padding: 0.6rem;
+  z-index: 2;
 }
 
 .card-badge-type {
@@ -31,8 +32,9 @@
   margin: 4em auto;
   height: 90%;
 
-  .ingredients {
-    margin: 1em 0 0.5em;
+  .recipe-card:hover {
+    transition: 0.2s ease-in;
+    background-color: rgba($primary-4, 0.65);
   }
 
   aside {
@@ -46,10 +48,10 @@
       position: absolute;
       top: 80%;
       right: 3%;
-      width: em(65);
-      height: em(65);
-      border-radius: em(65);
-      line-height: em(65);
+      width: 1em;
+      height: 1em;
+      border-radius: 1em;
+      line-height: 1em;
       text-align: center;
 
       .icon {
@@ -57,6 +59,49 @@
       }
     }
   }
+}
 
-  
+// Cards
+/// Home page : catégorie des recettes (recettes-cat.html)
+
+.card-recette {
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  padding: 0.5em;
+  margin-bottom: 0.8em;
+  transition: 0.02s ease-in;
+  color: $primary-3;
+}
+
+.card-recette:hover {
+  border-color: $primary-1;
+  box-shadow: rgba($primary-1, 0.1) 0px 3px 5px;
+  .card-recipe-title {
+    transition: 0.2s ease-in;
+    background-color: rgba($primary-4, 0.65);
+  }
+}
+
+.card-badge-ingredients {
+  background-color: rgba(112, 112, 112, 0.8);
+  color: white;
+  border-radius: 10px;
+  padding: 0.1rem 0.4rem;
+  line-height: 2.5rem;
+}
+
+.bg-red {
+  background-color: rgba(156, 7, 7, 0.6);
+}
+
+.bg-green {
+  background-color: rgba(0, 130, 39, 0.6);
+}
+
+.bg-orange {
+  background-color: rgba(212, 99, 0, 0.6);
+}
+
+.bg-grey {
+  background-color: rgba(174, 174, 174, 0.6);
+  color: black;
 }

@@ -1,4 +1,6 @@
-<div class="card recipe-card">
+{{/*  Aperçu des recettes sous forme de "card" (vignette) s'affichant dans les pages listant les recettes des sections 'plats' 'desserts', etc  */}}
+
+<div class="card recipe-card card-recette">
   <aside>
     <a href="{{ .Permalink }}">
       {{if .Params.img}}
@@ -8,29 +10,22 @@
       {{end}}
       <div class="card-recipe-title h4 ">{{.Title}}</div>
       <div class="card-badge-type translate-middle">{{.Params.recetteType}}</div>
-    </a>
+
   </aside>
   <div class="card-body">
-      {{if not .Params.img}}
-      <h2>{{.Title}}</h2>
+    <a href="{{.Permalink}}" class="stretched-link"></a>
 
-      {{end}}
-      {{if .Description}}
-      <p>{{.Description}}</p>
-      {{end}}
-      {{if .Params.ingredients}}
-      <p class="ingredients">
-        <span>Ingredients:&nbsp;</span>
-        {{ range .Params.ingredients.animaux}} {{.nom}} - {{end}} 
-        {{ range .Params.ingredients.frais}} {{.nom}} - {{end}} 
-        {{ range .Params.ingredients.sec}} {{.nom}} - {{end}} 
-        {{ range .Params.ingredients.autres}} {{.nom}} - {{end}} 
-        {{ range .Params.ingredients.epices}} {{.nom}} - {{end}}
-      </p> {{end}}
-    <div>    {{ range .Params.ingredients.frais}} <span class="badge bg-secondary">{{.nom}}</span> {{end}} 
-</div>
+    {{if .Description}}
+    <p>{{.Description}}</p>
+    {{end}}
+    {{if .Params.ingredients}}
+    <div class=""> 
+      {{ range .Params.ingredients.frais}} <span class="card-badge-ingredients small bg-green">{{.nom}}</span> {{end}}
+      {{ range .Params.ingredients.animaux}} <span class="card-badge-ingredients small bg-red">{{.nom}}</span> - {{end}}
+      {{ range .Params.ingredients.sec}} <span class="card-badge-ingredients small bg-grey">{{.nom}}</span> - {{end}}
+      {{ range .Params.ingredients.autres}} <span class="card-badge-ingredients small bg-orange">{{.nom}}</span> - {{end}}
+{{end}}
     </div>
-  <div class="card-footer">
-    {{ range .Params.ingredients.frais}} <span class="badge bg-secondary">{{.nom}}</span> {{end}} 
   </div>
+
 </div>

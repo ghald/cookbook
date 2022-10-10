@@ -22,7 +22,7 @@ collections:
     create: true
     fields:
       - {label: 'Intitulé', name: 'title', widget: 'string'}
-      - {label: 'Brouillon', name: 'draft', widget: 'boolean'}
+      - {label: 'Brouillon', name: 'draft', widget: 'boolean', default: false}
       - {label: 'Image', name: 'img', widget: 'image', required: false}
       - {label: 'Description', name: 'description', widget: 'string', required: false}
       - {label: "Layout", name: "layout", widget: "hidden", default: "recettes"}
@@ -44,9 +44,11 @@ collections:
         multiple: true
         max: 4
         options_length: 5
+        required: false
       - label: 'auteur'
         name: 'auteur'
         widget: 'string'
+        required: false
 
 
         ## Description ##
@@ -75,7 +77,7 @@ collections:
         widget: 'object'
         fields: 
           - label: 'Légumes ou fruits'
-            name: 'frais'
+            name: 'legumes'
             widget: 'list'
             allow_add: true
             add_to_top: true
@@ -83,11 +85,11 @@ collections:
             required: false
             collapsed: true
             fields: 
-              - {label: 'Nom', name: 'nom', widget: 'relation', collection: 'ingredients-legumes', value_field: 'nom', search_fields: ['nom'], options_length: 5}
-              - {label: 'Quantité', name: 'quantite', widget: 'number', value_type: 'float'}
-              - {label: 'Poids', name: 'poids', widget: 'select', options: ['Kg', 'grammes', 'unité']}
+              - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-legumes', value_field: 'title', search_fields: ['title'], options_length: 5}
+              - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+              - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unité']}
               - {label: 'Alergène', name: 'alergene', widget: 'boolean', required: false}
-              - {label: 'commentaire', name: 'commentaire', widget: 'string'}
+              - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
          
           - label: 'Sec (Legumineuses, céréales)'
             name: 'sec'
@@ -98,11 +100,11 @@ collections:
             required: false
             collapsed: true
             fields: 
-              - {label: 'Nom', name: 'nom', widget: 'relation', collection: 'ingredients-sec', value_field: 'nom', search_fields: ['nom'], options_length: 5}
-              - {label: 'Quantité', name: 'quantite', widget: 'number', value_type: 'float'}
-              - {label: 'Poids', name: 'poids', widget: 'select', options: ['Kg', 'grammes', 'unités']}
+              - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-sec', value_field: 'title', search_fields: ['title'], options_length: 5}
+              - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+              - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unités']}
               - {label: 'Alergène', name: 'alergene', widget: 'boolean', required: false}
-              - {label: 'commentaire', name: 'commentaire', widget: 'string'}
+              - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
         
           - label: 'Viandes et Poissons'
             name : 'animaux'
@@ -112,10 +114,10 @@ collections:
             label_singular: 'Ingrédient'
             required: false
             fields:
-              - {label: 'Nom', name: 'nom', widget: 'relation', collection: 'ingredients-animaux', value_field: 'nom', search_fields: ['nom'], options_length: 5}  
-              - {label: 'Quantité', name: 'quantite', widget: 'number', value_type: 'float'}
-              - {label: 'Poids', name: 'poids', widget: 'select', options: ['Kg', 'grammes', 'unités']}
-              - {label: 'commentaire', name: 'commentaire', widget: 'string'}
+              - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-animaux', value_field: 'title', search_fields: ['title'], options_length: 5}  
+              - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+              - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unités']}
+              - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
         
           - label: 'Laitiers - oeuf - farines - gras...'
             name : 'lof'
@@ -125,10 +127,10 @@ collections:
             label_singular: 'Ingrédient'
             required: false
             fields:
-              - {label: 'Nom', name: 'nom', widget: 'relation', collection: 'ingredients-lof', value_field: 'nom', search_fields: ['nom'], options_length: 5}  
-              - {label: 'Quantité', name: 'quantite', widget: 'number', value_type: 'float'}
-              - {label: 'Poids', name: 'poids', widget: 'select', options: ['Kg', 'grammes', 'unités', 'litre']}
-              - {label: 'commentaire', name: 'commentaire', widget: 'string'}
+              - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-lof', value_field: 'title', search_fields: ['title'], options_length: 5}  
+              - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+              - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unités', 'litre']}
+              - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
         
           - label: 'Sucrées'
             name : 'sucres'
@@ -139,10 +141,10 @@ collections:
             label_singular: 'Ingrédient'
             required: false
             fields:
-              - {label: 'Nom', name: 'nom', widget: 'relation', collection: 'ingredients-lof', value_field: 'nom', search_fields: ['nom'], options_length: 5}  
-              - {label: 'Quantité', name: 'quantite', widget: 'number', value_type: 'float'}
-              - {label: 'Poids', name: 'poids', widget: 'select', options: ['Kg', 'grammes', 'unités', 'litre']}
-              - {label: 'commentaire', name: 'commentaire', widget: 'string'}
+              - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-lof', value_field: 'title', search_fields: ['title'], options_length: 5}  
+              - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+              - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unités', 'litre']}
+              - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
        
           - label: 'Autres'
             name : 'autres'
@@ -152,11 +154,11 @@ collections:
             label_singular: 'Ingrédient'
             required: false
             fields:
-              - {label: 'Noms', name: 'noms', widget: 'relation', collection: 'ingredients-autres',value_field: 'nom', search_fields: ['nom'], options_length: 5 }  
-              - {label: 'Quantité', name: 'quantité', widget: 'number' ,value_type: 'float'}
-              - {label: 'Poids', name: 'poids', widget: 'select', options: ['Kg', 'grammes', 'litre', 'unités']}
+              - {label: 'Noms', name: 'title', widget: 'relation', collection: 'ingredients-autres',value_field: 'title', search_fields: ['title'], options_length: 5 }  
+              - {label: 'Quantité (nombre)', name: 'quantité', widget: 'number' ,value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+              - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'litre', 'unités']}
               - {label: 'Alergène', name: 'alergene', widget: 'boolean', required: false}            
-              - {label: 'commentaire', name: 'commentaire', widget: 'string'}
+              - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
           
           - label: 'Assaisonnement'
             name : 'epices'
@@ -167,11 +169,11 @@ collections:
             label_singular: 'Ingrédient'
             required: false
             fields:
-              - {label: 'Nom', name: 'nom', widget: 'relation', collection: 'ingredients-assaisonnement', value_field: 'nom', search_fields: ['nom'], options_length: 5}            
-              - {label: 'Quantité', name: 'quantite', widget: 'number', value_type: 'float', required: false}
-              - {label: 'Poids', name: 'poids', widget: 'select', options: ['Kg', 'grammes', 'litre', '']}
+              - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-assaisonnement', value_field: 'title', search_fields: ['title'], options_length: 5}            
+              - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+              - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'litre', '']}
               - {label: 'Alergène', name: 'alergene', widget: 'boolean', required: false}
-              - {label: 'commentaire', name: 'commentaire', widget: 'string'}
+              - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
 
       
       - label: 'Materiel'
@@ -697,6 +699,8 @@ collections:
 
 
 
+    ### collections : INGREDIENTS ##########################
+
     # meta: 
     #  path:  
     #   widget: string
@@ -706,12 +710,12 @@ collections:
   - label: 'Ingredients - Legumes et fruits'
     name: 'ingredients-legumes'
     folder: content/ingredients/legumes_et_fruits
+    path: '{{slug}}'
     create: true
     widget: 'list'
     allow-add: false
-    summary: '{{fields.name}} - {{fields.categorie}}'
     fields: 
-      - {label: 'Nom', name: 'name', widget: 'string'}
+      - {label: 'Nom', name: 'title', widget: 'string'}
       - label: 'Saisons'
         name : 'saisons'
         hint : "...si l'ingrédient se trouvent surtout à certaines saisons"
@@ -724,17 +728,19 @@ collections:
           - { label : 'Automne', value: 'automne'}
           - { label : 'Hiver' , value: 'hiver'}
       - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
+      - {label: 'Végétarien', name: 'vegetarien', widget: 'hidden', default: true}
+      - {label: 'Végan', name: 'vegan', widget: 'hidden', default: true}
       - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
   - label: 'Ingredients - Sec'
     name: 'ingredients-sec'
     folder: content/ingredients/ingredients-sec
+    path: '{{slug}}'
     create: true
     widget: 'list'
     allow-add: false
-    summary: '{{fields.name}}'
     fields: 
-      - {label: 'Nom', name: 'name', widget: 'string'}
+      - { label: 'Nom', name: 'title', widget: 'string' }
       - label: 'Saisons'
         name : 'saisons'
         hint : "...si l'ingrédient se trouvent surtout à certaines saisons"
@@ -747,6 +753,9 @@ collections:
           - { label : 'Automne', value: 'automne'}
           - { label : 'Hiver' , value: 'hiver'}
       - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
+      - {label: 'Gluten', name: 'gluten', widget: 'boolean', default: false}
+      - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', default: true}
+      - {label: 'Végan', name: 'vegan', widget: 'boolean', default: true}
       - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
  
@@ -754,12 +763,12 @@ collections:
   - label: 'Ingredients - Laitiers, oeuf, farines, gras...'
     name: 'ingredients-lof'
     folder: content/ingredients/ingredients-lof
+    path: '{{slug}}'
     create: true
     widget: 'list'
     allow-add: false
-    summary: '{{fields.name}}'
     fields: 
-      - {label: 'Nom', name: 'name', widget: 'string'}
+      - {label: 'Nom', name: 'title', widget: 'string'}
       - label: 'Saisons'
         name : 'saisons'
         hint : "...si l'ingrédient se trouvent surtout à certaines saisons"
@@ -772,17 +781,21 @@ collections:
           - { label : 'Automne', value: 'automne'}
           - { label : 'Hiver' , value: 'hiver'}
       - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
+      - {label: 'Gluten', name: 'gluten', widget: 'boolean', default: false}
+      - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', default: false}
+      - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
       - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
   - label: 'Ingredients - Viandes et poissons'
     name: 'ingredients-animaux'
     folder: content/ingredients/ingredients-animaux
+    path: '{{slug}}'
     create: true
     widget: 'list'
     allow-add: false
     summary: '{{fields.label}}'
     fields: 
-      - {label: 'Nom', name: 'name', widget: 'string'}
+      - {label: 'Nom', name: 'title', widget: 'string'}
       - label: 'Saisons'
         name : 'saisons'
         hint : "...si l'ingrédient se trouvent surtout à certaines saisons"
@@ -795,17 +808,21 @@ collections:
           - { label : 'Automne', value: 'automne'}
           - { label : 'Hiver' , value: 'hiver'}
       - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
+      - {label: 'Gluten', name: 'gluten', widget: 'boolean', default: false}
+      - {label: 'Végétarien', name: 'vegetarien', widget: 'hidden', default: false}
+      - {label: 'Végan', name: 'vegan', widget: 'hidden', default: false}
       - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
   - label: 'Ingredients - Sucrées'
     name: 'ingredients-sucres'
     folder: content/ingredients/ingredients-sucres
+    path: '{{slug}}'
     create: true
     widget: 'list'
     allow-add: false
     summary: '{{fields.label}}'
     fields: 
-      - {label: 'Nom', name: 'name', widget: 'string'}
+      - {label: 'Nom', name: 'title', widget: 'string'}
       - label: 'Saisons'
         name : 'saisons'
         hint : "...si l'ingrédient se trouvent surtout à certaines saisons"
@@ -818,17 +835,21 @@ collections:
           - { label : 'Automne', value: 'automne'}
           - { label : 'Hiver' , value: 'hiver'}
       - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
+      - {label: 'Gluten', name: 'gluten', widget: 'boolean', default: false}
+      - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', default: false}
+      - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
       - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
  
   - label: 'Ingredients - Assaisonnements'
     name: 'ingredients-assaisonnement'
     folder: content/ingredients/ingredients-assaisonnement
+    path: '{{slug}}'
     create: true
     widget: 'list'
     allow-add: false
     summary: '{{fields.label}}'
     fields: 
-      - {label: 'Nom', name: 'name', widget: 'string'}
+      - {label: 'Nom', name: 'title', widget: 'string'}
       - label: 'Saisons'
         name : 'saisons'
         hint : "...si l'ingrédient se trouvent surtout à certaines saisons"
@@ -841,17 +862,21 @@ collections:
           - { label : 'Automne', value: 'automne'}
           - { label : 'Hiver' , value: 'hiver'}
       - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
+      - {label: 'Gluten', name: 'gluten', widget: 'boolean', default: false}
+      - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', default: false}
+      - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
       - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
   - label: 'Ingredients - Autres'
     name: 'ingredients-autres'
     folder: content/ingredients/ingredients-autres
+    path: '{{slug}}'
     create: true
     widget: 'list'
     allow-add: false
     summary: "{{fields.name}} - Ce qui n'est pas ailleurs"
     fields: 
-      - {label: 'Nom', name: 'name', widget: 'string'}
+      - {label: 'Nom', name: 'title', widget: 'string'}
       - label: 'Saisons'
         name : 'saisons'
         hint : "...si l'ingrédient se trouvent surtout à certaines saisons"
@@ -864,6 +889,9 @@ collections:
           - { label : 'Automne', value: 'automne'}
           - { label : 'Hiver' , value: 'hiver'}
       - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
+      - {label: 'Gluten', name: 'gluten', widget: 'boolean', default: false}
+      - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', default: false}
+      - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
       - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
         

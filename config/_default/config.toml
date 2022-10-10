@@ -69,4 +69,4 @@ rssLimit = 10
     name = "date"
     weight = 10
 
-custom_css = ["assets/css/custom.css"]
+# custom_css = ["assets/css/custom.css"]

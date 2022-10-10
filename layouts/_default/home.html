@@ -5,8 +5,7 @@
 
   </div>
   <div class="row g-3 my-4">
-    {{ range .Sections }}
-    {{ if eq .Params.subsection "recettes"}}
+    {{ range .Sections "recettes" }}
     {{ partial "recettes-type-card" . }}
     {{ end -}}
     {{ end -}}

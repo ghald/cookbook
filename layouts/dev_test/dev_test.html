@@ -21,10 +21,8 @@
 
     <div class="row my-5 card">
 
-      <code>range .Sites.RegularPages <br> if .Params.regime </code>
-      <div class="alert-info">Affiche les pages "single" (pas les "lists") de tout le site, si elle contienne la
-        taxonomie (.Params, defeni dans frontmatter des pages) 'regime' </div>
-
+      <code>range .Sites.RegularPages <br> if .Params.regime  </code>
+      <div class="alert-info">Affiche les pages "single" (pas les "lists") de tout le site, si elle contienne la taxonomie (.Params, defeni dans frontmatter des pages) 'regime' </div>
       {{range .Site.RegularPages }}
       {{if .Params.regime}}
       <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}
@@ -33,21 +31,7 @@
       {{ end -}}
     </div>
 
-    <div class="row my-5 card">
-
-      <code>range .Sites.RegularPages
-              if .Params.regime</code>
-      {{range .Site.RegularPages }}
-      {{if .Params.regime}}
-      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}
-        </a></div>
-      {{end}}
-      {{ end -}}
-    </div>
-
-
-    <div class="row my-5 card">
-
+       <div class="row my-5 card">
       <code>range .Pages </code>
       {{range .Pages }}
       <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
@@ -56,7 +40,6 @@
 
 
     <div class="row my-5 card">
-
       <code>range .Sites.Sections </code>
       {{range .Site.Sections }}
       <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
@@ -65,7 +48,6 @@
     <hr>
 
     <div class="row my-5 card">
-
       <code>range .RegularPagesRecursive</code>
       {{ range .RegularPagesRecursive}}
       <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a> </div> {{ end -}}
@@ -73,9 +55,8 @@
     <hr>
 
     <div class="row my-5 card">
-
-      <code>range where .Site.Pages "Params.recette" "plats"</code>
-      {{ range where .Site.Pages "Params.recette" "plats" }}
+      <code>range where .Site.Pages "Params.recetteType" "plats"</code>
+      {{ range where .Site.Pages "Params.recetteType" "plats" }}
       <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
       {{ end -}}
     </div>
@@ -83,9 +64,8 @@
     <hr>
 
     <div class="row my-5 card">
-
-      <code>range (where .Site.RegularPages "Section" "recette" )</code>
-      {{ range (where .Site.RegularPages "Section" "recette" ) }}
+      <code>range (where .Site.RegularPages "Section" "plats" )</code>
+      {{ range (where .Site.RegularPages "Section" "plats" ) }}
       <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
       {{ end -}}
     </div>
@@ -93,7 +73,6 @@
 
 
     <div class="row my-5 card">
-
       <code>range (where .Site.Pages "Section" "recettes" ) + range .Sections</code>
       {{ range (where .Site.Pages "Section" "recettes" ) }}
       {{ range .Sections }}
@@ -102,7 +81,6 @@
     </div>
 
     <div class="row my-5 card">
-
       <code>range (where .Site.Pages "Section" "recettes" )</code>
       {{ range (where .Site.Pages "Section" "recettes" ) }}
       <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
@@ -110,7 +88,6 @@
     </div>
 
     <div class="row my-5 card">
-
       <code>range (where .Site.Sections "Section" "recettes" )</code>
       {{ range (where .Site.Sections "Section" "recettes" ) }}
       <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
@@ -118,7 +95,6 @@
     </div>
 
     <div class="row my-5 card">
-
       <code>range (where .Site.RegularPages "Section" "plats" )</code>
       {{ range (where .Site.RegularPages "Section" "plats" ) }}
       <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
@@ -127,7 +103,6 @@
     </div>
 
     <div class="row my-5 card">
-
       <code>range (.Site.GetPage "section" "recettes").Pages </code>
       {{ range (.Site.GetPage "section" "recettes").Pages }}
       <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
@@ -135,7 +110,6 @@
     </div>
 
     <div class="row my-5 card">
-
       <code>range (.Site.GetPage "section"  "plats").Pages </code>
       {{ range (.Site.GetPage "section" "plats").Pages }}
       <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
@@ -222,10 +196,9 @@
     </div>
 
     <div class="card my-5">
-      Les accents et majuscule ne fonctionne pas
-      range .Site.Taxonomies.recetteType.vege
+      <code>range .Site.Taxonomies.recetteType.vege</code>
       <ul>
-        {{ range .Site.Taxonomies.regimes.vege }}
+        {{ range .Site.Taxonomies.regime.vege }}
         <li><a href="{{ .Permalink }}">{{ .Title}}</a></li>
         {{ end }}
       </ul>
@@ -241,8 +214,7 @@
     </div>
 
     <div class="card my-5">
-      <code>$taxo := "regimes"</code>
-      ```$taxo := "regimes"```
+    $taxo := "regimes" 
     {{ $taxo := "regimes" }}
     <!-- Use the plural form here -->
     <ul id="{{ $taxo }}">
@@ -254,6 +226,16 @@
       {{ end }}
     </ul>
     </div>
+
+  <h1>All {{ .Type }}</h1>
+  {{/*  {{ where .Site.RegularPages.Recursive }}  */}}
+  <ul>
+    {{ range .Data.Pages }}
+    <li>
+      <a href="{{ .Permalink }}">{{ .Title }}</a>
+    </li>
+    {{ end }}
+  </ul>
 
   </div>
   {{ end }}

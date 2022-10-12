@@ -71,6 +71,35 @@
     </div>
 
 
+    <div class="row my-5 card">
+      <code>range (where .Site.RegularPages "Type" "recette" )</code>
+      {{ range (where .Site.RegularPages "Type" "recette" ) }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}
+    </div>
+
+    <div class="row my-5 card">
+      <code>range (where .Site.RegularPages "recetteType" "plat" )</code>
+      {{ range (where .Site.RegularPages "recetteType" "plat" ) }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}
+    </div>
+
+    <div class="row my-5 card">
+      <code>range where .Site.RegularPages ".Params.categorie" "plat" )</code>
+      {{ range where .Site.RegularPages ".Params.categories" "plat" }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}
+    </div>
+
+    <div class="row my-5 card">
+      <code>range where .Site.RegularPages ".Params.categorie" "intersect" (slice "plat") )</code>
+      {{ range where .Site.RegularPages ".Params.categorie" "intersect" (slice "plat") }}
+      <div class="col-lg-6"><a href="{{.Permalink}}">{{.Title}}</a></div>
+      {{ end -}}
+    </div>
+
+
 
     <div class="row my-5 card">
       <code>range (where .Site.Pages "Section" "recettes" ) + range .Sections</code>

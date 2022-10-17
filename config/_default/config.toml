@@ -1,4 +1,6 @@
 baseurl = "/"
+relativeURLs = true
+
 canonifyURLs = false
 disableAliases = true
 disableHugoGeneratorInject = true
@@ -45,11 +47,11 @@ rssLimit = 10
   priority = 0.5
 
 [taxonomies]
-  category = "categories"
+  # category = "categories"
   recette = "recettes"
-  regime = "regimes"
+  regime = "regime" # Végé, sans-glut...
   ingredient = "ingredients"
-  recetteType = "recetteType"
+  categories = "categories" # tarte, salade.. 
   
 
 [permalinks]
@@ -69,4 +71,4 @@ rssLimit = 10
     name = "date"
     weight = 10
 
-custom_css = ["assets/css/custom.css"]
+# custom_css = ["assets/css/custom.css"]

@@ -6,10 +6,10 @@
       {{if .Params.img}}
       <img class="card-image img-fluid img-cover" src="/{{.Section}}/{{.Title}}/{{.Params.img }}" />
       {{ else }}
-      <img class="card-image img-fluid img-cover" src="/images/{{.Params.recetteType}}.webp" />
+      <img class="card-image img-fluid img-cover" src="/images/{{.Params.Categories}}.webp" />
       {{end}}
       <div class="card-recipe-title h4 ">{{.Title}}</div>
-      <div class="card-badge-type translate-middle">{{.Params.recetteType}}</div>
+      <div class="card-badge-type translate-middle">{{.Params.Categories}}</div>
 
   </aside>
   <div class="card-body">

@@ -3,8 +3,8 @@ title: "tarti vegan "
 draft: false
 layout: recettes
 type: plat
-Categories:
-  - Tartinade
+categories:
+  - tartinade
 regime:
   - vegan
   - sans-glutten

@@ -1,34 +1,5 @@
 {{define "main"}} 
 
-{{- $htf := resources.Get "js/vendor/htf/hugotagsfilter-1.2.2.js" | resources.Fingerprint -}}
-<script type='text/javascript' src="{{ $htf.RelPermalink }}"></script>
-
-<script >
-   const htfConfig = {  // default is "var" not "const"
-filters: [
-     {
-        name: 'categories',
-        prefix: 'categories-',
-        buttonClass: 'categories-button',
-        allSelector: '#SelectAllCategories',
-        attrName: 'data-categories',
-        selectedPrefix: 'scategories-',
-        countPrefix: 'ccategories-'
-      }
-
-    ],
-
-  showItemClass: "show-item",
-  filterItemClass: "tf-filter-item",
-  activeButtonClass: "active",
-  counterSelector: "selectedItemCount",
-  populateCount: false,
-  // setDisabledButtonClass: "disable-button"
-}
-
-var htf = new HugoTagsFilter(htfConfig);
-</script>
-
 
  {{ $pages := .Site.RegularPages}}
 {{ $categories := $.Site.Taxonomies.categories.ByCount }}
@@ -54,12 +25,38 @@ var htf = new HugoTagsFilter(htfConfig);
     {{ range $pages.ByPublishDate.Reverse }}
     <div class="tf-filter-item tf-item" data-categories="{{ with .Params.categories }}{{ range . }}{{ . | replaceRE "[.]" "_" | urlize }} {{ end }}{{end}}"><div><a href="{{ .RelPermalink }}">{{ .Title }} - </a></div>
 
-
     </div>
     {{ end }}
   </div>
 
+{{- $htf := resources.Get "js/vendor/htf/hugotagsfilter-1.2.2.js" | resources.Fingerprint -}}
+<script type='text/javascript' src="{{ $htf.RelPermalink }}"></script>
 
+<script >
+   var htfConfig = {  
+filters: [
+     {
+        name: 'categories',
+        prefix: 'categories-',
+        buttonClass: 'categories-button',
+        allSelector: '#SelectAllCategories',
+        attrName: 'data-categories',
+        selectedPrefix: 'scategories-',
+        countPrefix: 'ccategories-'
+      }
+
+    ],
+
+  showItemClass: "show-item",
+  filterItemClass: "tf-filter-item",
+  activeButtonClass: "active",
+  counterSelector: "selectedItemCount",
+  populateCount: false,
+  setDisabledButtonClass: "disable-button"
+}
+
+var htf = new HugoTagsFilter(htfConfig);
+</script>
 
 {{ end }}
 

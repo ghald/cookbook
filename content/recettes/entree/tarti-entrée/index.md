@@ -3,8 +3,8 @@ title: "tarti entrée "
 draft: false
 layout: recettes
 type: entree
-Categories:
-  - Tartinade
+categories:
+  - tartinade
 regime:
   - vegetarien
 temperature: true

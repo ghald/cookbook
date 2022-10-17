@@ -4,7 +4,7 @@ draft: false
 layout: recettes
 type: plat
 categories:
-  - Salade
+  - salade
 regime:
   - vegetarien
   - sans-glutten

@@ -3,8 +3,8 @@ title: Vege3
 draft: false
 layout: recettes
 type: plat
-Categories:
-  - Salade
+categories:
+  - salade
 regime:
   - vegetarien
 temperature: true

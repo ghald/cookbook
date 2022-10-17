@@ -11,7 +11,7 @@ partial "recettes-type-card" . }} {{ end -}} {{ end -}} */}}
           {{if .Params.img}}
           <img class="card-image img-fluid img-cover" src="{{.Params.img}}" />
           {{ else }}
-          <img class="card-image img-fluid img-cover" src="/images/{{.Params.recetteType}}.webp" />
+          <img class="card-image img-fluid img-cover" src="/images/{{.Params.Categories}}.webp" />
           {{end}}
           <div class="card-recipe-title">
             <div class="h4 my-0">{{.Title}}</div>
@@ -22,7 +22,7 @@ partial "recettes-type-card" . }} {{ end -}} {{ end -}} */}}
       <div class="card-body">
         <a href="{{.Permalink}}" class="stretched-link"></a>
         {{ range .RegularPages}}
-        {{ if eq .Params.recetteType "Tartinade"}}
+        {{ if eq .Params.Categories "Tartinade"}}
 
           <div class="card card-recette mb-3 text-center font-weight-bold border-3 ">
             {{.Title}}

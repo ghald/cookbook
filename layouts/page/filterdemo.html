@@ -1,0 +1,65 @@
+{{define "main"}} 
+
+{{- $htf := resources.Get "js/vendor/htf/hugotagsfilter-1.2.2.js" | resources.Fingerprint -}}
+<script type='text/javascript' src="{{ $htf.RelPermalink }}"></script>
+
+<script >
+   const htfConfig = {  // default is "var" not "const"
+filters: [
+     {
+        name: 'categories',
+        prefix: 'categories-',
+        buttonClass: 'categories-button',
+        allSelector: '#SelectAllCategories',
+        attrName: 'data-categories',
+        selectedPrefix: 'scategories-',
+        countPrefix: 'ccategories-'
+      }
+
+    ],
+
+  showItemClass: "show-item",
+  filterItemClass: "tf-filter-item",
+  activeButtonClass: "active",
+  counterSelector: "selectedItemCount",
+  populateCount: false,
+  // setDisabledButtonClass: "disable-button"
+}
+
+var htf = new HugoTagsFilter(htfConfig);
+</script>
+
+
+ {{ $pages := .Site.RegularPages}}
+{{ $categories := $.Site.Taxonomies.categories.ByCount }}
+
+
+  <h4>categories</h4>
+  <button class="" id="selectAllcategories" onclick="htf.showAll('categories')">
+    All categories
+  </button>
+  {{ range $categories }}
+  {{ if .Term }}
+  <button class="categories-button" id="categories-{{ .Term | replaceRE "[.]" "_" | urlize }}" onclick="htf.checkFilter('{{ .Term | replaceRE "[.]" "_" | urlize }}', 'categories-')">
+    <span>{{.Term | humanize | title }}</span>
+  </button>
+  {{ end }}
+  {{ end }}
+  
+
+  <div>
+    <h2><span id="selectedItemCount"></span> Items</h2>
+  </div>
+  <div class="tf-items-container">
+    {{ range $pages.ByPublishDate.Reverse }}
+    <div class="tf-filter-item tf-item" data-categories="{{ with .Params.categories }}{{ range . }}{{ . | replaceRE "[.]" "_" | urlize }} {{ end }}{{end}}"><div><a href="{{ .RelPermalink }}">{{ .Title }} - </a></div>
+
+
+    </div>
+    {{ end }}
+  </div>
+
+
+
+{{ end }}
+

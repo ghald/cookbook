@@ -35,9 +35,9 @@ collections:
           - { label : 'Plat', value : 'plat'}
           - { label: 'Dessert', value : 'dessert'}
       - label: "Sous-catégories"
-        name: "recetteType"
+        name: "Categories"
         widget: "relation"
-        collection: 'types-recettes'
+        collection: 'sous-categories'
         value_field: 'title'
         search_fields: ['title']
         multiple: true
@@ -411,11 +411,12 @@ collections:
       - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
 ###########################
-# recetteType
+# Categories
   - label: "sous-catégorie (Recettes)"
-    name: 'types-recettes'
-    folder: content/recetteType/
-    path: '{{slug}}'
+    name: 'sous-categories'
+    folder: content/Categories/
+    path: '{{slug}}/index'
+    url: '{{slug}}'
     create: true
     widget: 'list'
     fields:

@@ -4,9 +4,9 @@
   <div class="col-lg-10">
     <div class="row">
       {{ $paginator := .Paginate (.Data.Pages) -}} {{ range $paginator.Pages -}}
-      <div class="col-lg-3">{{ partial "type-card" . -}}</div>
-      {{end -}}
+      <div class="col-lg-3">{{ partial "recette-card" . -}}</div>
     </div>
+      {{end -}}
     <div class="row">
       {{ range .RegularPagesRecursive}}
       <div class="col-lg-6">{{ partial "recette-card" .}}</div>

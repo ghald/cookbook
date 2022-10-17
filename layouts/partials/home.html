@@ -1,0 +1,40 @@
+{{ define "main" }}
+<div class="section py-1">
+  <div class="row justify-content-center">
+    <div class="row g-3 m-4">
+      {{ range (.Site.GetPage "section" "recettes").Pages }}
+      {{ partial "recettes-type-card" . }}
+      {{ end -}}
+    </div>
+  </div>
+</div>
+
+
+<div class="section py-1 my-3">
+  <div class="row justify-content-center g-3 m-4">
+    {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+    <div class="col-lg-3">
+      <div class="card card-recette mb-3 text-center font-weight-bold border-1 ">
+        <a href="categories/{{ $name | urlize }}" class="stretched-link"></a>
+        {{ $name | humanize }} ({{$taxonomy.Count }})
+      </div>
+    </div>
+    {{end}}
+  </div>
+</div>
+
+<div class="section py-1 my-3">
+  <div class="row justify-content-center g-3 m-4">
+    {{ range $name, $taxonomy := .Site.Taxonomies.regime }}
+    <div class="col-lg-3">
+      <div class="card card-recette mb-3 text-center font-weight-bold border-1 ">
+        <a href="/regime/{{ $name | urlize }}" class="stretched-link"></a>
+        {{ $name | humanize }} ({{$taxonomy.Count }})
+      </div>
+    </div>
+    {{end}}
+  </div>
+</div>
+
+
+{{end}}

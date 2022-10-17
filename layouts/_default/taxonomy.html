@@ -1,15 +1,17 @@
 {{ define "main" }}
 
-<div class="row justify-content-center">
-    <div class="col-lg-10">
+<div class="row justify-content-lg-evenly">
+  <h5>/layout/_default/taxonomy</h5>
 
-        <div class="row">
-            {{ $paginator := .Paginate (.Data.Pages) -}}
-            {{ range $paginator.Pages }}
-            <div class="col-lg-4">{{ partial "recette-card" .}}</div>
-            {{ end -}}
-        </div>
-        {{ template "_internal/pagination.html" . -}}
-    </div>
+
+  {{ $paginator := .Paginate (.Data.Pages) -}}
+  {{ range $paginator.Pages }}
+  <div class="col-lg-4">
+    {{ partial "recette-card" .}}
+    {{ end -}}
+  </div>
+  {{ template "_internal/pagination.html" . -}}
 </div>
+
+
 {{ end }}

@@ -1,0 +1,96 @@
+{{ define "main" }}
+<h1>{{.Title}}</h1>
+<div class="py-5">
+  <div class="row">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-2 my-4">
+          {{if .Params.img}}
+          <!-- WORKAROUND
+        Si on définit dans le config.yml (netlifycms) le media-folder comme static/images (dans un widget image), alors, dans le front matter, on a le chemin "/static/images/", alors meme que hugo demare d'un chemin relatif commencant a /static/ ... Du coup : creation d'une structure de fichier dans le config.yml de netlify pour que : /content/section/postname/postname.md (path: '{title}/{title}'), a coté duquel on met les images lié au post. Et dans le src du html img on bidouille: 
+           -->
+          <img class="img-fluid img-thumbnail" src="/{{.Section}}/{{.Title}}/{{.Params.img}}" alt="...">
+          {{end}}
+          <p>Contient des produit animaux</p>
+        </div>
+        <div class="col-lg-10">
+          <form class="form-control form-control-lg">
+            <label for="amount">Nombre d'assietes à servir : </label>
+            <input type="number" id="quantityInput" name="quantityInput" value="100">
+          </form>
+          <div class="card shadow-sm my-4">
+            <div class="card-header h3 m-0">Ingrédients</div>
+            <div class="card-body">
+              <div class="row m-auto justify-content-evenly">
+                {{ if .Params.ingredients.frais }}
+                <div class="col-lg-6">
+                  <div class="card px-3 my-3 shadow-sm">
+                    <h5 class="text-center pb-1 m-1">
+                      Frais (Legumes ou fruits)
+                    </h5>
+                    {{ range .Params.ingredients.frais }}
+                    {{partial "content/ingredients" .}}
+                    {{end}}
+                  </div>
+                </div>
+                {{end}}
+                {{ if .Params.ingredients.sec }}
+                <div class="col-lg-6">
+                  <div class="card px-3 my-3 shadow-sm">
+                    <h5 class="text-center pb-1 m-1">Sec (Legumineuses, céréales...)</h5>
+                    {{ range .Params.ingredients.sec }}
+                    {{partial "content/ingredients" .}}
+                    {{end}}
+                  </div>
+                </div>
+                {{end}}
+                {{ if .Params.ingredients.animaux }}
+                <div class="col-lg-6">
+                  <div class="card px-3 my-3 shadow-sm">
+                    <h5 class="text-center pb-1 m-1">Animaux</h5>
+                    {{ range .Params.ingredients.animaux }}
+                    {{partial "content/ingredients" .}}
+                    {{end}}
+                  </div>
+                </div>
+                {{end}}
+                {{ if .Params.ingredients.autres }}
+                <div class="col-lg-6">
+                  <div class="card px-3 my-3 shadow-sm">
+                    <h5 class="text-center pb-1 m-1">Autres</h5>
+                    {{ range .Params.ingredients.autres }}
+                    {{partial "content/ingredients" .}}
+                    {{end}}
+                  </div>
+                </div>
+                {{end}}
+                {{ if .Params.ingredients.epices }}
+                <div class="col-lg-6">
+                  <div class="card px-3 my-3 shadow-sm">
+                    <h5 class="text-center pb-1 m-1">Epices/condiments</h5>
+                    {{ range .Params.ingredients.epices }}
+                    {{partial "content/ingredients" .}}
+                    {{end}}
+                  </div>
+                </div>
+                {{end}}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card shadow-sm my-4">
+        <div class="card-header h3 m-0">Préparation</div>
+        <div class="card-body">
+          <div class="row m-auto justify-content-start">
+            {{.Params.preparation | markdownify}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{{ end }}

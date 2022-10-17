@@ -11,3 +11,7 @@ import 'lazysizes';
 
 // global alert
 import './assets/js/alert';
+
+
+//
+// import './assets/js/vendor/htf/hugotagsfilter-1.2.2.1';

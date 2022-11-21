@@ -47,11 +47,11 @@ rssLimit = 10
   priority = 0.5
 
 [taxonomies]
-  # category = "categories"
-  recette = "recettes"
+  category = "categories"
+  # recette = "recettes"
   regime = "regime" # Végé, sans-glut...
   ingredient = "ingredients"
-  categories = "categories" # tarte, salade.. 
+  # categories = "categories" # tarte, salade.. 
   
 
 [permalinks]

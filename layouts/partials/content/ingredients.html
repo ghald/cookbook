@@ -1,10 +1,10 @@
 <ul class="border-top m-0 p-3">
     {{ if .alergene }}
-    <strong>{{.nom}}</strong>
+    <span class="ingredientName, fw-bolder" id="ingredientName">{{.title}}</span>
     <span> <img src='/fonts/fonticons/exclamation-diamond.svg' style='vertical-align: middle; max-width:0.85em' class="align-top" /> </span>
-    : <span class="amount">{{.quantite }}</span> {{.poids }}
+    : <span class="amount", id="amount">{{.quantite }}</span> <span class="unit" id="unit">{{.unit }}</span>
     {{else}}
-    <strong>{{.nom}}</strong> : <span class="amount">{{.quantite }}</span> {{.poids }}
+    <span class="ingredientName, fw-bolder" id="ingredientName">{{.title}}</span> : <span class="amount" id="amount">{{.quantite }}</span> <span class="unit" id="unit">{{.unit }}</span>
     {{end}}
 </ul>
 

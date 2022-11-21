@@ -14,7 +14,8 @@
 {{ end }}
 */}}
 
-{{ if eq .Type "recette" }}
+
+{{ if eq .Params.layout "recettes" }}
   {{ partial "footer/esbuild" (dict "src" "js/quantite.js" "load" "async" "transpile" false) -}}
 {{ end }}
 

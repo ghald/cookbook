@@ -2,6 +2,8 @@
 title: "tarti vegan "
 draft: false
 layout: recettes
+authors: me
+plate: 20
 type: plat
 categories:
   - tartinade

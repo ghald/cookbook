@@ -2,6 +2,8 @@
 title: Vege3
 draft: false
 layout: recettes
+authors: me
+plate: 20
 type: plat
 categories:
   - salade

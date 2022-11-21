@@ -6,63 +6,144 @@
   <h2>{{.Title}}</h2>
 
 
+{{ $pages := .Site.RegularPages}}
+{{ $categories := $.Site.Taxonomies.categories.ByCount }}
 
- {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
-  {{ $categories := $.Site.Taxonomies.categories.ByCount }}
+{{range (where .Site.RegularPages "Section" "recettes") }}
 
+{{ end }}
 
-  <h4>categories</h4>
-  <button class="" id="selectAllcategories" onclick="htf.showAll('categories')">
-    All categories
-  </button>
-  {{ range $categories }}
-  {{ if .Term }}
-  <button class="categories-button" id="categories-{{ .Term | replaceRE "[.]" "_" | urlize }}" onclick="htf.checkFilter('{{ .Term | replaceRE "[.]" "_" | urlize }}', 'categories-')">
-    <span>{{.Term | humanize | title }}</span>
-  </button>
-  {{ end }}
-  {{ end }}
-  
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
-  <div>
-    <h2><span id="selectedItemCount"></span> Items</h2>
-  </div>
-  <div class="tf-items-container">
-    {{ range $pages.ByPublishDate.Reverse }}
-    <div class="tf-filter-item tf-item" data-categories="{{ with .Params.categories }}{{ range . }}{{ . | replaceRE "[.]" "_" | urlize }} {{ end }}{{end}}"><h4><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
-
-
+<div id="appfilters">
+  <div class="filters" >
+    <div>
+      <div class="h5">Catégorie</div>
+        <label v-for="categorie in allcategories" :key="categorie">
+      <div class="cb-button">
+          <input type="checkbox" v-model="filters['categories']" :value="categorie">
+          <span>[[categorie]]</span>
+      </div>
+        </label>
     </div>
-    {{ end }}
+    <div>
+      <div class="h5">Régimes</div>
+      <label v-for="regime in allregimes" :key="regime">
+        <div class="cb-button">
+          <input type="checkbox" v-model="filters['regimes']" :value="regime">
+          <span>[[regime]]</span>
+        </div>
+      </label>
+    </div>
+
   </div>
+  <br>
+  <div>Additive filtering: <input type="checkbox" v-model="additiveFiltering"></div>
+  <h4>Recettes</h4>
+ 
+    <div class="fhide card" v-for="(recipe, key) in recipes" :key="key" :class="{fshow: filteredRecipes.includes(recipe)}">
 
-{{- $htf := resources.Get "js/vendor/htf/hugotagsfilter-1.2.2.js" | resources.Fingerprint -}}
-<script type='text/javascript' src="{{ $htf.RelPermalink }}"></script>
+      <span class="h4" v-for="title in recipe.title" :key="title">[[title]] </span>
 
-<script >
-   const htfConfig = {  // default is "var" not "const"
-filters: [
-     {
-        name: 'categories',
-        prefix: 'categories-',
-        buttonClass: 'categories-button',
-        allSelector: '#SelectAllCategories',
-        attrName: 'data-categories',
-        selectedPrefix: 'scategories-',
-        countPrefix: 'ccategories-'
-      }
+      <span class="badge bg-info" v-for="categorie in recipe.tagcategories" :key="categories">[[categorie]]</span>
+      
+      <span v-for="regime in recipe.tagregimes" :key="regimes">[[regime]]</span>
+    </div>
 
-    ],
 
-  showItemClass: "show-item",
-  filterItemClass: "tf-filter-item",
-  activeButtonClass: "active",
-  counterSelector: "selectedItemCount",
-  populateCount: false,
-  // setDisabledButtonClass: "disable-button"
-}
+</div>
 
-var htf = new HugoTagsFilter(htfConfig);
+<script>
+  const appfilters = new Vue ({
+    delimiters: ['[[', ']]'],
+    el: '#appfilters',
+    data: () => ({
+        data: [
+{{range (where .Site.RegularPages "Section" "recettes") }}
+      
+          {
+            title: "{{ .Title }}",
+            url: "{{ .RelPermalink }}",
+            categories: [{{- range .Params.categories -}} "{{ . }}",{{- end -}}],
+           regimes: [{{- range .Params.regime -}}"{{ . }}",{{- end -}} ]
+           }, {{- end -}}
+      ],
+    filters: {
+      categories: [],
+      regimes: []
+    },
+    additiveFiltering: false
+
+  }),
+  computed: {
+    recipes() {
+      return this.data.map(recipe => ({
+        ...recipe,
+
+      // tags: this.tags(recipe),
+      title: this.title(recipe),
+      tagcategories: this.tagcategories(recipe),
+      tagregimes: this.tagregimes(recipe),
+    }))
+      },
+
+
+
+
+    filteredRecipes() {
+    return this.recipes.filter(
+      this.additiveFiltering ?
+      p => this.x(this.filters.categories, p.categories).length ||
+      this.x(this.filters.regimes, p.regimes).length :
+      p => (!this.filters.categories.length ||
+        this.x(this.filters.categories, p.categories).length) &&
+      (!this.filters.regimes.length ||
+        this.x(this.filters.regimes, p.regimes).length) 
+      )
+    },
+    allcategories() {
+      return this.getAll('categories')
+    },
+    allregimes() {
+      return this.getAll('regimes')
+    }
+  },
+  methods: {
+    // tags(recipe) {
+    //   return [].concat(recipe.categories, recipe.regimes)
+    // },
+    title(recipe) {
+      return [recipe.title]
+      },
+    tagcategories(recipe) {
+      return [].concat(recipe.categories)
+      },
+    tagregimes(recipe) {
+      [].values(recipe.regimes)
+      for (const value of recipe.regimes) {
+      return value //TODO : mettre en forme sans les [""] 
+      } 
+    },
+    
+
+
+    logger(obj) {
+      return JSON.stringify(obj, null, 2)
+    },
+    getAll(prop) {
+      return [...new Set([].concat.apply([], this.data.map(item => item[prop])))]
+    },
+    x(arr1, arr2) {
+      return arr1.filter(val => arr2.includes(val))
+    }
+  }
+})
+
 </script>
+
+
+
+
+
 
 {{ end }}

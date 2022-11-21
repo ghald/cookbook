@@ -3,6 +3,8 @@ title: "tarti entrée "
 draft: false
 layout: recettes
 type: entree
+authors: me
+plate: 20
 categories:
   - tartinade
 regime:

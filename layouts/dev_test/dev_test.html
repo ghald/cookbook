@@ -13,6 +13,7 @@
 
 <div class="section py-1 my-3">
   <div class="row justify-content-center g-3 m-4">
+    <code>range $name, $taxonomy := .Site.Taxonomies.Categories</code>
     {{ range $name, $taxonomy := .Site.Taxonomies.Categories }}
     <div class="col-lg-3">
       <div class="card card-recette mb-3 text-center font-weight-bold border-1 ">
@@ -28,6 +29,7 @@
 
 
   <ul>
+    <code>range .Site.Pages // range .Data.Terms.Alphabetical</code>
     {{ range .Site.Pages }}
     {{ range .Data.Terms.Alphabetical }}
     <li>
@@ -42,13 +44,15 @@
   <div class="row justify-content-center">
     <div class="col-lg-8">
       <div class="row g-3 my-4">
+        <code>range .Site.Pages // $t := .Data.Terms.Alphabetical // range $t //
+        if in ".url" "Categories" </code>
         <ul>
           {{ range .Site.Pages }}
           {{ $t := .Data.Terms.Alphabetical }}
           {{ range $t }}
           {{ if in ".url" "Categories"}}
           <li>
-            <a href="/Categories/{{ .Page.Title | urlize}}">{{ .Page.Title
+            <a href="/categories/{{ .Page.Title | urlize}}">{{ .Page.Title
               }}
               <span class="badge">{{ .Count }}</span>
             </a>
@@ -89,19 +93,35 @@
     <div class="col-lg-10">
       <h2>Combo</h2>
       <div class="row my-5 card">
-        <code></code>
+        <code>range (.Site.GetPage "section" "recettes").Pages // range .Pages</code>
         <div class="alert-info small"></div>
         {{ range (.Site.GetPage "section" "recettes").Pages }}
         <div><a class="h4" href="{{.Permalink}}">{{.Title}}
           </a></div>
-        {{ range (.Site.Taxonomies.Categories).Pages }}
-        <div><a class="h5" href="{{.Permalink}}">{{.Title}}</a></div>
-        {{ end }}
         {{ range .Pages }}
         <div><a href="{{.Permalink}}">{{.Title}}</a></div>
         {{ end }}
         {{ end -}}
       </div>
+
+
+{{ partial "test/all-taxonomies" . }}
+
+
+          
+          {{ range .Pages }}
+          <div><a href="{{.Permalink}}">{{.Title}}</a></div>
+        </div>
+        {{ end -}}
+      </div>
+
+      <ul>
+        {{ range (.GetTerms "categories") }}
+        <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+        {{ end }}
+      </ul>
+
+
       <h2>Unique</h2>
       <h4>Page de premier niveau: Sections (dossiers dans /content sans les
         sous-dossiers) </h4>
@@ -148,7 +168,7 @@
         <div>
           <a href="{{.Permalink}}">{{.Title}}</a>
           <span class="small"> (type: {{.Type}} - section: {{.Section}} -
-            kind: {{.Kind}} - Categories: {{.Params.Categories}} </span>
+            kind: {{.Kind}} - Categories: {{.Params.Categories}} -{{.Param "ingredients.legumes"}}</span>
         </div>
         {{ end -}}
       </div>
@@ -200,17 +220,30 @@
         </div>
         {{ end -}}
       </div>
-      <div class="row mb-5 card">
-        <code>
-        </code>
-        <span class="alert-info small">
-        </span>
-        {{ range .Pages }}
-        <div><a href="{{.Permalink}}">{{.Title}}</a>
-          <span class="small">(type: {{.Type}} - section: {{.Section}} -
-            kind: {{.Kind}} - Categories: {{.Params.Categories}} </span>
+      <div class="section py-1 my-3">
+        <div class="row justify-content-center g-3 m-4">
+          {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+          <div class="col-lg-3">
+            <div class="card card-recette mb-3 text-center font-weight-bold border-1 ">
+              <a href="categories/{{ $name | urlize }}" class="stretched-link"></a>
+              {{ $name | humanize }} ({{$taxonomy.Count }})
+            </div>
+          </div>
+          {{end}}
         </div>
-        {{ end -}}
+      </div>
+
+      <div class="section py-1 my-3">
+        <div class="row justify-content-center g-3 m-4">
+          {{ range $name, $taxonomy := .Site.Taxonomies.regime }}
+          <div class="col-lg-3">
+            <div class="card card-recette mb-3 text-center font-weight-bold border-1 ">
+              <a href="/regime/{{ $name | urlize }}" class="stretched-link"></a>
+              {{ $name | humanize }} ({{$taxonomy.Count }})
+            </div>
+          </div>
+          {{end}}
+        </div>
       </div>
       <div class="row my-5 card">
         <code>range (.Site.Taxonomies.Categories).Pages

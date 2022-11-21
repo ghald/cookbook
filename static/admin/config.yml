@@ -13,13 +13,41 @@ local_backend: true
 
 media_folder: "static/images"
 public_folder: /images
+slug:
+  clean_accents: true
+  sanitize_replacement: "-"
+
 collections:
   - name: 'Recettes'
     label: 'Recettes'
     label-singular: 'Recette'
-    folder: 'content/recettes'
+    folder: 'content/recettes/'
     path: '{{type}}/{{slug}}/index'
+    filter: {field: "layout", value: "recettes"}
+    description: "Liste de l'ensemble des recettes"
+    view_filters:
+      - label: "plats"
+        field: type
+        pattern: "plat"
+      - label: "entrées"
+        field: type
+        pattern: "entree"
+      - label: "desserts"
+        field: type
+        pattern: "desserts"
+    view_groups:
+      - label : "Catégorie"
+        field: type
+      - label: "Sous-catégories"
+        field: categories
+      - label : "Auteur·es"
+        field: Auteur
+      - label: "Régimes"
+        field: regime 
+    summary: "{{title}} ({{type}})"
+    
     create: true
+
     fields:
       - {label: 'Intitulé', name: 'title', widget: 'string'}
       - {label: 'Brouillon', name: 'draft', widget: 'boolean', default: false}
@@ -35,7 +63,7 @@ collections:
           - { label : 'Plat', value : 'plat'}
           - { label: 'Dessert', value : 'dessert'}
       - label: "Sous-catégories"
-        name: "Categories"
+        name: "categories"
         widget: "relation"
         collection: 'sous-categories'
         value_field: 'title'
@@ -68,6 +96,10 @@ collections:
         name: 'temperature'
         widget: 'boolean'
         default: true
+      - label : "Quantités indiquées prévues pour combien d'assietes ?"
+        name: 'plate'
+        widget: 'number'
+        value_type: 'int'
       
         ## Ingredients ##  
 
@@ -414,7 +446,7 @@ collections:
 # Categories
   - label: "sous-catégorie (Recettes)"
     name: 'sous-categories'
-    folder: content/Categories/
+    folder: content/categories/
     path: '{{slug}}/index'
     url: '{{slug}}'
     create: true

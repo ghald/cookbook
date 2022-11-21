@@ -1,49 +1,93 @@
+
+
+
 // Champ formulaire quantité d'assietes
 input[type="number"] {
   width: 100px;
 }
 
 
-// HugoTagsFilter
+// Vue.js script filters
+.filters {
+  display: flex;
+}
+.filters > div {
+  flex: 1;
+}
+.filters > div:last-child {
+  columns: 2;
+}
+.filters > div:last-child div{
+  column-span: all;
+}
+.filters label {
+  display: block;
+}
 
-// /*** Important ***/
-.tf-filter-item {
+.fhide {
   display: none;
 }
 
-button.active {
-  background-color: #ddd;
+.fshow {
+    display: block;
 }
 
-button.disable-button {
-  border-style: dashed;
+/// Filter Box
+
+.filter-box {
+  padding: 0.5em;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  border: 1px solid $primary-2;
+  border-radius: 5px
 }
 
-.show-item {
-  display: inline-block;
-  /* or whatever display style is appropriate 
-   * for tf-filter-item when it is showing;
-   */
+.filter-box h4 {
+  padding: 2px;
+  margin: 1px;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
-/*** Aesthetics ***/
 
-.tf-items-container {
+
+/// Checkbox to button
+
+.cb-button-filter{
+  margin: 4px;
+  background-color: $primary-4;
+  border-radius: 5px;
+  border: 2px solid $primary;
+  overflow: auto;
+  float: left;
+
+
+}
+
+.cb-button-filter span {
+  text-align: center;
+  padding: 1px 10px;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  color: $primary-3;
+  cursor: pointer;
+
 }
 
-.tf-item {
-  width: 250px;
-  margin: 8px;
-  background: #fff;
-  padding: 2rem;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .2);
-  border-radius: 2px;
-  margin-bottom: 2rem
+.cb-button-filter input {
+  position: absolute;
+  display: none;
+  // color: $primary-4;
+}
+/* selects all of the text within the input element and changes the color of the text */
+.cb-button-filter label input + span{color: #fff;}
+
+.cb-button-filter:hover{
+  // border-color: $primary-4;
+  background-color: $primary-3;
 }
 
-pre code {
-  overflow-x: auto;
+/* This will declare how a selected input will look giving generic properties */
+.cb-button-filter input:checked + span {
+    color: #ffffff;
+    background-color: $primary-3;
+    border-color: $primary_4
 }

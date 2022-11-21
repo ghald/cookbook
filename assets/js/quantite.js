@@ -1,9 +1,16 @@
 // réccupéré le nombre d'assiete (quantityInput) et les quantité de base (amounts)
+
+/// Quantités dans l'input utilisateur
 const quantityInput = document.querySelector("#quantityInput");
+
+/// Quantité initiale défini par l'auteur de la recette
+const quantityInit = document.getElementById("quantityInit").textContent;
+
+/// Quantité des ingrédients
 const amounts = document.querySelectorAll(".amount");
 const amountArray = [];
 
-// Remplir le tableau des quantité amountArray de chaque quantité signalité comme appartenant a amounts (element de class css .amount)
+// Remplir le tableau des quantité amountArray de chaque quantité signalée comme appartenant a amounts (element de class css .amount)
 Array.from(amounts).forEach(function (element, index) {
   amountArray.push(Number(element.innerText));
 });
@@ -23,6 +30,7 @@ quantityInput.addEventListener('keydown', function (e) {
   // 'change' agit lorsque le focus est perdu ; keyup agit lorsqu'une touche du clavier est relaché
 quantityInput.addEventListener("input", function () {
   amountArray.forEach((value,i) => {
-    amounts[i].innerHTML = (value * quantityInput.value) / 100;
+    amounts[i].innerHTML = (value * quantityInput.value) / quantityInit;
     });
+
   });

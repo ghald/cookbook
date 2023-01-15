@@ -1,0 +1,52 @@
+---
+title: Tartinade petits pois citrons confit menthe
+draft: false
+description: ""
+layout: recettes
+type: entree
+categories:
+  - Tartinade
+regime:
+  - vegetarien
+  - vegan
+temperature: false
+plate: 380
+ingredients:
+  legumes:
+    - title: Ail
+      quantite: 2
+      unit: unité
+  sec:
+    - title: Petits pois
+      quantite: 14
+      unit: Kg
+  lof:
+    - title: huile d’olive
+      quantite: 0
+      unit: litre
+    - title: Crème Végétale
+      quantite: 1.5
+      unit: Kg
+    - title: Yaourt nature
+      quantite: 2
+      unit: Kg
+      commentaire: ""
+  sucres: []
+  epices:
+    - title: Menthe (aromatique)
+      quantite: 2
+      unit: bottes
+preparation: >-
+  * Cuire les petits pois pendant quelques minutes à l’eau bouillante salée. 
+
+  * Les égoutter puis les rincer à l’eau froide pour préserver leur couleur.
+
+  * Hacher finement (ou mixer grossièrement ^^) le citron confit et laver la menthe.
+
+  * Écraser grossièrement les petits pois avec l’ail, la menthe, la crème et le yaourt. 
+
+  * Goûter, puis assaisonner.
+
+  * Mélanger le citron confit avec la pâte.
+publish_date: 2022-11-23T04:52:56.219Z
+---

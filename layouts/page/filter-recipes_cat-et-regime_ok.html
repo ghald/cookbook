@@ -1,0 +1,142 @@
+{{define "main"}}
+
+{{ $pages := .Site.RegularPages}}
+{{ $categories := $.Site.Taxonomies.categories.ByCount }}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+<div id="appfilters">
+  <span>Filtres</span>
+  <div class="filters filter-box">
+    <div class="">
+      <h4>Catégorie</h4>
+      <div class="cb-button-filter" v-for="categorie in allcategories" :key="categorie">
+        <label>
+          <input type="checkbox" v-model="filters['categories']" :value="categorie">
+          <span>[[categorie]]</span>
+        </label>
+      </div>
+    </div>
+    <div>
+      <h4>Régimes</h4>
+      <div class="cb-button-filter" v-for="regime in allregimes" :key="regime">
+        <label>
+          <input type="checkbox" v-model="filters['regimes']" :value="regime">
+          <span>[[regime]]</span>
+        </label>
+      </div>
+    </div>
+    <div>Additive filtering: <input type="checkbox" v-model="additiveFiltering"></div>
+
+  </div>
+
+  <h3>Recettes</h3>
+    <div class="">
+      <div class="fhide" v-for="(recipe, key) in recipes" :key="key" :class="{fshow: filteredRecipes.includes(recipe)}">
+        <div class="row justify-between border-bottom ">
+
+          <div class="col-6 p-2"><span class="h4"><a :href="[[recipe.url]]">[[recipe.title]]</a></span></div>
+    
+            <div class="col-4 p-2">
+              <span class="card-badge-ingredients m-1 small bg-orange  float-end" v-for=
+              "categorie in recipe.categories" :key="categorie">[[categorie]]
+              </span>
+                    
+              <span class="card-badge-ingredients m-1 small float-end" v-for="regime in recipe.regimes" :key="regime">[[regime]] </span>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+
+
+<script type="module">
+  const appfilters = new Vue ({
+    delimiters: ['[[', ']]'],
+    el: '#appfilters',
+    data: () => ({
+        recettes: [
+{{range (where .Site.RegularPages "Section" "recettes") }}
+      
+          {
+            title: "{{ .Title }}",
+            url: "{{ .RelPermalink }}",
+            categories: [{{- range .Params.categories -}} "{{ . }}",{{- end -}}],
+           regimes: [{{- range .Params.regime -}}"{{ . }}",{{- end -}} ]
+           }, {{- end -}}
+      ],
+    filters: {
+      categories: [],
+      regimes: []
+    },
+    additiveFiltering: false
+
+  }),
+  computed: {
+    recipes() {
+      return this.recettes.map(recipe => ({
+        ...recipe,
+      tags: this.tags(recipe),
+    }))
+      },
+
+    title(recipe) {
+      return [recipe.title]
+    },
+
+    url(recipe) {
+      return [recipe.url]
+    },
+
+    categorie(recipe) {
+      return [recipe.categories]
+    },
+
+    regime(recipe) {
+      return [recipe.regimes]
+    },
+
+
+
+    filteredRecipes() {
+    return this.recipes.filter(
+      this.additiveFiltering ?
+      p => this.x(this.filters.categories, p.categories).length ||
+      this.x(this.filters.regimes, p.regimes).length :
+      p => (!this.filters.categories.length ||
+        this.x(this.filters.categories, p.categories).length) &&
+      (!this.filters.regimes.length ||
+        this.x(this.filters.regimes, p.regimes).length) 
+      )
+    },
+    allcategories() {
+      return this.getAll('categories')
+    },
+    allregimes() {
+      return this.getAll('regimes')
+    }
+  },
+  methods: {
+    tags(recipe) {
+      return [].concat(recipe.categories, recipe.regimes)
+    },
+
+
+    logger(obj) {
+      return JSON.stringify(obj, null, 2)
+    },
+    getAll(prop) {
+      return [...new Set([].concat.apply([], this.recettes.map(item => item[prop])))]
+    },
+    x(arr1, arr2) {
+      return arr1.filter(val => arr2.includes(val))
+    }
+  }
+})
+
+</script>
+
+
+{{end}}

@@ -1,0 +1,309 @@
+{{define "main"}} {{ $pages := .Site.RegularPages}} {{ $categories :=
+$.Site.Taxonomies.categories.ByCount }}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+<div id="appfilters">
+
+<div class="row">
+  <div class="col">
+    <span>Filtres</span>
+    <div class="">
+      <label>
+        <input type="checkbox" v-model="additiveFiltering" />
+        <span>Additionner les Filtres</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+  <div class="filters filter-box">
+    <div class="row">
+      <div class="col">
+        <h4>Catégorie</h4>
+        <div
+          class="cb-button-filter"
+          v-for="categorie in allcategories"
+          :key="categorie"
+        >
+          <label>
+            <input
+              type="checkbox"
+              v-model="filters['categories']"
+              :value="categorie"
+            />
+            <span>[[categorie]]</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="col">
+        <h4>Régimes</h4>
+        <div
+          class="cb-button-filter"
+          v-for="regime in allregimes"
+          :key="regime"
+        >
+          <label>
+            <input
+              type="checkbox"
+              v-model="filters['regimes']"
+              :value="regime"
+            />
+            <span>[[regime]]</span>
+          </label>
+        </div>
+      </div>
+
+      <div class=""></div>
+    </div>
+  </div>
+  <div class="filters filter-box">
+    <div class="row">
+      <div class="col">
+        <h4>Fruits/Legumes</h4>
+        <div
+          class="cb-button-filter"
+          v-for="ilegumes in allilegumes"
+          :key="ilegumes"
+        >
+          <label>
+            <input
+              type="checkbox"
+              v-model="filters['ilegumes']"
+              :value="ilegumes"
+            />
+            <span>[[ilegumes]]</span>
+          </label>
+        </div>
+      </div>
+
+    <div class="col">
+      <h4>Sec</h4>
+      <div class="cb-button-filter" v-for="isec in allisec" :key="isec">
+        <label>
+          <input type="checkbox" v-model="filters['isec']" :value="isec" />
+          <span>[[isec]]</span>
+        </label>
+      </div>
+    </div>
+    <div class="col">
+      <h4>Viandes/Poissons</h4>
+      <div class="cb-button-filter" v-for="ianimaux in allianimaux" :key="ianimaux">
+        <label>
+          <input type="checkbox" v-model="filters['ianimaux']" :value="ianimaux" />
+          <span>[[ianimaux]]</span>
+        </label>
+      </div>
+    </div>
+    <div class="col">
+      <h4>LOF</h4>
+      <div>Lait, oeufs, farines, gras...</div>
+      <div class="cb-button-filter" v-for="ilof in allilof" :key="ilof">
+        <label>
+          <input type="checkbox" v-model="filters['ilof']" :value="ilof" />
+          <span>[[ilof]]</span>
+        </label>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <h3>Recettes</h3>
+  <div class="">
+    <!-- TODO ? Moins gourmand ?: possibilité de remplacer in "recipes" par "recettes" : plus besoin de la computed recipes() ; et dans filteredRecipes, mettre this.recettes.filters ...-->
+    <div
+      class="fhide"
+      v-for="(recipe, key) in recipes"
+      :key="key"
+      :class="{fshow: filteredRecipes.includes(recipe)}"
+    > 
+      <div class="row border-bottom">
+        <div class="col-lg-4 p-2 mt-1">
+          <span class="h4"><a :href="[[recipe.url]]">[[recipe.title]]</a></span>
+        </div>
+
+        <div class="col-lg-4 p-2">
+          <span
+            class="tag bg-green"
+            v-for="legumes in recipe.ilegumes"
+            :key="legumes"
+            :class="{'tag_selected': filteredLegumes.includes(legumes)}"
+            >[[legumes]]
+          </span>
+          <span
+            class="tag bg-grey"
+            v-for="sec in recipe.isec"
+            :key="sec"
+            :class="{'tag_selected': filteredSec.includes(sec)}"
+            >[[sec]]
+          </span>
+          <span
+            class="tag bg-red"
+            v-for="animaux in recipe.ianimaux"
+            :key="animaux"
+            :class="{'tag_selected': filteredAnimaux.includes(animaux)}"
+            >[[animaux]]
+          </span>
+          <span
+            class="tag bg-orange"
+            v-for="lof in recipe.ilof"
+            :key="lof"
+            :class="{'tag_selected': filteredLof.includes(lof)}"
+            >[[lof]]
+          </span>
+        </div>
+
+        <div class="col-lg-4 p-2">
+          <span
+            class="tag bg-orange float-end"
+            v-for="categorie in recipe.categories"
+            :key="categorie"
+            >[[categorie]]
+          </span>
+
+          <span
+            class="tag tag_small bg-grey float-end"
+            v-for="regime in recipe.regimes"
+            :key="regime"
+            >[[regime]]
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+    const appfilters = new Vue ({
+      delimiters: ['[[', ']]'],
+      el: '#appfilters',
+      data: () => ({
+          recettes: [
+  {{range (where .Site.RegularPages "Section" "recettes") }}
+
+            {
+              title: "{{ .Title }}",
+              url: "{{ .RelPermalink }}",
+              categories: [{{- range .Params.categories -}} "{{ . }}",{{- end -}}],
+              regimes: [{{- range .Params.regime -}}"{{ . }}",{{- end -}} ],
+              ilegumes: [{{- range .Params.ingredients.legumes -}} "{{ .title }}",{{- end -}}],
+              isec: [{{- range .Params.ingredients.sec -}} "{{ .title }}",{{- end -}}],
+              ianimaux: [{{- range .Params.ingredients.animaux -}} "{{ .title }}",{{- end -}}],
+              ilof: [{{- range .Params.ingredients.lof -}} "{{ .title }}",{{- end -}}],
+             },
+
+    {{- end -}}
+
+        ],
+      filters: {
+        categories: [],
+        regimes: [],
+        ilegumes: [],
+        ianimaux: [],
+        isec: [],
+        ilof: [],
+        // ingredients: [],
+      },
+      additiveFiltering: false
+
+    }),
+    computed: {
+      recipes() {
+        return this.recettes.map(recipe => ({
+          ...recipe,
+        // tags: this.tags(recipe),  // Fixit : Inutile
+          // ingred: this.ingredients(recipe),
+      }))
+        },
+
+      filteredRecipes() {
+      return this.recipes.filter(
+        this.additiveFiltering ?
+        p => this.x(this.filters.categories, p.categories).length ||
+        this.x(this.filters.regimes, p.regimes).length ||
+        this.x(this.filters.ilegumes, p.ilegumes).length ||
+        this.x(this.filters.isec, p.isec).length ||
+        this.x(this.filters.ianimaux, p.ianimaux).length ||
+        this.x(this.filters.ilof, p.ilof).length 
+        :
+        p => (!this.filters.categories.length ||
+          this.x(this.filters.categories, p.categories).length) &&
+        (!this.filters.regimes.length ||
+          this.x(this.filters.regimes, p.regimes).length)  &&
+        (!this.filters.ilegumes.length ||
+          this.x(this.filters.ilegumes, p.ilegumes).length) &&
+        (!this.filters.isec.length ||
+          this.x(this.filters.isec, p.isec).length) &&
+        (!this.filters.ianimaux.length ||
+          this.x(this.filters.ianimaux, p.ianimaux).length)  &&
+        (!this.filters.ilof.length ||
+          this.x(this.filters.ilof, p.ilof).length) 
+        )
+      },
+
+      filteredLegumes() {
+        return this.filters.ilegumes
+      },
+      filteredAnimaux() {
+        return this.filters.ianimaux
+      },
+      filteredSec() {
+        return this.filters.isec
+      },
+      filteredLof() {
+        return this.filters.ilof
+      },
+
+
+      // Pour la fabrication des boutons de filtres
+      allcategories() {
+        return this.getAll('categories')
+      },
+      allregimes() {
+        return this.getAll('regimes')
+      },
+      allilegumes() {
+        return this.getAll('ilegumes')
+      },
+      allisec() {
+        return this.getAll('isec')  
+      },
+      allianimaux() {
+        return this.getAll('ianimaux')
+      },
+      allilof() {
+        return this.getAll('ilof')
+      },
+
+
+
+    },
+
+
+    methods: {
+      // tags(recipe) {
+      //   return [].concat(recipe.categories, recipe.regimes)
+      // },
+
+      ingredients(recipe) {
+        return [].concat(recipe.ilegumes, recipe.isec, recipe.ianimaux, recipe.ilof)
+      },
+
+      logger(obj) {
+        return JSON.stringify(obj, null, 2)
+      },
+      getAll(prop) {
+        return [...new Set([].concat.apply([], this.recettes.map(item => item[prop])))]
+      },
+      x(arr1, arr2) {
+        return arr1.filter(val => arr2.includes(val))
+      },
+
+
+    }
+
+  });
+</script>
+
+{{end}}

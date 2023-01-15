@@ -1,0 +1,301 @@
+{{ define "main" }}
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+<h5>{{ .Layout }}</h5>
+
+
+<h1>{{.Title}}</h1>
+<div id="app">
+  <div class="row">
+   {{/* {{ range $idx, $item := first 6 (sort (where $.Site.RegularPages "Type" ($page.Params.folder | default "project"))  ".Params.date_sort" "desc")  }}
+ */}}
+
+      <div class="card my-5">
+
+      </div >
+
+<!-- initialisation des Variables des listes ingredient :
+Si elle ne sont pas declarer en dehors des scope range ou with, alors elle n'existe que dans ces scope -->
+{{ $ingLof := slice  }}
+{{ $ingSec := slice  }}
+{{ $ingLegumes := slice  }}
+{{ $ingAnimaux := slice  }}
+{{ $ingSucres := slice  }}
+{{ $ingAutres := slice  }}
+{{ $ingEpices := slice  }}
+{{ $IngredientList  := slice  }}
+
+<!-- TODO : changer les Quantité des ingredient des recettes ! -->
+
+      <div class="card">
+        {{ range $.Param "repas" }}
+         <!-- Creation des variables qui ne seront plus visible au prochain scope  -->
+          {{ $dateService:=.date_service }}
+          {{ $horaire:=.horaire }}
+          {{ $horaire }}
+          <!--  -->
+         {{ range .recettes_du_repas }}
+div     
+              <!-- Creation des variables qui ne seront plus visible au prochain scope  -->
+              {{ $recette:=.recette }}
+              {{ $typePlat:=.type_plat }}
+              <!--  -->
+            {{$url:=  print .recette | urlize }}
+            {{ with  site.GetPage $url }}
+
+               {{ range (.Params.ingredients.lof) }}
+               {{/* on ajoute chaque ingredient lof de chaque recette dans une map, et on a une slice de map */}}
+                {{ $ingLof = $ingLof | append (dict "ingredient" .title "quantite" .quantite "unit" .unit )  }}
+
+                {{/* TODO : ESt ce qu'on met as tout dans une meme liste avec une plus un identifiant du type d'ingredient */}}
+
+                {{ $IngredientList = $IngredientList | append (dict "ingredient" .title "quantite" .quantite "unit" .unit "IngType" "LOF" "recette" $recette "dateService" $dateService "horaire" $horaire "typePlat" $typePlat) }}
+
+                {{ end }}
+                 
+                {{ range .Params.ingredients.sec }}
+                {{ $ingSec = $ingSec | append (dict "ingredient" .title "quantite" .quantite "unit" .unit)  }}
+                {{ $IngredientList = $IngredientList | append (dict "ingredient" .title "quantite" .quantite "unit" .unit "IngType" "Sec" "recette" $recette "dateService" $dateService "horaire" $horaire "typePlat" $typePlat) }}
+
+                {{ end }}
+
+                 {{ range .Params.ingredients.legumes }}
+                {{ $ingLegumes = $ingLegumes | append (dict "ingredient" .title "quantite" .quantite "unit" .unit)  }}
+                {{ $IngredientList = $IngredientList | append (dict "ingredient" .title "quantite" .quantite "unit" .unit "IngType" "Legume" "recette" $recette "dateService" $dateService "horaire" $horaire "typePlat" $typePlat) }}
+
+                {{ end }}
+                 {{ range .Params.ingredients.animaux }}
+                {{ $ingAnimaux = $ingAnimaux | append (dict "ingredient" .title "quantite" .quantite "unit" .unit)  }}
+                {{ $IngredientList = $IngredientList | append (dict "ingredient" .title "quantite" .quantite "unit" .unit "IngType" "Animaux" "recette" $recette "dateService" $dateService "horaire" $horaire "typePlat" $typePlat) }}
+
+                {{ end }}
+                 {{ range .Params.ingredients.autres }}
+                {{ $ingAutres = $ingAutres | append (dict "ingredient" .title "quantite" .quantite "unit" .unit)  }}
+                {{ $IngredientList = $IngredientList | append (dict "ingredient" .title "quantite" .quantite "unit" .unit "IngType" "Autre" "recette" $recette "dateService" $dateService "horaire" $horaire "typePlat" $typePlat) }}
+
+                {{ end }}
+                 {{ range .Params.ingredients.sucres }}
+                {{ $ingSucres = $ingSucres | append (dict "ingredient" .title "quantite" .quantite "unit" .unit)  }}
+                {{ $IngredientList = $IngredientList | append (dict "ingredient" .title "quantite" .quantite "unit" .unit "IngType" "Sucre" "recette" $recette "dateService" $dateService "horaire" $horaire "typePlat" $typePlat) }}
+
+                {{ end }}  
+                {{ range .Params.ingredients.epices }}
+                {{ $ingEpices = $ingEpices | append (dict "ingredient" .title "quantite" .quantite "unit" .unit)  }}
+                {{ $IngredientList = $IngredientList | append (dict "ingredient" .title "quantite" .quantite "unit" .unit "IngType" "epice" "recette" $recette "dateService" $dateService "horaire" $horaire "typePlat" $typePlat) }}
+
+                {{ end }}
+           
+            {{ end }} {{/*  {{ with  site.GetPage $url }} */}}
+         {{ end }} {{/* recettes_du_repas */}}
+        {{ end }} {{/* range $.param repas */}}
+
+        <div class="card my-4"> Le tableau (slice) des map des ingredient Lof, tel quel : <br> 
+          {{ $ingLof }}
+        </div>
+
+        <div class="card my-4">
+          ... Aligner par recette
+          {{ range $key, $value := $ingLof }}
+            <li>{{ $key }} : {{ $value }}</li>
+            {{ end }}
+        </div>
+        <div class="card my-4">
+           ...Présenté proprement
+           {{ range $ingLof }}
+             <li>{{ .ingredient }} : {{ .quantite }} {{ .unit }}</li>
+           {{ end }}
+        </div>
+
+        <div class="card my-4">
+          ...Et trié par ingredient
+          {{ $ingLof := sort $ingLof ".ingredient"}}
+          {{ range $ingLof }}
+            <li>{{ .ingredient }} : {{ .quantite }} {{ .unit }}</li>
+          {{ end }}
+       </div>
+
+       <div class="card my-4">
+         Et la, on crée une grande liste de tous les ingrédients ! Qu'on présente et qu'on tri
+      
+         {{ $IngredientListSortIng := sort $IngredientList ".ingredient" }}
+          {{ range $IngredientListSortIng }}
+             <li>{{ .ingredient }} {{ .quantite }} {{ .unit }} (recette : {{ .recette }} {{ .dateService }} {{ .horaire }} {{.typePlat}}) </li>
+           {{ end }}
+       </div>
+
+
+         <h4>... Sous forme d'un tableau</h4>      
+         {{ $IngredientListSortIng := sort $IngredientList ".ingredient" }}
+             <table class="table">
+               <thead>
+                 <tr>
+                  <th colspan="" rowspan="" headers="" scope="col">Jour</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Recette</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Type</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Ingredients</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Quantité</th>
+                 </tr>
+               </thead>
+                <tbody>
+                {{ range $IngredientListSortIng }}
+                  <tr>
+                    <!-- Formate la date  -->
+                    <th scope="row"> {{ time.Format "Monday 2 Jan 2006" .dateService }} - {{ .horaire }} </th>
+                    <td> {{.recette}} </td>
+                    <td> {{ .IngType }} </td>
+                    <td class="table-info"> {{ .ingredient }} </td>
+                    <td class="table-info"> {{ .quantite }} {{ .unit }} </td>
+                  </tr>
+                  {{ end }}
+                </tbody>
+             </table>
+
+         <h4>... tableaux triés par type d'ingredients </h4>    
+             <table class="table">
+               <thead>
+                 <tr>
+                  <th colspan="" rowspan="" headers="" scope="col">Jour</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Recette</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Type</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Ingredients</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Quantité</th>
+                 </tr>
+               </thead>
+                <tbody>
+      
+                {{ range where $IngredientList ".IngType" "LOF" }}
+                  <tr>
+                    <!-- Formate la date  -->
+                    <th scope="row"> {{ time.Format "Monday 2 Jan 2006" .dateService }} - {{ .horaire }} </th>
+                    <td> {{.recette}} </td>
+                    <td> {{ .IngType }} </td>
+                    <td class="table-info"> {{ .ingredient }} </td>
+                    <td class="table-info"> {{ .quantite }} {{ .unit }} </td>
+                  </tr>
+                  {{ end }}
+                </tbody>
+             </table>
+
+ <h4>... tableaux triés par type d'ingredients et par date </h4>  
+ {{/* Creer un tableau avec les date de recettes, et reussir a creer des list qui scinde en fonction d'un nombre de jour défini
+-Methode ?:
+    .Before .After .Time sort $variable:date+1 
+    Il faudre faire un sort par date hugo ET un classement dans chaque tableau par ingredient !?
+
+Pour l'instant on a :
+- $IngredientList
+- $IngredientListSortIng
+
+  */}}  
+
+    <!--initialisation hors scope des var jour  -->
+    {{ $dayList := slice }}
+    {{ $dayService := slice }}
+
+{{/* }} Ok
+    {{ range $IngredientList  }} 
+        <li>{{.ingredient}}  - {{ time.Format "Monday 2 Jan 2006" .dateService }} - {{ .horaire }}</li>
+    {{ end }} 
+{{ */}}
+   
+    {{ range $IngredientList }}
+        {{ $dayList = $dayList | append .dateService }}
+    {{ end }}
+    {{ $dayList =  uniq ($dayList) }} {{/* notre liste de toutes les dates de repas / ingredients */}}
+
+    {{ $dayListLength :=  len $dayList  }} 
+    {{ $FirstDay := index $dayList 0 }}
+    {{ $day12 :=  "e"}}
+
+
+    <span class="fw-bolder"> Jour 1 avec un range where, sort by ingredients</span>
+    {{ range where $IngredientListSortIng ".dateService" $FirstDay }}
+        <li> {{ .ingredient }} {{ .quantite }} {{ .unit }} ({{ .recette }} -{{ time.Format "02 Jan" .dateService }} )</li>    
+    {{ end }}
+
+
+    {{/* ABANDON ? : voir avec Vue js et Vuetify */}}
+
+
+    {{ $IngredientListSortDate := sort $IngredientList ".dateService" }}
+
+        <br>
+
+             <table class="table">
+               <thead>
+                 <tr>
+                  <th colspan="" rowspan="" headers="" scope="col">Jour</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Recette</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Type</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Ingredients</th>
+                  <th colspan="" rowspan="" headers="" scope="col">Quantité</th>
+                 </tr>
+               </thead>
+                <tbody>
+      {{/* TODO : Pour pouvoir faire un range sur tous les IngType, et donc ne pas avoir a répéter les tableau : TESTER de poser des $var en dehors du range de forme : $recette := print .recette ; et creer une slice des different IngType sur laquel on range les tableau */}}
+                {{ range where $IngredientListSortDate ".IngType" "LOF" }}
+                  <tr>
+                    <!-- Formate la date  -->
+                    <th scope="row"> {{ time.Format "Monday 2 Jan 2006" .dateService }} - {{ .horaire }} </th>
+                    <td> {{.recette}} </td>
+                    <td> {{ .IngType }} </td>
+                    <td class="table-info"> {{ .ingredient }} </td>
+                    <td class="table-info"> {{ .quantite }} {{ .unit }} </td>
+                  </tr>
+                  {{ end }}
+                </tbody>
+             </table>
+
+
+  
+          
+      </div>
+ 
+  </div>
+  <div class="row my-4">
+        <h4>Presentation des recettes par jours & midi/soir</h4>
+       {{ range $.Param "repas" }}  
+        {{ range .recettes_du_repas }}
+
+        {{$url:=  print .recette | urlize }}
+        {{/* Ajouter "/" avant $url, pour avoir une url absolue et non relative ala page en cours */}}
+        <span class="h3"><a class="" href="/{{$url}}">{{.recette}}</a></span>
+        <span>Responsable : {{.chef}} - type: {{.type_plat}}</span>
+          {{/*  Reccupérer les données des recettes  */}}
+          <span>
+            {{ with  site.GetPage $url }}
+              {{ range .Params.ingredients.lof }}
+                  {{.title}} : {{.quantite}} {{.unit}}
+              {{ end }}
+              {{ range .Params.ingredients.sec }}
+                  {{.title}} : {{.quantite}} {{.unit}}
+              {{ end }}
+              {{ range .Params.ingredients.legumes }}
+                  {{.title}} : {{.quantite}} {{.unit}}
+              {{ end }}
+              {{ range .Params.ingredients.animaux }}
+                  {{.title}} : {{.quantite}} {{.unit}}
+              {{ end }}
+              {{ range .Params.ingredients.autres }}
+                  {{.title}} : {{.quantite}} {{.unit}}
+              {{ end }}
+              {{ range .Params.ingredients.sucres }}
+                  {{.title}} : {{.quantite}} {{.unit}}
+              {{ end }}
+              {{ range .Params.ingredients.epices }}
+                  {{.title}} : {{.quantite}} {{.unit}}
+              {{ end }}
+            {{end}}
+          </span>
+
+          {{/*  Liste par ingredients  */}}
+
+        {{ end }}
+        {{ end }}
+
+      </div>
+
+</div>
+
+
+{{end}}

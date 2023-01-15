@@ -14,8 +14,10 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+{{ if not hugo.IsProduction }}
+<span>{{ hugo.Environment }} - {{ .Layout }}</span>
+{{ end }}
 
-<h5>{{ .Layout }}</h5>
 
 {{- $IngredientList := slice -}}
 

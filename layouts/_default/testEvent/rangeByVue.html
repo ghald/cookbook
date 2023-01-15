@@ -1,11 +1,14 @@
 {{ define "main" }}
 <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.common.dev.min.js" integrity="sha512-2A6oxj7+YhJZ8H16zFL3m9eseO00e6odrsd+wQnSYiEcaw20fpsI3NSuiKQTBrGOR5ZO7xv75kjK3NZrvUTexw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js" integrity="sha512-BAMfk70VjqBkBIyo9UTRLl3TBJ3M0c6uyy2VMUrq370bWs7kchLNN9j1WiJQus9JAJVqcriIUX859JOm12LWtw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js"></script> -->
-<!-- <script src="https://unpkg.com/vue/dist/vue.min.js"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js"></script> -->
+{{ if hugo.IsProduction }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js" integrity="sha512-BAMfk70VjqBkBIyo9UTRLl3TBJ3M0c6uyy2VMUrq370bWs7kchLNN9j1WiJQus9JAJVqcriIUX859JOm12LWtw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{ end }}
+{{ if not hugo.IsProduction }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.common.dev.min.js" integrity="sha512-2A6oxj7+YhJZ8H16zFL3m9eseO00e6odrsd+wQnSYiEcaw20fpsI3NSuiKQTBrGOR5ZO7xv75kjK3NZrvUTexw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{ end }}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.6.13/vuetify.min.js"
 integrity="sha512-//0zxkKgUsMFFA0Fa7tqtWXFpT1K6L0/aZK6qp1+C/NKkLkCWiodGGB5HuUY3LwYazNOu/cox2eJNs7Mql9Lgw=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -14,6 +17,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
 {{ if not hugo.IsProduction }}
 <span>{{ hugo.Environment }} - {{ .Layout }}</span>
 {{ end }}

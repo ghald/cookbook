@@ -13,5 +13,7 @@ import 'lazysizes';
 import './assets/js/alert';
 
 
-//
-// import './assets/js/vendor/htf/hugotagsfilter-1.2.2.1';
+// Vue and Vuetify
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);;

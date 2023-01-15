@@ -16,6 +16,18 @@ ingredients:
     - title: Abricot
       quantite: 1
       unit: Kg
+    - title: Coco
+      quantite: 1
+      unit: Kg
+    - title: Peche
+      quantite: 1
+      unit: Kg
+    - title: Autre
+      quantite: 1
+      unit: Kg
+    - title: Orange
+      quantite: 1
+      unit: Kg
 preparation: "33"
 publish_date: 2022-10-11T12:41:33.880Z
 ---

@@ -12,6 +12,9 @@ enableRobotsTXT = true
 languageCode = "fr-FR"
 paginate = 24
 rssLimit = 10
+pygmentsUseClasses = true
+pygmentsCodefences = true
+defaultContentLanguage = "fr"
 
 # add redirects/headers
 [outputs]
@@ -56,6 +59,7 @@ rssLimit = 10
 
 [permalinks]
   blog = "/:title/"
+  recettes = "/:title/"
 
 [minify.tdewolff.html]
   keepWhitespace = false
@@ -70,5 +74,18 @@ rssLimit = 10
     [[related.indices]]
     name = "date"
     weight = 10
+
+
+[markup.highlight]
+      codeFences = true
+      guessSyntax = true
+      hl_Lines = ""
+      lineNoStart = 1
+      lineNos = true
+      lineNumbersInTable = true
+      tabWidth = 4
+      style = "monokai"
+
+
 
 # custom_css = ["assets/css/custom.css"]

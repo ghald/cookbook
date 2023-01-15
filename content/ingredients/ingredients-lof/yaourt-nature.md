@@ -1,6 +1,7 @@
 ---
 title : "Yaourt nature"
-alergene: false
+alergene:
 vegetarien: true
 vegan: false
+sans-lactose: false
 --- 

@@ -1,40 +1,46 @@
-
-
-
 // Champ formulaire quantité d'assietes
 input[type="number"] {
   width: 100px;
 }
 
 
-// Vue.js script filters
+//// Vue.js script filters
+
+// Boutons des filtres
+
 .filters {
   display: flex;
 }
-.filters > div {
+
+.filters>div {
   flex: 1;
 }
-.filters > div:last-child {
+
+.filters>div:last-child {
   columns: 2;
 }
-.filters > div:last-child div{
+
+.filters>div:last-child div {
   column-span: all;
 }
+
 .filters label {
   display: block;
 }
 
+// cacher/montrer les recettes correspondant aux filtres avec vuejs
 .fhide {
   display: none;
 }
 
 .fshow {
-    display: block;
+  display: block;
 }
 
-/// Filter Box
+//// Boite des boutons de filtres
 
 .filter-box {
+  margin-bottom: 0.5em;
   padding: 0.5em;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
   border: 1px solid $primary-2;
@@ -43,24 +49,20 @@ input[type="number"] {
 
 .filter-box h4 {
   padding: 2px;
-  margin: 1px;
+  margin: 1px 10px 1px 1px;
   font-size: 1.2em;
   font-weight: bold;
 }
 
+// Checkbox en bouton pour les filtres
 
-
-/// Checkbox to button
-
-.cb-button-filter{
+.cb-button-filter {
   margin: 4px;
   background-color: $primary-4;
   border-radius: 5px;
   border: 2px solid $primary;
   overflow: auto;
   float: left;
-
-
 }
 
 .cb-button-filter span {
@@ -72,22 +74,76 @@ input[type="number"] {
 
 }
 
+// cacher la case-a-cocher
 .cb-button-filter input {
   position: absolute;
   display: none;
   // color: $primary-4;
 }
-/* selects all of the text within the input element and changes the color of the text */
-.cb-button-filter label input + span{color: #fff;}
 
-.cb-button-filter:hover{
+/* selects all of the text within the input element and changes the color of the text */
+.cb-button-filter label input+span {
+  color: #fff;
+}
+
+.cb-button-filter:hover {
   // border-color: $primary-4;
-  background-color: $primary-3;
+  background-color: $primary-2;
+  // -webkit-box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.85); 
+  // box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.85);
 }
 
 /* This will declare how a selected input will look giving generic properties */
-.cb-button-filter input:checked + span {
-    color: #ffffff;
-    background-color: $primary-3;
-    border-color: $primary_4
+.cb-button-filter input:checked+span {
+  // color: #ffffff;
+  background-color: $primary-3;
+  border-color: $primary-4
+}
+
+//// Recettes filtrées
+
+// Tags/badge : ingredients régimes et catégories
+
+.tag {
+  border-radius: 15px;
+  padding: 0.1em 0.6em;
+  margin-right: 0.5em;
+  font-size: 0.9em;
+}
+
+.tag_selected {
+  font-weight: bold;
+  box-shadow: inset 0px 0px 2px 2px rgba(0, 0, 0, 0.8);
+}
+
+.tag_small {
+  font-size: 0.7em;
+}
+
+////// Modifieurs 
+
+.bg-red {
+  background-color: rgba(156, 7, 7, 0.6);
+}
+
+.bg-green {
+  background-color: rgba(0, 96, 29, 0.621);
+  color: whitesmoke;
+}
+
+.bg-orange {
+  background-color: rgba(212, 99, 0, 0.6);
+}
+
+.bg-grey {
+  background-color: rgba(174, 174, 174, 0.6);
+  color: black;
+}
+
+
+.p-top{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1rem;
 }

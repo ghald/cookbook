@@ -358,4 +358,29 @@
         {{end}}
         {{ end -}}
       </div>
+
+      
+      <div class="h4">GetPage</div>
+        <div class="row mb- card">
+        <code>              
+        with .GetPage "recettes/plat/pain-de-yucca" .Title end
+        </code>
+        <div>{{with .GetPage "recettes/plat/pain-de-yucca" }} {{.Title}} {{end}}</div>
+        
+        <code>with .Site.GetPage "recettes/plat/pain-de-yucca" .Title end</code>
+        <div>{{with .Site.GetPage "recettes/plat/pain-de-yucca" }} {{.Title}} {{end}}</div>
+       
+        <code>with site.GetPage "recettes/plat/pain-de-yucca" .Title end</code>
+        <div>{{with site.GetPage "recettes/plat/pain-de-yucca" }} {{.Title}} {{end}}</div>
+        <span class="alert-info small">Utiliser site plutot que .Site pour sortir du contexte ?; dans le cas ou on est dans un .range</span>
+
+        <code>with site.GetPage "recettes/plat/pain-de-yucca" .Title end</code>
+        <div>{{with site.GetPage "recettes/plat/pain-de-yucca" }} {{.Title}} {{end}}</div>
+
+
+
+
+        </div>
+      
+
       {{ end }}

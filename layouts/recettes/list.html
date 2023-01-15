@@ -5,7 +5,6 @@
   <h5>/layout/recettes/list</h5>
   <h2>{{.Title}}</h2>
 
-
 {{ $pages := .Site.RegularPages}}
 {{ $categories := $.Site.Taxonomies.categories.ByCount }}
 
@@ -124,7 +123,7 @@
       return value //TODO : mettre en forme sans les [""] 
       } 
     },
-    
+  
 
 
     logger(obj) {

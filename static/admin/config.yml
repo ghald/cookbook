@@ -57,7 +57,6 @@ collections:
       - label: "Catégorie"
         name: "type"
         widget: "select"
-        default: "plat"
         options: 
           - { label : 'Entrée', value: 'entree'} 
           - { label : 'Plat', value : 'plat'}
@@ -80,7 +79,7 @@ collections:
 
         ## Description ##
 
-      - {label : 'Régimes', name: 'regime',widget: "select", label_singular: 'Régime', required: false, multiple: true, options:  ['vegetarien', 'vegan', 'sans-glutten', 'sans-lactose']}
+      - {label : 'Régimes', name: 'regime',widget: "select", label_singular: 'Régime', required: false, multiple: true, options:  ['vegetarien', 'vegan', 'sans-gluten', 'sans-lactose']}
       - {label: 'Spécialité (région)', name: 'spécialité', widget: 'string', required: false}
       - label: 'Saison'
         name: 'saison'
@@ -95,13 +94,15 @@ collections:
       - label : 'Servir chaud'
         name: 'temperature'
         widget: 'boolean'
-        default: true
+        required: false
       - label : "Quantités indiquées prévues pour combien d'assietes ?"
         name: 'plate'
         widget: 'number'
         value_type: 'int'
       
+################################      
         ## Ingredients ##  
+
 
       - label: 'Ingredients'
         name: 'ingredients'
@@ -166,13 +167,13 @@ collections:
           - label: 'Sucrées'
             name : 'sucres'
             widget: 'list'
-            hint: "Miel, biscuits..."
+            hint: "Miel, biscuits, jus, chocolats..."
             allow_add: true
             add_to_top: true
             label_singular: 'Ingrédient'
             required: false
             fields:
-              - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-lof', value_field: 'title', search_fields: ['title'], options_length: 5}  
+              - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-sucres', value_field: 'title', search_fields: ['title'], options_length: 5}  
               - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
               - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unités', 'litre']}
               - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
@@ -186,12 +187,12 @@ collections:
             required: false
             fields:
               - {label: 'Noms', name: 'title', widget: 'relation', collection: 'ingredients-autres',value_field: 'title', search_fields: ['title'], options_length: 5 }  
-              - {label: 'Quantité (nombre)', name: 'quantité', widget: 'number' ,value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
-              - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'litre', 'unités']}
+              - {label: 'Quantité (nombre)', name: 'quantité', widget: 'number' ,value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3", required: false}
+              - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'litre', 'unités', 'bottes'], required: false}
               - {label: 'Alergène', name: 'alergene', widget: 'boolean', required: false}            
               - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
           
-          - label: 'Assaisonnement'
+          - label: 'Epices et aromatiques'
             name : 'epices'
             hint: 'Epices, sauces, condiments...'
             widget: 'list'
@@ -201,8 +202,8 @@ collections:
             required: false
             fields:
               - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-assaisonnement', value_field: 'title', search_fields: ['title'], options_length: 5}            
-              - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
-              - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'litre', '']}
+              - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3", required: false}
+              - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'litre', 'unité', 'bottes'], required: false}
               - {label: 'Alergène', name: 'alergene', widget: 'boolean', required: false}
               - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
 
@@ -224,6 +225,16 @@ collections:
       - label: 'Préparation'
         name: 'preparation'
         widget: 'markdown'
+
+      - label: 'Préparation Alternative'
+        name: 'prep-alt'
+        allow-add: true
+        widget: 'list'
+        add_to_top: true
+        fields:
+          - {label : 'Régimes', name: 'regime',widget: "select", label_singular: 'Régime', required: true, multiple: true, options:  ['vegetarien', 'vegan', 'sans-gluten', 'sans-lactose']}
+          - {label : 'Préparation', name: 'preparation', widget: 'markdown'}
+
      
       - label: 'Astuces'
         name: 'astuces'
@@ -341,7 +352,6 @@ collections:
     create: true
     widget: 'list'
     allow-add: false
-    summary: '{{fields.label}}'
     fields: 
       - {label: 'Nom', name: 'title', widget: 'string'}
       - label: 'Saisons'
@@ -368,7 +378,6 @@ collections:
     create: true
     widget: 'list'
     allow-add: false
-    summary: '{{fields.label}}'
     fields: 
       - {label: 'Nom', name: 'title', widget: 'string'}
       - label: 'Saisons'
@@ -388,16 +397,15 @@ collections:
       - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
       - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
  
-  - label: 'Ingredients - Assaisonnements'
+  - label: 'Ingredients - Epices et aromatiques'
     name: 'ingredients-assaisonnement'
     folder: content/ingredients/ingredients-assaisonnement
     path: '{{slug}}'
     create: true
     widget: 'list'
     allow-add: false
-    summary: '{{fields.label}}'
     fields: 
-      - {label: 'Nom', name: 'title', widget: 'string'}
+      - {label: "Nom", name: "title", widget: 'string'}
       - label: 'Saisons'
         name : 'saisons'
         hint : "...si l'ingrédient se trouvent surtout à certaines saisons"
@@ -422,7 +430,6 @@ collections:
     create: true
     widget: 'list'
     allow-add: false
-    summary: "{{fields.name}} - Ce qui n'est pas ailleurs"
     fields: 
       - {label: 'Nom', name: 'title', widget: 'string'}
       - label: 'Saisons'
@@ -454,6 +461,73 @@ collections:
     fields:
       - {label: 'Nom', name: 'title', widget: 'string'}
       
-          
+##########################
+# Menu / Evenements
+
+
+  - label: "Evenements"
+    label-singular: "Evenement"
+    name: "evenement"
+    description: "Pour creer des menus sur un ou plusieurs jours..."
+
+    folder: content/evenements/
+    path: '{{type}}/{{slug}}/index'
+
+    create: true
+            
+    
+    fields: 
+      - {label: 'Brouillon', name: 'draft', widget: 'boolean', default: false}
+
+      - {label: "Nom de l'évènement", name: 'title', widget: 'string'}
+
+      - label: 'Repas' 
+        name: 'repas' 
+        create: true 
+        widget: 'list' 
+        allow_add: true
+        collapsed: true 
+        hint: "Ajouter un menu pour un service" 
+        fields:
+
+        - {label: 'Date', name: 'date_service', widget: 'datetime', date_format: 'DD.MM.YYYY', hint: 'Jour ou le repas sera servis...'}
+
+        - {label: 'Horaire', name: 'horaire', widget: 'select', options: ["matin", "midi", "soir"] }
+
+        - {label: "Nombres d'assiettes", name: 'assiettes', widget: 'number', default: 100, value_type: 'int', min: 1, max: 10000}
+
+        - label: "Recettes du repas"
+          name: 'recettes_du_repas'
+          widget: 'list'
+          allow_add: true
+          add_to_top: true
+          fields:
+
+          - label: 'Recette'
+            name: 'recette'
+            widget: 'relation'
+            collection: 'Recettes'
+            value_field: 'title'
+            search_fields: ['title']
+            display_fields: ['title']
+            options_length: 11
+
+          - label: "Entrées/Plats/Desserts ?"
+            name: "type_plat"
+            widget: "select"
+            options: 
+             - { label : 'Entrée', value: 'entree'} 
+             - { label : 'Plat', value : 'plat'}
+             - { label: 'Dessert', value : 'dessert'}
+
+          - {label: "Responsable/Chef.fe cuistot", name: 'chef', widget: 'string', hint: "Si il y a un.e ou des référent.es pour cette recette...", required: false}
+
+          - {label: 'Commentaire', name: 'commentaire', widget: 'text', hint: "Si vous avez quelque-chose a préciser...(N'oubliez pas que les pages des menus seront publié en ligne !)", required: false}
+
+
+
+
+
+
           
 

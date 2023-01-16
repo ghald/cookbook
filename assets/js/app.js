@@ -16,3 +16,4 @@ import './assets/js/alert';
 // Vue and Vuetify
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+

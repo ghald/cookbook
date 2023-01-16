@@ -4,22 +4,29 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js"></script> -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js" integrity="sha512-BAMfk70VjqBkBIyo9UTRLl3TBJ3M0c6uyy2VMUrq370bWs7kchLNN9j1WiJQus9JAJVqcriIUX859JOm12LWtw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js" integrity="sha512-BAMfk70VjqBkBIyo9UTRLl3TBJ3M0c6uyy2VMUrq370bWs7kchLNN9j1WiJQus9JAJVqcriIUX859JOm12LWtw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.6.14/vuetify.min.js" integrity="sha512-nBMFfEIXQ39T2kYZLT9sqJxWU/ZPCH3gXdhxhjphkT+Q3yBEI63AwolHTW45lhjf3VqZXhF+3lY35J+P+1wNhg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+ -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js
+"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 
 
 {{ if hugo.IsProduction }}
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js" integrity="sha512-BAMfk70VjqBkBIyo9UTRLl3TBJ3M0c6uyy2VMUrq370bWs7kchLNN9j1WiJQus9JAJVqcriIUX859JOm12LWtw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.6.14/dist/vuetify.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.6.14/dist/vuetify.min.js"> -->
+  
+</script>
 {{ end }}
 
 
 {{ if not hugo.IsProduction }}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.common.dev.min.js" integrity="sha512-2A6oxj7+YhJZ8H16zFL3m9eseO00e6odrsd+wQnSYiEcaw20fpsI3NSuiKQTBrGOR5ZO7xv75kjK3NZrvUTexw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.6.14/vuetify.js" integrity="sha512-3YAbvzFxXVT0L/rbTsvv2oIKt9aV0qdK/LdlQHIfaBj8NK85AWeFmk9QZ+Dfd2ozcxb60DnMIkUiJMLB7nS2mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.js" integrity="sha512-pzaIT4M4pWutHYv8yQrtkMtHBB17qXE6LnS7d9R6oiGQ+zApGM1T+ADe+J9borsHmdMGB3JHhfDsdkavD876nQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.common.dev.min.js" integrity="sha512-2A6oxj7+YhJZ8H16zFL3m9eseO00e6odrsd+wQnSYiEcaw20fpsI3NSuiKQTBrGOR5ZO7xv75kjK3NZrvUTexw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.6.14/vuetify.js" integrity="sha512-3YAbvzFxXVT0L/rbTsvv2oIKt9aV0qdK/LdlQHIfaBj8NK85AWeFmk9QZ+Dfd2ozcxb60DnMIkUiJMLB7nS2mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
 <!-- SAME Is Production for TESTING -->
  <!--  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js"></script>
@@ -286,6 +293,7 @@ rel="stylesheet">
 
 
 <script type="module">
+  Vue.use(Vuetify); //TODO Ou faut il mettre ca ? 
   const app = new Vue ({
     delimiters: ['[[', ']]'],
     el: '#app',

@@ -1,0 +1,197 @@
+{{ define "main" }}
+
+{{ if hugo.IsProduction }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js"
+  integrity="sha512-BAMfk70VjqBkBIyo9UTRLl3TBJ3M0c6uyy2VMUrq370bWs7kchLNN9j1WiJQus9JAJVqcriIUX859JOm12LWtw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{{ end }}
+{{ if not hugo.IsProduction }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.common.dev.min.js"
+  integrity="sha512-2A6oxj7+YhJZ8H16zFL3m9eseO00e6odrsd+wQnSYiEcaw20fpsI3NSuiKQTBrGOR5ZO7xv75kjK3NZrvUTexw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<span class="no-print text-muted">{{ hugo.Environment }} | Layout : layouts/index.html </span>
+{{ end }}
+
+
+<div id="searchApp">
+  <div class="search-wrapper">
+    <div class="search-module">
+       <input
+        v-focus
+        class="form-control"
+        type="text"
+        v-model="searchResult"
+        placeholder="Rechercher une recette..."
+        />
+        <div v-show="searchResult.length > 1" class="search-results">
+          <div  v-for="recipe in searchFilter" :key="recipe.title">
+            <a :href="[[recipe.url]]">
+            <div class="searchCard">
+              <div >
+                <div>
+                  <span class="fs-5" :href="[[recipe.url]]">[[recipe.title]]</span>
+                  <span class="fs-6 text-muted ms-3">[[recipe.auteur]]</span>
+                </div>
+                <div class="float-end mt-1">
+                  <span class="badge bg-red">[[recipe.type]]</span>
+                  <span class="badge bg-green" v-for="categorie in recipe.categories" :key="categorie">[[categorie]]</span>
+                  <span class="badge bg-pink" v-for="saison in recipe.saison" :key="saison">[[saison]]</span>
+                  <template v-if="recipe.specialite">
+                    <span class="badge bg-grey">[[recipe.specialite]]
+                    </span>
+                  </template>
+                </div>
+              </div>
+              <div>
+                <span v-if="recipe.temperature === 'Chaud'" class="badge bg-orange mx-0">Servir Chaud</span>
+                <span v-else class="badge bg-blue">Servir Froid</span>
+                <span v-if="recipe.cuisson === 'Oui'" class="badge bg-orange">Avec Cuisson</span>
+                <span v-else class="badge bg-blue">Sans Cuisson</span>
+                <span class="badge bg-grey me-1" v-for="regime in recipe.regimes" :key="regime">[[regime]]</span>
+              </div>
+              <div v-if="recipe.materiel.length" class="">
+                <span v-for="materiel in recipe.materiel" :key="materiel" class="badge bg-grey me-1">[[materiel]]</span>
+              </div>
+            </div>
+            </a>
+          </div>
+        </div>
+            
+      </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="row justify-content-center">
+      
+      <div class="row">
+        <h4 class="text-center">Dernières recettes publiées</h4>
+        {{ range (.Site.GetPage "section" "recettes").Pages}}
+        {{ partial "recettes-type-card" . }}
+        {{ end -}}
+      </div>
+    </div>
+  </div>
+
+<div class="section py-1 my-3">
+  <h5 class="text-center">Explorer les recettes par catégories</h5>
+  <div class="row justify-content-center g-3 m-4">
+    {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+    <div class="col-lg-3">
+      <div class="card card-recette mb-3 text-center font-weight-bold border-1 ">
+        <a href="categories/{{ $name | urlize }}" class="stretched-link"></a>
+        {{ $name | humanize }} ({{$taxonomy.Count }})
+      </div>
+    </div>
+    {{end}}
+  </div>
+</div>
+
+<div class="section py-1 my-3">
+  <h5 class="text-center">Explorer les recettes par régimes alimentaires</h5>
+  <div class="row justify-content-center g-3 m-4">
+    {{ range $name, $taxonomy := .Site.Taxonomies.regime }}
+    <div class="col-lg-4">
+      <div class="card card-recette mb-3 text-center font-weight-bold border-1 ">
+        <a href="/regime/{{ $name | urlize }}" class="stretched-link"></a>
+        {{ $name | humanize }} ({{$taxonomy.Count }})
+      </div>
+    </div>
+    {{end}}
+  </div>
+</div>
+
+<div class="section py-1 my-3">
+  <div class="row justify-content-center g-3 m-4">
+    {{ range (where .Site.RegularPages "Section" "evenements" )  }}
+    <div class="col-lg-3">
+      <div class="card card-recette mb-3 text-center font-weight-bold border-1 ">
+        <a href="{{ .Permalink }}" class="stretched-link"></a>
+        {{.Title}}
+      </div>
+    </div>
+    {{end}}
+  </div>
+</div>
+
+
+
+
+<script>
+  const searchAppfilters = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#searchApp',
+    {{/*  vuetify: new Vuetify(),  */}}
+    data: () => ({
+      recettes: [
+
+    {{- range(.Site.GetPage "section" "recettes").RegularPagesRecursive -}}
+      
+    {
+      title: "{{ .Title }}",
+      url: "{{ .RelPermalink }}",
+      type: "{{ .Params.type }}",
+      auteur: "{{- .Params.auteur -}}",
+      specialite: "{{- .Params.spécialité -}}",
+      saison: [{{- range .Params.saison -}} "{{ . }}", {{- end -}} ],
+      categories: [{{- range sort .Params.categories -}} "{{ . }}", {{- end -}}],
+      regimes: [{{- range sort .Params.regime -}} "{{ . }}", {{- end -}}],
+      temperature: "{{ .Params.temperature }}",
+      cuisson: "{{ .Params.cuisson }}",
+      materiel: [{{- range .Params.materiel -}}  "{{ . }}", {{- end -}}]
+    },
+
+    {{- end -}}
+      ],
+
+      searchResult: '',
+    }),
+      
+    computed: {
+      searchFilter() {
+        return this.recettes.filter((i) => {
+          return this.searchResult.toLowerCase().split(' ').every(
+            v => i.title.toLowerCase().includes(v) ||
+              i.auteur.toLowerCase().includes(v) ||
+              i.specialite.toLowerCase().includes(v))
+      })
+    },
+  },
+
+  directives: {
+    focus: {
+      // v-focus : donne le focus a l'élément au chargement de la page
+      inserted: function (el) {
+        el.focus()
+      }
+    },
+
+    {{/*  see  https://stackoverflow.com/questions/36170425/detect-click-outside-element */}}
+{{/*  
+    click-outside: {
+      bind: function (el, binding, vnode) {
+        el.clickOutsideEvent = function (event) {
+          // here I check that click was outside the el and his children
+          if (!(el == event.target || el.contains(event.target))) {
+            // and if it did, call method provided in attribute value
+            vnode.context[binding.expression](event);
+          }
+        };
+        document.body.addEventListener('click', el.clickOutsideEvent)
+      },
+      unbind: function (el) {
+        document.body.removeEventListener('click', el.clickOutsideEvent)
+      },
+    }  */}} 
+  }
+
+  });
+  
+
+  </script>
+
+{{end}}

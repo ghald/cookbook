@@ -1,0 +1,3 @@
+---
+nom: Giraffe (Bras Mixeur)
+---

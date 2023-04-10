@@ -1,0 +1,49 @@
+ {{ range $recettesList }}
+<v-card class="my-2 my-md-4 pa-2 elevation-0" outlined class="mx-auto">
+  <div><span :class="{'text-h5' : $vuetify.breakpoint.mdAndUp ,'subtitle-1' : $vuetify.breakpoint.mdAndDown} ">{{ .recette }}</span><span class="float-right" :class="{'text-h6' : $vuetify.breakpoint.mdAndUp, 'subtitle-2' : $vuetify.breakpoint.mdAndDown} "> {{ .dateService | time.Format "Monday 2 January "}} - {{ .horaire }}</span></div>
+  <v-card-subtitle>
+    <span>Référent•es: {{ .chef }} -</span> Nombre d'assietes: {{ .assiettesRepas }} 
+  </v-card-subtitle>
+  <v-row v-if="displayDetailsSwitch">
+    <v-col cols="12" md="6">
+      <span :class="{'text-h6 text-center ': $vuetify.breakpoint.smAndUp}">Ingrédients</span>
+
+      {{- $url:= print .recette | urlize -}}
+      {{- with site.GetPage $url -}}
+      {{- range $key, $value := .Params.ingredients -}}
+      {{ with . }}
+      <v-card class="my-2 pa-2 elevation-0" outlined>
+        <v-row>
+          <v-col>
+            <span class="body-1">{{ $key | strings.FirstUpper }} </span>
+            {{ range $index, $element := . -}}
+            <div class="body-2 ">
+              -  {{ .title }}: {{ .quantite }} {{.unit}}
+            </div>
+            {{ end }}
+          </v-col>
+        </v-row>
+      </v-card>
+      {{ end }}
+      {{ end }}
+    </v-col>
+    <v-col cols="12" md="6">
+      <span class="text-h6 text-center">Préparation</span>
+      <v-card class="my-2 pa-2 elevation-0 body-1" outlined>
+        {{ .Params.preparation | markdownify }}
+      </v-card>
+      {{ range .Params.prepAlt }}
+      <div class="text-h6 text-center">Alternative : {{ .regime }}</div>
+      <v-card class="my-2 pa-2 elevation-0" outlined>
+        <div class="text-body-1">{{ .preparation | markdownify }}</div>
+      </v-card>
+      {{ end }}
+    </v-col>
+    {{ end }}
+  </v-row>
+  <v-card-actions>
+    <v-btn text color="primary">Download</v-btn>
+    <v-btn text>Cancel</v-btn>
+  </v-card-actions>
+</v-card>
+{{ end }}

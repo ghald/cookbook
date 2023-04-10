@@ -7,7 +7,7 @@
 
 
 {{/* Vue et Vuetify */}}
-{{ if hugo.IsProduction }}
+{{/*  {{ if hugo.IsProduction }}
 {{ partial "footer/esbuild" (dict "src" "js/vendor/vue.min.js" "load" "async" "transpile" false) -}}
 {{ partial "footer/esbuild" (dict "src" "js/vendor/vuetify.min.js" "load" "async" "transpile" false) -}}
 {{ end }}
@@ -15,13 +15,13 @@
 {{ if not hugo.IsProduction }}
 {{ partial "footer/esbuild" (dict "src" "js/vendor/vue.common.dev.js" "load" "async" "transpile" false) -}}
 {{ partial "footer/esbuild" (dict "src" "js/vendor/vuetify.js" "load" "async" "transpile" false) -}}
-{{ end }}
+{{ end }}  */}}
 
-{{/*  {{ $vuejs := resources.Get "js/vendor/vue.min.js" | resources.Fingerprint "sha512" }}
+{{ $vuejs := resources.Get "js/vendor/vue.min.js" | resources.Fingerprint "sha512" }}
 <script src="{{- $vuejs.Permalink -}}" integrity="{{ $vuejs.Data.Integrity }}"></script>
 
 {{ $vuetify := resources.Get "js/vendor/vuetify.min.js" | resources.Fingerprint "sha512" }}
-<script src="{{- $vuetify.Permalink -}}" integrity="{{ $vuetify.Data.Integrity }}"></script>  */}}
+<script src="{{- $vuetify.Permalink -}}" integrity="{{ $vuetify.Data.Integrity }}"></script>
 
 
 {{/* Vue et Vuetify */}}

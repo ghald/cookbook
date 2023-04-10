@@ -17,11 +17,11 @@
 {{ partial "footer/esbuild" (dict "src" "js/vendor/vuetify.js" "load" "async" "transpile" false) -}}
 {{ end }}
 
-{{ $vuejs := resources.Get "js/vendor/vue.min.js" | resources.Fingerprint "sha512" }}
+{{/*  {{ $vuejs := resources.Get "js/vendor/vue.min.js" | resources.Fingerprint "sha512" }}
 <script src="{{- $vuejs.Permalink -}}" integrity="{{ $vuejs.Data.Integrity }}"></script>
 
 {{ $vuetify := resources.Get "js/vendor/vuetify.min.js" | resources.Fingerprint "sha512" }}
-<script src="{{- $vuetify.Permalink -}}" integrity="{{ $vuetify.Data.Integrity }}"></script>
+<script src="{{- $vuetify.Permalink -}}" integrity="{{ $vuetify.Data.Integrity }}"></script>  */}}
 
 
 {{/* Vue et Vuetify */}}

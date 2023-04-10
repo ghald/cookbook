@@ -1,16 +1,7 @@
 {{ define "main" }}
 
-{{ if hugo.IsProduction }}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js"
-  integrity="sha512-BAMfk70VjqBkBIyo9UTRLl3TBJ3M0c6uyy2VMUrq370bWs7kchLNN9j1WiJQus9JAJVqcriIUX859JOm12LWtw=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-{{ end }}
 {{ if not hugo.IsProduction }}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.common.dev.min.js"
-  integrity="sha512-2A6oxj7+YhJZ8H16zFL3m9eseO00e6odrsd+wQnSYiEcaw20fpsI3NSuiKQTBrGOR5ZO7xv75kjK3NZrvUTexw=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 <span class="no-print text-muted">{{ hugo.Environment }} | Layout : layouts/index.html </span>
 {{ end }}
 

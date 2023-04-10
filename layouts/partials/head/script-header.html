@@ -4,3 +4,15 @@
 {{- end -}}
 
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+
+{{/*  Vue et Vuetify  */}}
+{{ if hugo.IsProduction }}
+<script src="{{.Site.BaseURL}}js/vendor/vue.min.js"></script>
+<script src="{{.Site.BaseURL}}js/vendor/vuetify.min.js"></script>
+{{ end }}
+
+{{ if not hugo.IsProduction }}
+<script src="{{.Site.BaseURL}}js/vendor/vue.common.dev.js"></script>
+<script src="{{.Site.BaseURL}}js/vendor/vuetify.js"></script>
+{{ end }}

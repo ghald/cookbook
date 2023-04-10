@@ -19,7 +19,7 @@ defaultContentLanguage = "fr"
 
 # add redirects/headers
 [outputs]
-  home = ["HTML", "RSS", "REDIRECTS", "HEADERS", "JSON"]
+  home = ["HTML", "REDIRECTS", "HEADERS", "JSON"]
 
 # remove .{ext} from text/netlify
 [mediaTypes."text/netlify"]
@@ -53,7 +53,7 @@ defaultContentLanguage = "fr"
 [taxonomies]
   category = "categories"
   regime = "regime" # Végé, sans-glut...
-  ingredient = "ingredients"
+  # ingredient = "ingredients"
 
   
 
@@ -88,4 +88,3 @@ defaultContentLanguage = "fr"
 
 
 
-# custom_css = ["assets/css/custom.css"]

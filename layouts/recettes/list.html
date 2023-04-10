@@ -1,33 +1,13 @@
 {{ define "main" }}
 
 
-{{ if hugo.IsProduction }}
-<script
-src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js"
-integrity="sha512-BAMfk70VjqBkBIyo9UTRLl3TBJ3M0c6uyy2VMUrq370bWs7kchLNN9j1WiJQus9JAJVqcriIUX859JOm12LWtw=="
-crossorigin="anonymous"
-referrerpolicy="no-referrer"
-></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.6.14/dist/vuetify.min.js"></script>
-{{ end }}
 {{ if not hugo.IsProduction }}
-<script
-src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.common.dev.min.js"
-integrity="sha512-2A6oxj7+YhJZ8H16zFL3m9eseO00e6odrsd+wQnSYiEcaw20fpsI3NSuiKQTBrGOR5ZO7xv75kjK3NZrvUTexw=="
-crossorigin="anonymous"
-referrerpolicy="no-referrer"
-></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.6.14/dist/vuetify.js"></script>
 <span class="no-print text-muted">{{ hugo.Environment }}  | Layout : layouts/recettes/list.html </span>
-
 {{ end }}
 
 
 <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css"
 rel="stylesheet">
-
-{{/*  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.6.14/vuetify.min.css" integrity="sha512-TxuEmfi2nkrZeBWoZn0lYBsPYlSCItjhMhmRBqLFKZ+FtjTFEi9oYkSgwDp+b2ONPdNED7LLY+6wnXeur0/xwg==" crossorigin="anonymous" referrerpolicy="no-referrer" />  */}}
-
 
 
 {{- $IngredientList := slice -}}
@@ -225,8 +205,6 @@ rel="stylesheet">
   }
 </style>
 
-{{/*  BUG Ne peut etre construit par ESbuild car balise hugo ?  */}}
-{{/*  {{ partial "footer/esbuild" (dict "src" "js/vue-filter-recipes.js" "load" "async" "transpile" false) -}}  */}}
 
 <script type="module">
   const appfilters = new Vue ({

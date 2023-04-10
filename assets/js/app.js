@@ -12,5 +12,8 @@ import 'lazysizes';
 // global alert
 // import './assets/js/alert';
 
+// vue and vuetify
+// import 'vue';
+// import './vendor/vuetify.min.js';
 
 

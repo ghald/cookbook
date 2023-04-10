@@ -12,8 +12,8 @@ ogLocale = "fr"
 titleHome = "Encas-Parka Cookbook"
 
 ## Twitter Cards
-twitterSite = ""
-twitterCreator = ""
+# twitterSite = ""
+# twitterCreator = ""
 
 ## JSON-LD
 # schemaType = "Person"

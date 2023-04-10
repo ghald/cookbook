@@ -10,7 +10,8 @@ auteur: Sylvain
 regime:
   - sans-lactose
 spécialité: Algérie
-temperature: true
+cuisson: Oui
+temperature: Chaud
 plate: 170
 ingredients:
   legumes:
@@ -65,7 +66,8 @@ ingredients:
     - title: huile d'olive
       quantite: 1
       unit: litre
-materiel: []
+materiel:
+  - Marmitte
 preparation: >-
   Dans des grandes gamelles. 
 
@@ -76,14 +78,14 @@ preparation: >-
 
   * Laisser cuire un petit peu, puis ajouter les lentilles et les pois chiche. Ajouter pas mal d'eau et couvrir. 
 
-  * Une fois à ébulittion, baisser le feu pour que ça mijote. 
+  * Une fois à ébullition, baisser le feu pour que ça mijote. 
 
   * On ajoute alors les carottes en rondelles ou dés, les courgettes en dés, et le céleri (branches + feuilles). 
 
   * Laisser à nouveau mijoter un moment puis ajouter le concentré de tomates dilué dans de l'eau. 
 
   * On ajoute en dernier les langues d'oiseau et on laisse mijoter jusqu'au service ! (ne pas oublier d'ajouter la coriandre hachée vers la fin, on peut aussi en garder pour saupoudrer sur les bols !)
-prep-alt:
+prepAlt:
   - regime:
       - sans-gluten
       - sans-lactose

@@ -1,7 +1,7 @@
 ---
 draft: false
 title: WE Soutien Vue 2
-layout: testEvent/rangeByVue
+layout: testEvent/rangeByVueDateRange
 repas:
   - assiettes: 250
     date_service: 2022-11-24T09:00:00.000Z

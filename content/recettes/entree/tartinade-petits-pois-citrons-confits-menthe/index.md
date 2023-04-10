@@ -1,5 +1,5 @@
 ---
-title: Tartinade petits pois citrons confit menthe
+title: Tartinade petits pois citrons confits menthe
 draft: false
 description: ""
 layout: recettes
@@ -9,7 +9,8 @@ categories:
 regime:
   - vegetarien
   - vegan
-temperature: false
+cuisson: Oui
+temperature: Froid
 plate: 380
 ingredients:
   legumes:
@@ -36,6 +37,8 @@ ingredients:
     - title: Menthe (aromatique)
       quantite: 2
       unit: bottes
+materiel:
+  - Grand Saladier
 preparation: >-
   * Cuire les petits pois pendant quelques minutes à l’eau bouillante salée. 
 

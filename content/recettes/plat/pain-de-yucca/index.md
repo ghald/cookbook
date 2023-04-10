@@ -9,7 +9,8 @@ regime:
   - vegan
   - vegetarien
   - sans-glutten
-temperature: true
+cuisson: Oui
+temperature: Chaud
 plate: 170
 ingredients:
   lof:
@@ -35,6 +36,8 @@ ingredients:
     - title: Sel
       quantite: 80
       unit: grammes
+materiel:
+  - Four
 preparation: >-
   * Prechauffer le four a 260°.
 
@@ -47,7 +50,7 @@ preparation: >-
   * Rouler des petites boules avec la pate et les placer sur une plaque recouvert de papier sulfu.
 
   * Enfourner 8 minutes et deguster immediatement.
-prep-alt:
+prepAlt:
   - regime:
       - vegan
     preparation: >-
@@ -55,10 +58,10 @@ prep-alt:
       d'amande 
 
 
-      #### **Féta alternative à faire la veille:**
+      **Féta alternative à faire la veille:**
 
 
-      * *Mixer200 g de graines de lupin débarrassées de leur peau,* 
+      * *Mixer 200 g de graines de lupin débarrassées de leur peau,* 
 
       * *100 g de tofu lactofermenté nature,* 
 

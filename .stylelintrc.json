@@ -30,6 +30,8 @@
           "responsive",
           "variants",
           "screen"
+          "sort"
+
         ]
       }
     ]

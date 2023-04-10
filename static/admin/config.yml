@@ -91,10 +91,16 @@ collections:
           - { label : 'Eté', value: 'ete'}
           - { label : 'Automne', value: 'automne'}
           - { label : 'Hiver' , value: 'hiver'}
-      - label : 'Servir chaud'
+      - label : 'Cuisson'
+        name: 'cuisson'
+        widget: 'select'
+        required: true
+        options: ["Oui", "Non"]
+      - label : 'Température de service'
         name: 'temperature'
-        widget: 'boolean'
-        required: false
+        widget: 'select'
+        required: true
+        options: ["Chaud", "Froid"]
       - label : "Quantités indiquées prévues pour combien d'assietes ?"
         name: 'plate'
         widget: 'number'
@@ -116,6 +122,7 @@ collections:
             label_singular: 'Ingrédient'
             required: false
             collapsed: true
+            summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
             fields: 
               - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-legumes', value_field: 'title', search_fields: ['title'], options_length: 5}
               - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
@@ -131,6 +138,7 @@ collections:
             label_singular: 'Ingrédient'
             required: false
             collapsed: true
+            summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
             fields: 
               - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-sec', value_field: 'title', search_fields: ['title'], options_length: 5}
               - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
@@ -145,6 +153,8 @@ collections:
             add_to_top: true
             label_singular: 'Ingrédient'
             required: false
+            collapsed: true
+            summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
             fields:
               - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-animaux', value_field: 'title', search_fields: ['title'], options_length: 5}  
               - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
@@ -158,6 +168,8 @@ collections:
             add_to_top: true
             label_singular: 'Ingrédient'
             required: false
+            collapsed: true
+            summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
             fields:
               - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-lof', value_field: 'title', search_fields: ['title'], options_length: 5}  
               - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
@@ -172,6 +184,8 @@ collections:
             add_to_top: true
             label_singular: 'Ingrédient'
             required: false
+            collapsed: true
+            summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
             fields:
               - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-sucres', value_field: 'title', search_fields: ['title'], options_length: 5}  
               - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
@@ -185,6 +199,7 @@ collections:
             add_to_top: true
             label_singular: 'Ingrédient'
             required: false
+            summary: '{{fields.title}}: {{fields.quantité}} {{fields.unit}}'
             fields:
               - {label: 'Noms', name: 'title', widget: 'relation', collection: 'ingredients-autres',value_field: 'title', search_fields: ['title'], options_length: 5 }  
               - {label: 'Quantité (nombre)', name: 'quantité', widget: 'number' ,value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3", required: false}
@@ -200,6 +215,8 @@ collections:
             add_to_top: true
             label_singular: 'Ingrédient'
             required: false
+            collapsed: true
+            summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
             fields:
               - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-assaisonnement', value_field: 'title', search_fields: ['title'], options_length: 5}            
               - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3", required: false}
@@ -210,24 +227,20 @@ collections:
       
       - label: 'Materiel'
         name: 'materiel'
-        widget: 'list'
-        allow_add: true
-        add_to_top: true
-        fields:
-          - label: 'Nom'
-            name: 'nom'
-            widget: 'relation'
-            collection: 'Materiel'
-            value_field: 'nom'
-            search_fields: ['nom']
-            options_length: 5
+        widget: 'relation'
+        collection: 'materiel'
+        required: false
+        multiple: true
+        value_field: 'nom'
+        search_fields: ['nom']
+        options_length: 5
     
       - label: 'Préparation'
         name: 'preparation'
         widget: 'markdown'
 
       - label: 'Préparation Alternative'
-        name: 'prep-alt'
+        name: 'prepAlt'
         allow-add: true
         widget: 'list'
         add_to_top: true
@@ -241,7 +254,7 @@ collections:
         widget: 'list'
         allow_add: true
         add_to_top: true
-        label_singular: 'astuces'
+        label_singular: 'astuce'
         required: false
         fields: 
           - label: 'Astuce'
@@ -258,13 +271,13 @@ collections:
 ################################
 
 
-    ### collections : INGREDIENTS ##########################
+### collections : INGREDIENTS ##########################
 
-    # meta: 
-    #  path:  
-    #   widget: string
-    #   label: 'Type'
-    #   index_file: 'index' 
+# meta: 
+#  path:  
+#   widget: string
+#   label: 'Type'
+#   index_file: 'index' 
 
   - label: 'Ingredients - Legumes et fruits'
     name: 'ingredients-legumes'
@@ -449,7 +462,28 @@ collections:
       - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
       - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
+
 ###########################
+
+
+# COLLECTION : Materiel
+
+  - label: 'Materiel'
+    name: 'materiel'
+    folder: content/materiel
+    create: true
+    widget: 'list'
+    fields:
+      - name: 'nom'
+        label: 'Nom'
+        widget: 'string'
+          
+
+
+###########################
+
+
+
 # Categories
   - label: "sous-catégorie (Recettes)"
     name: 'sous-categories'

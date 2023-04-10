@@ -9,7 +9,7 @@ categories:
   - salade
 regime:
   - vegetarien
-temperature: true
+temperature: Chaud
 ingredients:
   sec: []
   legumes:

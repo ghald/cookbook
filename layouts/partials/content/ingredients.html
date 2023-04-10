@@ -1,11 +1,20 @@
-<ul class="border-top m-0 p-3">
-    {{ if .alergene }}
-    <span class="ingredientName, fw-bolder" id="ingredientName">{{.title}}</span>
-    <span> <img src='/fonts/fonticons/exclamation-diamond.svg' style='vertical-align: middle; max-width:0.85em' class="align-top" /> </span>
-    : <span class="amount", id="amount">{{.quantite }}</span> <span class="unit" id="unit">{{.unit }}</span>
-    {{else}}
-    <span class="ingredientName, fw-bolder" id="ingredientName">{{.title}}</span> : <span class="amount" id="amount">{{.quantite }}</span> <span class="unit" id="unit">{{.unit }}</span>
-    {{end}}
-</ul>
+{{/*  Les class amount et unit serve aux calculs des quantités pat quantite.js  */}}
+
+<div class="row">
+    <div class="col">
+        <span class="m-0 p-1 small">
+            {{ if .alergene }}
+            <span class="ingredientName, fw-bolder" id="ingredientName">{{.title}}</span>
+            <span> <img src='/fonts/fonticons/exclamation-diamond.svg' style='vertical-align: middle; max-width:0.85em' class="align-top" /> </span>
+            <span class="amount", id="amount">{{.quantite }}</span>
+            <span class="unit" id="unit">: {{.unit }}</span>
+            {{else}}
+            <span class="ingredientName, fw-bolder" id="ingredientName">{{.title}}
+            </span> : <span class="amount" id="amount">{{.quantite }}</span>
+            <span class="unit" id="unit">{{.unit }}</span>
+            {{end}}
+        </span>
+    </div>
+</div>
 
 

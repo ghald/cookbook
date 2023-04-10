@@ -7,6 +7,7 @@ module.exports = {
     autoprefixer(),
     purgecss({
       content: [
+        './node_modules/@hyas/core/layouts/**/*.html',
         './layouts/**/*.html',
         './content/**/*.md',
       ],
@@ -21,10 +22,12 @@ module.exports = {
         'h3',
         'alert-link',
         ...whitelister([
-          './assets/scss/components/_alerts.scss',
+          
+          //'./assets/scss/components/_alerts.scss', //// enlevé avec v.2.03
           // './assets/scss/components/_buttons.scss',
-          './assets/scss/components/_code.scss',
+          //'./assets/scss/components/_code.scss', //// enlevé avec v.2.03
           // './assets/scss/components/_syntax.scss',
+          './node_modules/@hyas/core/assets/scss/app.scss',
         ]),
       ],
     }),

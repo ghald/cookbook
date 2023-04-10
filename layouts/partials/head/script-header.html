@@ -2,3 +2,5 @@
   {{ $alertInit := resources.Get "js/alert-init.js" | js.Build | minify -}}
   <script>{{ $alertInit.Content | safeJS }}</script>
 {{- end -}}
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>

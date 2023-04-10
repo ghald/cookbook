@@ -13,7 +13,7 @@ spécialité: Liban
 saison:
   - ete
   - automne
-temperature: false
+temperature: Froid
 plate: 100
 ingredients:
   sucres:
@@ -44,7 +44,7 @@ preparation: |-
   * Reservez au frais. 
   * Mélanger le citron et l huile et incorporer 30MN avant de servir.
   * Réserver au frais.
-prep-alt:
+prepAlt:
   - regime:
       - sans-glutten
     preparation: '* Remplacer la semoule par de la "semoule" (cousous) de mais-riz,

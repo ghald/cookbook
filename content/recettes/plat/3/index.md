@@ -1,5 +1,17 @@
 ---
+title: "3"
 draft: false
+description: Une petite description
+layout: recettes
+type: plat
+categories:
+  - salade
+auteur: me
+regime:
+  - vegetarien
+  - sans-glutten
+temperature: Chaud
+plate: 20
 ingredients:
   legumes:
     - title: Courgette
@@ -12,17 +24,6 @@ ingredients:
     - title: Riz
       quantite: 2
       unit: Kg
-auteur: me
-layout: recettes
-regime:
-  - vegetarien
-  - sans-glutten
-temperature: true
-plate: 20
-title: "3"
-type: plat
-categories:
-  - salade
 preparation: "33"
 publish_date: 2022-10-11T11:07:48.384Z
 ---

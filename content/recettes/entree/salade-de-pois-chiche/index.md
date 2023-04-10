@@ -10,7 +10,7 @@ regime:
   - vegan
   - sans-glutten
   - sans-lactose
-temperature: true
+temperature: Froid
 plate: 190
 ingredients:
   legumes:

@@ -1,7 +1,6 @@
 ---
 draft: false
 title: WE Soutien Vue 22
-layout: testEvent/rangeByVue
 repas:
   - assiettes: 250
     date_service: 2022-11-24T09:00:00.000Z
@@ -47,8 +46,10 @@ repas:
     date_service: 2022-11-22T11:03:09.858Z
     horaire: soir
     recettes_du_repas:
+      - recette: "3"
+        type_plat: plat
       - recette: Nems
-        type_plat: entree
+        type_plat: plat
       - recette: Chorba à  l'agneau (ou mouton)
         type_plat: plat
 ---

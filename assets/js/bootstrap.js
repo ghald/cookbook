@@ -2,7 +2,7 @@
 'use strict';
 
 // bootstrap js - import the whole library
-import 'bootstrap';
+// import 'bootstrap';
 
 // example initialization from this import 
 // var scrollSpy = new bootstrap.ScrollSpy(document.body, {
@@ -11,19 +11,19 @@ import 'bootstrap';
 
 
 // alternatively only import the modules that you need from the library
-// import {
+import {
 //   // Alert, // Control alerts
-//   // Button, // complex button toggles etc
+  Button, // complex button toggles etc
 //   // Carousel, // required for carousel
-//   Collapse, // required for mobile collapse menu
-//   // Dropdown, // not required for navbar only for custom dropdowns
+  Collapse, // required for mobile collapse menu
+  Dropdown, // not required for navbar only for custom dropdowns
 //   // Modal, // modal popups
 //   // Popover, // popovers
 //   // ScrollSpy, // auto update active link for 1 page sites
 //   // Tab, // Tabs
 //   // Toast, // Toasts
 //   // Tooltip , // Tooltips
-// } from 'bootstrap';
+} from 'bootstrap';
 
 // example initialization from this import 
 // const scrollSpy = new ScrollSpy(document.body, {

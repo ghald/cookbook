@@ -25,7 +25,7 @@ categories:
   - Tarte (salée)
 regime:
   - vegetarien
-temperature: true
+temperature: Chaud
 plate: 20
 preparation: "33"
 publish_date: 2022-10-11T13:20:54.178Z

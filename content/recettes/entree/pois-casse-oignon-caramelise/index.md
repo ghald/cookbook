@@ -11,7 +11,8 @@ regime:
   - vegan
   - sans-gluten
   - sans-lactose
-temperature: false
+cuisson: Oui
+temperature: Froid
 plate: 190
 ingredients:
   legumes:
@@ -34,6 +35,10 @@ ingredients:
     - title: Sucre en poudre
       quantite: 250
       unit: grammes
+materiel:
+  - Bruleur
+  - Marmitte
+  - Plat Paela
 preparation: >-
   * Rincer puis faire tremper les pois cassés *pendant une heure*. 
 

@@ -30,7 +30,8 @@ quantityInput.addEventListener('keydown', function (e) {
   // 'change' agit lorsque le focus est perdu ; keyup agit lorsqu'une touche du clavier est relaché
 quantityInput.addEventListener("input", function () {
   amountArray.forEach((value,i) => {
-    amounts[i].innerHTML = (value * quantityInput.value) / quantityInit;
+    amounts[i].innerHTML = (value * quantityInput.value) / quantityInit; 
+    amounts[i].innerHTML = Math.round(amounts[i].innerHTML * 100) / 100;
     });
 
   });

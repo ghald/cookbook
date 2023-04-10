@@ -12,7 +12,8 @@ regime:
   - sans-gluten
   - sans-lactose
 spécialité: Asie
-temperature: false
+cuisson: Oui
+temperature: Froid
 plate: 150
 ingredients:
   autres:
@@ -50,7 +51,8 @@ ingredients:
       quantite: 300
       unit: unité
       commentaire: 300 feuilles de menthes
-materiel: []
+materiel:
+  - Friteuse
 preparation: >-
   * Faire revenir les oignons coupés en petits
 
@@ -62,8 +64,6 @@ preparation: >-
 
   * Laisser cuire le temps de bien assécher la farce ( sinon les nems vont éclater), bien mélanger le tout. Epicer, saler, poivrer. 
 
-
-
   * Faire tremper le feuille de riz, sur un torchon mouillé mettre de la farce en bonne quantité, rouler en serrant le max possible, rabattre les côtés seulement un fois au milieu de la feuille de riz. 
 
   * Le nem doit être super tassé et sans trou. 
@@ -74,6 +74,7 @@ preparation: >-
 
   * Mettre sur du sopalin.
 astuces:
+  - astuce: Autres Astuces !
   - astuce: Rajouter épices selon envies
 publish_date: 2023-01-11T14:41:14.216Z
 ---

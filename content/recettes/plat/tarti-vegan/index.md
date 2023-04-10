@@ -32,9 +32,9 @@ regime:
   - sans-glutten
 saison:
   - ete
-temperature: true
+temperature: Chaud
 plate: 20
 preparation: "33"
-prep-alt: []
+prepAlt: []
 publish_date: 2022-10-11T13:49:54.326Z
 ---

@@ -4,7 +4,8 @@ relativeURLs = true
 canonifyURLs = false
 disableAliases = true
 disableHugoGeneratorInject = true
-# disableKinds = ["taxonomy", "taxonomyTerm"]
+# ignoreErrors = ["error-disable-taxonomy"]
+# disableKinds = ["taxonomy", "term"]
 removePathAccents = true
 enableEmoji = true
 enableGitInfo = false
@@ -18,7 +19,7 @@ defaultContentLanguage = "fr"
 
 # add redirects/headers
 [outputs]
-  home = ["HTML", "RSS", "REDIRECTS", "HEADERS"]
+  home = ["HTML", "RSS", "REDIRECTS", "HEADERS", "JSON"]
 
 # remove .{ext} from text/netlify
 [mediaTypes."text/netlify"]
@@ -51,10 +52,9 @@ defaultContentLanguage = "fr"
 
 [taxonomies]
   category = "categories"
-  # recette = "recettes"
   regime = "regime" # Végé, sans-glut...
   ingredient = "ingredients"
-  # categories = "categories" # tarte, salade.. 
+
   
 
 [permalinks]

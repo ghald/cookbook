@@ -5,12 +5,15 @@ description: Une petite description
 layout: recettes
 type: plat
 categories:
-  - salade
+  - Salade
 auteur: me
 regime:
   - vegetarien
   - sans-glutten
-temperature: Chaud
+saison:
+  - automne
+cuisson: Non
+temperature: Froid
 plate: 20
 ingredients:
   legumes:

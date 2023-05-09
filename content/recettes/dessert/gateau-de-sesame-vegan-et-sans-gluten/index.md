@@ -4,7 +4,7 @@ draft: false
 description: "Gâteau au Sésame noir et chocolat "
 layout: recettes
 type: dessert
-categories: []
+categories: [Gateau]
 auteur: Auré
 regime:
   - vegetarien

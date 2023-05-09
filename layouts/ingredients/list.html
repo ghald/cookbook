@@ -1,0 +1,20 @@
+{{ define "main" }}
+
+<div class="row">
+
+  {{ range .RegularPages }}
+  
+  <div class="col-lg-3 col-md-4 p-1">
+    <div class="card">
+      <div class="card-body py-0 mt-0">
+      
+        <span class="card--recipe-title">{{ .Title }}</span>
+      
+      </div>
+      
+    </div>
+  </div>
+  {{ end }}
+</div>
+
+{{ end }}

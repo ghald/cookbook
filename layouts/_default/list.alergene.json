@@ -1,0 +1,10 @@
+{{- $posts := slice -}}
+{{- range (.Site.GetPage  "section" "ingredients").Sections -}}
+  {{- $sections:= .Title -}}
+  {{ range .Pages }}
+    {{ if .Params.alergene  }}
+      {{- $posts = $posts | append (dict "alergene" .Title) -}}
+    {{ end }}
+  {{ end }}
+{{- end -}}
+{{- $posts | jsonify -}}

@@ -1,0 +1,8 @@
+{{- if hugo.IsProduction -}}
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.6.14/dist/vuetify.min.js"></script>
+{{- end -}}
+
+
+{{ if not hugo.IsProduction }}
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.6.14/dist/vuetify.js"></script>
+{{ end }}

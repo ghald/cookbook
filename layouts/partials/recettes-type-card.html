@@ -11,7 +11,8 @@ partial "recettes-type-card" . }} {{ end -}} {{ end -}} (Si "recette" ne fait pa
         {{if .Params.img}}
         <img class="card-image img-fluid img-cover" src="{{.Params.img}}" />
         {{ else }}
-        <img class="card-image img-fluid img-cover" src="/images/{{.Params.Categories}}.webp" />
+        {{/*  TODO : image !  */}}
+        <img class="card-image img-fluid img-cover" src="images/{{.Params.type}}.webp" />
         {{end}}
         <div class="card-recipe-title">
           <div class="h4 my-0">{{.Title}}</div>
@@ -21,7 +22,7 @@ partial "recettes-type-card" . }} {{ end -}} {{ end -}} (Si "recette" ne fait pa
     <div class="muted fw-light small text-decoration-none text-center mt-3 ">Dernieres recettes publiées :</div>
     <div class="card-body">
       <a href="{{.Permalink}}" class="stretched-link"></a>
-      {{ range first 5 .RegularPages }}
+      {{ range first 5 .RegularPages.ByPublishDate }}
       <div class="card card-recette z-index-2">
         <a href="{{.Permalink}}" class="stretched-link"></a>
         <div>

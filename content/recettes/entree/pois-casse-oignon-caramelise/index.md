@@ -53,5 +53,5 @@ preparation: >-
   * Laisser bouillir et évaporer le liquide avant de remuer.
 
   * Mixer les pois cassés et y ajouter les oignons.
-publish_date: 2023-01-11T14:25:46.288Z
+publishDate: 2023-01-11T14:25:46.288Z
 ---

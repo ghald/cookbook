@@ -1,6 +1,7 @@
 ---
 title: Salade de Pois-chiche
 draft: false
+img: salade-pois-chiches.webp
 layout: recettes
 type: entree
 categories:
@@ -10,6 +11,7 @@ regime:
   - vegan
   - sans-glutten
   - sans-lactose
+cuisson: Oui
 temperature: Froid
 plate: 190
 ingredients:
@@ -55,5 +57,5 @@ preparation: >-
   * Faire revenir ensembles courgettes, poivrons, oignons, rajouter l'ail à la fin.
 
   * Une fois tous les ingrédients refroidis mélanger tout avec les tomates et l'herbe.
-publish_date: 2022-11-23T22:44:10.332Z
+publishDate: 2022-11-23T22:44:10.332Z
 ---

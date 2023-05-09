@@ -1,13 +1,10 @@
 {{ define "main" }}
 
+{{/*  BUG : partial non pris en compte car les pages recettes ont un params "type" ?  */}}
 
 {{ if not hugo.IsProduction }}
 <span class="no-print text-muted">{{ hugo.Environment }}  | Layout : layouts/recettes/list.html </span>
 {{ end }}
-
-
-<link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css"
-rel="stylesheet">
 
 
 {{- $IngredientList := slice -}}
@@ -100,19 +97,19 @@ rel="stylesheet">
         <v-app>
           <div class="filters box">
             <div class="row ">
-              <div class="col-xl-6 col-lg-12 col-md-6" v-if="allilegumes.length">
+              <div class="col-lg-12 col-md-6" v-if="allilegumes.length">
                 <v-autocomplete v-model="filters['ilegumes']" :items="allilegumes" label="Legumes ou fuits"
                 deletable-chips multiple small-chips class="mt-1"></v-autocomplete>
               </div>
-              <div class="col-xl-6 col-lg-12 col-md-6" v-if="allisec.length">
+              <div class="col-lg-12 col-md-6" v-if="allisec.length">
                 <v-autocomplete v-model="filters['isec']" :items="allisec" label="Sec (pois, pates, riz...)"
                 deletable-chips multiple small-chips class="mt-1"></v-autocomplete>
               </div>
-              <div class="col-xl-6 col-lg-12 col-md-6" v-if="allianimaux.length">
+              <div class="col-lg-12 col-md-6" v-if="allianimaux.length">
                 <v-autocomplete v-model="filters['ianimaux']" :items="allianimaux" label="Viandes & Poissons"
                 deletable-chips multiple small-chips class="mt-1"></v-autocomplete>
               </div>
-              <div class="col-xl-6 col-lg-12 col-md-6" v-if="allilof.length">
+              <div class="col-lg-12 col-md-6" v-if="allilof.length">
                 <v-autocomplete v-model="filters['ilof']" :items="allilof" label="LOF (Lait, oeufs, farines, gras...)"
                 deletable-chips multiple small-chips class="mt-1"></v-autocomplete>
               </div>
@@ -125,8 +122,7 @@ rel="stylesheet">
       <div class="col-lg-8"> {{/* Recette CARDS */}}
         <h3>{{ .Title | pluralize }}</h3>
         <!-- TODO ? Moins gourmand ?: possibilité de remplacer in "recipes" par "recettes" : plus besoin de la computed recipes() ; et dans filteredRecipes, mettre this.recettes.filters ...-->
-        
-        
+    
         <div class="input-group"> {{/* Champs de recherche */}}
           <input
           class="form-control"
@@ -138,18 +134,45 @@ rel="stylesheet">
           <button class="btn btn-outline-secondary" type="button" @click="resetSearch">X</button>
         </div>
         
-        <div class="text-end py-2">
-           <span v-show="filteredRecipes.length > 1">
-            [[filteredRecipes.length]] recettes correspondent aux critères de recherche
-          </span>
-          <span v-show="filteredRecipes.length === 1">
-            [[filteredRecipes.length]] reccette correspond aux critères de recherche
-          </span>
-          <div class="m-5" v-show="filteredRecipes.length < 1">
-            Aucune recette ne correspond aux critères de recherche...
+        <div class="card card-body my-2" v-show="filteredRecipes.length != recipes.length">
+          <div class="py-2">
+             <span v-show="filteredRecipes.length > 1">
+              [[filteredRecipes.length]] recettes correspondent aux critères de recherche:
+            </span>
+            <span v-show="filteredRecipes.length === 1">
+              [[filteredRecipes.length]] reccette correspond aux critères de recherche:
+            </span>
+            <div v-show="filteredRecipes.length < 1">
+              Aucune recette ne correspond aux critères de recherche...
+            </div>
+          </div>
+          <div>
+            <div v-show="filters.categories.length > 0" v-for="(item, index) in filters.categories" class="d-inline"><span class="badge bg-green">[[item]]</span> <span class="small" v-show="index+1 !=  filters.categories.length"> ou </span>
+            </div>
+            <span class="fw-bold" v-show="filters.categories.length > 0">et</span>
+            <div v-show="filters.regimes.length > 0" v-for="(item, index) in filters.regimes" class="d-inline"><span class="badge bg-grey">[[item]]</span> <span class="small" v-show="index+1 !=  filters.regimes.length"> ou </span></div>
+            <span class="fw-bold" v-show="filters.regimes.length > 0">et</span>
+            <div v-show="filters.temperature.length > 0" v-for="(item, index) in filters.temperature" class="d-inline"><span v-if="item === 'Chaud'" class="badge bg-orange">Servir Chaud</span>
+            <span v-else class="badge bg-blue">Servir Froid</span> <span class="small" v-show="index+1 !=  filters.temperature.length"> ou </span></div>
+            <span class="fw-bold" v-show="filters.temperature.length > 0">et</span>
+            <div v-show="filters.cuisson.length > 0" v-for="(item, index) in filters.cuisson" class="d-inline"><span v-if="item === 'Oui'" class="badge bg-orange">Avec Cuisson</span>
+            <span v-else class="badge bg-blue">Sans Cuisson</span> <span class="small" v-show="index+1 !=  filters.cuisson.length"> ou </span></div>
+            <span class="fw-bold" v-show="filters.cuisson.length > 0">et</span>
+            <div v-show="filters.saison.length > 0" v-for="(item, index) in filters.saison" class="d-inline"><span class="badge bg-grey">[[item]]</span> <span class="small" v-show="index+1 !=  filters.saison.length"> ou </span></div>
+            <span class="fw-bold" v-show="filters.saison.length > 0">et</span>
+            <div v-show="filters.ilegumes.length > 0" v-for="(item, index) in filters.ilegumes" class="d-inline"><span class="badge bg-green">[[item]]</span> <span class="small" v-show="index+1 !=  filters.ilegumes.length"> ou </span></div>
+            <span class="fw-bold" v-show="filters.ilegumes.length > 0">et</span>
+            <div v-show="filters.ianimaux.length > 0" v-for="(item, index) in filters.ianimaux" class="d-inline"><span
+                class="badge bg-grey">[[item]]</span> <span class="small" v-show="index+1 !=  filters.ianimaux.length"> ou </span></div>
+            <span class="fw-bold" v-show="filters.ianimaux.length > 0">et</span>
+            <div v-show="filters.isec.length > 0" v-for="(item, index) in filters.isec" class="d-inline"><span
+                class="badge bg-grey">[[item]]</span> <span class="small" v-show="index+1 !=  filters.isec.length"> ou </span></div>
+            <span class="fw-bold" v-show="filters.isec.length > 0">et</span>
+            <div v-show="filters.ilof.length > 0" v-for="(item, index) in filters.ilof" class="d-inline"><span
+                class="badge bg-grey">[[item]]</span> <span class="small" v-show="index+1 !=  filters.ilof.length"> ou </span></div>
+            <span v-show="filters" class="small text-muted">...</span>
           </div>
         </div>
-        
         {{/*  Les recettes CARDS  */}}
         <div  
         class="fhide card my-2 p-3"
@@ -157,6 +180,8 @@ rel="stylesheet">
         :key="key"
         :class="{fshow: filteredRecipes.includes(recipe) }"
         >
+        <a :href="[[recipe.url]]" class="stretched-link"></a>
+
         <span class="h4">
           <a :href="[[recipe.url]]">[[recipe.title]]</a>
         </span>
@@ -198,7 +223,8 @@ rel="stylesheet">
 </div>
 </div>
 
-
+{{/*  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">  */}}
+<link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
 <style> 
   .opacify{
     opacity : 0.33;
@@ -223,8 +249,8 @@ rel="stylesheet">
         auteur: "{{.Params.auteur}}",
         specialite: "{{.Params.spécialité}}",
         saison: [{{- range .Params.saison -}} "{{ . }}", {{- end -}}],
-        categories: [{{- range sort .Params.categories -}} "{{ . }}",{{- end -}}],
-        regimes: [{{- range sort .Params.regime -}} "{{ . }}",{{- end -}} ],
+        categories: [ {{ if .Params.categories }} {{- range sort .Params.categories -}} "{{ . }}",{{- end -}} {{ end }} ],
+        regimes: [{{- if .Params.regime -}} {{- range sort .Params.regime -}} "{{ . }}", {{- end -}} {{- end -}}],
         ilegumes: [{{- range .Params.ingredients.legumes -}} "{{ .title }}",{{- end -}} ],
         isec: [ {{- range .Params.ingredients.sec -}} "{{ .title }}",{{- end -}} ], 
         ianimaux: [ {{- range .Params.ingredients.animaux -}} "{{ .title }}",{{- end -}}
@@ -418,6 +444,7 @@ rel="stylesheet">
           this.filters['ilof'] = []
           this.filters['cuisson'] = []
           this.filters['temperature'] = []
+          this.filters['saison'] = []
         },
         resetSearch: function () {
           this.searchQuery = '' 

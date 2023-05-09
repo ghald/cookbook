@@ -1,11 +1,12 @@
 {
-  "overrides": [
+  overrides: [
     {
-      "files": ["*.html"],
-      "options": {
-        "parser": "go-template"
-      }
-    }
+      files: ["*.html"],
+      options: {
+        parser: "go-template",
+        "goTemplateBracketSpacing": true,
+
+      },
+    },
   ],
-  "goTemplateBracketSpacing": true
 }

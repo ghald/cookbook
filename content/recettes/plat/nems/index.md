@@ -74,7 +74,6 @@ preparation: >-
 
   * Mettre sur du sopalin.
 astuces:
-  - astuce: Autres Astuces !
   - astuce: Rajouter épices selon envies
-publish_date: 2023-01-11T14:41:14.216Z
+publishDate: 2023-01-11T14:41:14.216Z
 ---

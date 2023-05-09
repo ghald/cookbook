@@ -6,35 +6,44 @@ rel="stylesheet">
 <!-- TODO: C'est quoi ? => -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"> 
 
-
 <!-- Liste qui contiendra tous les ingrédients avec leurs données associés (quantité, recette, date, assietes...). Sert aux tableaux des quantités.  -->
 {{- $IngredientList := slice -}}
 
 <!-- Liste qui contiendra qui contient les listes de recettes pour chaque date -->
 {{- $recettesList := slice -}}
 
-<!-- Listes des recettes, qui contient la liste des ingredients -->
 {{- $IngredientsTypesList := slice -}}
-
 {{- $recettesAll :=  dict -}}
-
+{{$recetteKey:= 1}}
 
 {{- range $.Param "repas" -}}
   <!-- Creation des variables qui ne seront plus visible au prochain scope. Nous sommes dans les params de l'Evenement -->
   {{- $dateService:=.date_service -}}
   {{- $horaire:=.horaire -}}
-  {{- $assiettesRepas:= (int .assiettes)  -}}
-    
-  {{- $count:=1 -}} 
+  {{- $assiettes:= (int .assiettes)  -}}
+ 
   <!--  -->
   {{- range .recettes_du_repas -}}
   <!-- Creation des variables qui ne seront plus visible au prochain scope. Nous sommes dans les params de 1er niveau des recettes -->
     {{- $recette:=.recette -}}
     {{- $typePlat:=.type_plat -}}
+    {{ if .altAssiettes }}
+      {{- $assiettes = .altAssiettes  -}}
+    {{ end }}
 
     <!-- Envoie de la liste des recettes dans recettesList-->
-    {{- $recettesList = $recettesList | append (dict "recette" .recette "dateService" $dateService "horaire" $horaire "typePlat" $typePlat "assiettesRepas" $assiettesRepas "chef" .chef "commentaire" .commentaire) -}}
+    {{- $recettesList = $recettesList | append (dict 
+      "recetteKey" $recetteKey 
+      "recette" .recette 
+      "dateService" $dateService 
+      "horaire" $horaire 
+      "typePlat" $typePlat 
+      "assiettes" $assiettes 
+      "chef" .chef 
+      "commentaire" .commentaire
+      )  -}}
 
+    {{$recetteKey = (add (float $recetteKey) 1)}}
 
     <!-- Reccupération des données sur les pages de chaque recettes -->
     {{- $url:= print .recette | urlize -}}
@@ -45,473 +54,32 @@ rel="stylesheet">
         <!-- ...on liste/boucle sur tous les sous parametres -->
         {{- range $index, $element := . -}}
         <!-- pour ingType: on reccupère la clé $key de notre range, qui correspond au nom du sous-parametre (nested parameters), et on met sa premiere lettre en majuscule -->
-      
-          {{- $IngredientList = $IngredientList | append (dict "ingredient" .title "quantite" .quantite "unit" .unit "ingType" ($key | strings.FirstUpper ) "recette" $recette "dateService" $dateService  "horaire" $horaire "typePlat" $typePlat "assiettesRecettes" $assiettesRecettes "assiettesRepas" $assiettesRepas) -}}
+        {{$quantiteCompute:= float "0" }}
 
+        {{ if .quantite }}
+          {{ $quantiteCompute = ((div (mul (float .quantite) (float $assiettes )) (float $assiettesRecettes ))) }}
+        {{ end }}
 
-          
-
+          {{- $IngredientList = 
+              $IngredientList | append (
+                dict "ingredient" .title 
+                      "quantite" $quantiteCompute 
+                      "unit" .unit 
+                      "ingType" ($key | strings.FirstUpper ) 
+                      "recette" $recette 
+                      "dateService" $dateService  
+                      "horaire" $horaire 
+                      "typePlat" $typePlat 
+                      "assiettesRecettes" $assiettesRecettes 
+                      "assiettes" $assiettes
+                      ) -}}
           {{- $IngredientsTypesList = $IngredientsTypesList | append (dict  "iType" ($key | strings.FirstUpper ) ) | uniq  -}}
-
-          
         {{- end -}}
       {{- end -}}
-
+     
     {{- end -}} {{/* {{ with site.GetPage $url }} */}}
   {{- end -}} {{/* recettes_du_repas */}}
 {{- end -}} {{/* range $.param repas */}}
-
-<div id="app">
-  <v-app class="bg-light">
-         <!-- <v-navigation-drawer
-            app
-            expand-on-hover
-         >
-           <v-list
-             nav
-             dense
-           >
-             <v-list-item link @click="showSection('recettes')">
-               <v-list-item-icon>
-                 <v-icon>mdi-folder</v-icon>
-               </v-list-item-icon>
-               <v-list-item-title>My Files</v-list-item-title>
-             </v-list-item>
-             <v-list-item link>
-               <v-list-item-icon>
-                 <v-icon>mdi-account-multiple</v-icon>
-               </v-list-item-icon>
-               <v-list-item-title>Shared with me</v-list-item-title>
-             </v-list-item>
-             <v-list-item link>
-               <v-list-item-icon>
-                 <v-icon>mdi-star</v-icon>
-               </v-list-item-icon>
-               <v-list-item-title>Starred</v-list-item-title>
-             </v-list-item>
-           </v-list>
-         </v-navigation-drawer> -->
-
-
-    {{/*  lien vers le CMS de la page  */}}
-    {{ $linkCMSPage := (path.Join "/admin/#/collections/evenement/entries/" (.Title | urlize)) }}
-    <a target="_blank" rel="noopener noreferrer" href="{{$linkCMSPage}}/index" class="text-end no-print">Modifier</a>
-
-    <div class="position-sticky top-0 z-9 no-print" >
-      <v-toolbar
-         elevation="4"
-         outlined
-         rounded
-       >
-
-          {{/*  MeNu bar : ecran large  */}}
-           <div v-if="$vuetify.breakpoint.mdAndUp">
-             <v-btn 
-              class="mx-3" 
-              @click="showSection('recettes')"
-              :color="isActive === 'recettes' ? 'primary' : 'light'"
-              >Les recettes</v-btn>
-             <v-btn 
-              class="mx-3 "
-              @click="showSection('ingredients')"
-              :color="isActive === 'ingredients' ? 'primary' : 'light'"
-               >Listes des ingrédients</v-btn>
-             <v-btn 
-              class="mx-3 " 
-              @click="showSection('affiches')"
-              :color="isActive === 'affiches' ? 'primary' : 'light'"
-             >Les affiches</v-btn>
-             <template class="no-print">
-               <v-dialog
-                v-model="printDialog"
-                scrollable
-                max-width="350px"
-                class="d-print-none"
-                >
-                <template v-slot:activator="{ on, attrs }" 
-               >
-                 <v-btn 
-                  v-bind="attrs"
-                  v-on="on"
-                  class=""
-                 >Impression / PDF
-                </v-btn>
-                </template>
-                 <v-card class="p-3 d-print-none">
-                   <v-card-title>Impression</v-card-title>
-                   <v-card-subtitle>Sélectionnez ce que vous souhaitez imprimer</v-card-subtitle>
-                       <v-switch
-                        v-model="printRecettes"
-                        label="Les recettes"
-                       >
-                       </v-switch>
-                       <v-switch
-                        v-model="printIngredients"
-                        label="Les ingrédients"
-                       >
-                       </v-switch>
-                       <v-switch
-                        v-model="showAllRow"
-                        label="avec les quantité de chaque recette"
-                        class="ml-5"
-                       >
-
-                       </v-switch>
-                       <v-switch
-                        v-model="printAffiches"
-                        label="Les affiches"
-                       >
-                       </v-switch>
-                   <v-card-actions>
-                     <v-row>
-                       <v-col>
-                         <v-btn
-                         color="warning"
-                         @click="printDialog = false">
-                           Annuler
-                         </v-btn>
-                       </v-col>
-                       <v-col>
-                         <v-btn
-                         color="primary"
-                         @click="print"
-                         >
-                           Imprimer
-                         </v-btn>
-                       </v-col>
-                     </v-row>
-                   </v-card-actions>
-               
-                 </v-card>
-               </v-dialog>
-             </template>
-           </div>
-
-           {{/*  Menu large, petit ecran  */}}
-             <div v-if="$vuetify.breakpoint.smAndDown">
-              <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    v-on="on"
-                    v-bind="attrs"
-                    fab
-                    small
-                    color="primary"
-                    class="mx-3"
-                  > <v-icon>mdi-menu</v-icon>
-                  </v-btn>
-            </template>
-                  <v-list>
-                    <v-list-item>
-                      <v-btn
-                        text
-                        @click="showSection('recettes')">
-                        <a href="#Recettes">Les recettes</a>
-                      </v-btn>
-                    </v-list-item>
-                    <v-list-item>
-                      <v-btn
-                        text
-                        @click="showSection('ingredients')"
-                        >
-                        Listes des ingrédients
-                      </v-btn>
-                    </v-list-item>
-                    <v-list-item >
-                      {{/*  TODO : les affiches !  */}}
-                      <v-btn
-                        text
-                        @click="showSection('affiches')"
-                        >
-                        Les Affiches
-                      </v-btn>  
-                    </v-list-item>
-                  </v-list> 
-              </v-menu>
-           
-        <template class="no-print">
-          <v-dialog v-model="printDialog" scrollable max-width="350px" class="d-print-none">
-            <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              v-on="on"
-              v-bind="attrs"
-              fab
-              small
-              > <v-icon>mdi-file</v-icon>
-            </v-btn>
-            </template>
-              <v-card class="p-3 d-print-none">
-                <v-card-title>Impression</v-card-title>
-                <v-card-subtitle>Sélectionnez ce que vous souhaitez imprimer</v-card-subtitle>
-                <v-switch v-model="printRecettes" label="Les recettes">
-                </v-switch>
-                <v-switch v-model="printIngredients" label="Les ingrédients">
-                </v-switch>
-                <v-switch v-model="showAllRow" label="avec les quantité de chaque recette" class="ml-5">
-              
-                </v-switch>
-                <v-switch v-model="printAffiches" label="Les affiches">
-                </v-switch>
-                <v-card-actions>
-                  <v-row>
-                    <v-col>
-                      <v-btn color="warning" @click="printDialog = false">
-                        Annuler
-                      </v-btn>
-                    </v-col>
-                    <v-col>
-                      <v-btn color="primary" @click="print">
-                        Imprimer
-                      </v-btn>
-                    </v-col>
-                  </v-row>
-                </v-card-actions>
-              
-              </v-card>
-              </v-dialog>
-             </template>
-            </div>
-            </v-toolbar>
-     </div>
-
-    <v-container v-show="showedSection.includes('recettes') || printRecettes" :class="{ 'printonly' : !showedSection.includes('recettes')}">
-      <h3 id="Recettes" class="no-print">Les recettes</h3>
-      <div class="row d-print-none p-2">
-          <v-switch
-            v-model="displayDetails"
-            label="Afficher Détails"
-            class="col-auto ms-auto card" 
-          ></v-switch>
-      </div>
-
-    <div :class="{'no-print':!printRecettes}">
-      {{ range $recettesList }}
-          <div class="card break-after avoid-break-inside my-4 p-2" >
-            <div class="card-body py-1">
-              <div class="py-1">
-                <span :class="{'h2 my-2': $vuetify.breakpoint.mdAndUp ,'h4 my-1 py-0' : $vuetify.breakpoint.mdAndDown || !displayDetails } ">{{ .recette }}</span>
-                {{- $url:= print .recette | urlize -}}
-                {{- with site.GetPage $url -}}
-                {{ if .Params.spécialité }}
-                <span class="text-muted float-end">Spécialité : {{ .Params.spécialité }}
-                </span>
-                {{ end }}
-                {{ end }}
-                
-              </div>
-              <div class="row">
-                <div class="col">
-                  <div :class="{'fw-semibold' : $vuetify.breakpoint.mdAndUp,} "> {{ .dateService | time.Format "Monday 2 January "}} - {{ .horaire }}</div>
-                  <div class="fw-light">
-                  Référent•es: {{ .chef }} - Nombre d'assietes: {{ .assiettesRepas }}</div>
-                  <div>
-                    {{- $url:= print .recette | urlize -}}
-                    {{- with site.GetPage $url -}}
-                
-                    {{ if .Params.materiel }}
-                      {{ range .Params.materiel }}
-                        <div class="badge bg-grey ">{{ . }}</div>
-                      {{ end }}
-                    {{ end }}
-                  </div>
-                
-                </div>
-                <div class="col text-end">
-                    {{ partial "content/badge-recette.html" . }}
-                </div>
-                  {{ end }} {{/* with site.GetPage $url */}}
-              </div > 
-              
-                <div class="row" v-show="displayDetails">
-                  <div class="col-md-4 print-col-30-100">
-                    <h5 :class="{'text-center ': $vuetify.breakpoint.smAndUp}">Ingrédients</h5>
-
-                    {{- $assiettesRepas:= (int .assiettesRepas)  -}}
-
-                          
-                    {{- $url:= print .recette | urlize -}}
-                    {{- with site.GetPage $url -}}
-
-                    {{/*  Reccupération de la variable .Params.plate avec le range suivant, pour pouvoir l'utiliser dans le calcul des quantités correspondant au nombre d'assiete du repas  */}}
-                    {{- $assiettesRecettes:= (int .Params.plate) -}}
-
-
-                    {{- range $key, $value := .Params.ingredients -}}
-                    {{ with . }}
-                    <div class="card my-2 pa-2 " outlined>
-                      <div class="row">
-                        <div class="col">
-                          <span class="">{{ $key | strings.FirstUpper }} </span>
-                          {{ range $index, $element := . -}}
-                          <div class="small">
-
-                          {{/*  Pour obtenir les quantité correspondant au nombres d'assiettes indiquées  */}}
-
-                             <span class="fw-bolder">{{ .title }}</span> 
-                              {{ if .quantite }}
-                                {{ if or (eq .unit "Kg") (eq .unit "litre")}}
-                                  : {{ $quantiteRepas := (float (div (mul (float .quantite) $assiettesRepas ) $assiettesRecettes))}}
-                                  {{ $quantiteRepas | lang.FormatNumber 2 }}
-                                {{ else }}
-                                  : {{ $quantiteRepas :=  (div (mul (float .quantite) $assiettesRepas ) $assiettesRecettes)}}
-                                  {{ math.Round $quantiteRepas }}
-                                {{ end }}
-                                
-                                {{.unit}}
-                              {{ end }}
-                          </div>
-                          {{ end }}
-                        </div>
-                      </div>
-                    </div>
-                    {{ end }}
-                    {{ end }}
-                  </div>
-                  <div class="col-md-8 print-col-70-100">
-                    <h5 class="text-center">Préparation</h5>
-                    <div class=" card card-body">
-                    {{ .Params.preparation | markdownify }}</div>
-                    {{ range .Params.prepAlt }}
-                    <h6 class="text-center">Alternative : {{ .regime }}</h6>
-                    <div class="card card-body">
-                      {{ .preparation | markdownify }}
-                    </div>
-                    {{ end }}
-                  </div>
-
-                      {{ range .Params.astuces }}
-                      <div class="col-md-5 card card-body m-2 small ">
-                        Astuce: {{ .astuce }}
-                      </div>
-                      {{ end }}
-  
-                  {{ end }} {{/* with site.GetPage $url */}}
-                </div>
-            </div>
-          </div>
-    {{ end }}
-    </div>
-
-  </v-container>
-
-<!--  -->
-
-<v-container v-show="showedSection.includes('ingredients') || printIngredients" :class="{ 'printonly' : !showedSection.includes('ingredients') } ">
-<h3 class="no-print">Listes d'ingrédients et quantités</h3>
- <div class="row" justify="space-arround">
-    <v-navigation-drawer permanent class="no-print d-print-none d-flex flex-wrap" :class="{'sidefilter' : $vuetify.breakpoint.mdAndUp}">
-        <v-card class=" p-2 ">
-          <v-menu
-            v-model="startDateMenu"
-            :close-on-content-click="false"
-            transition="scale-transition"
-            min-width="280px"
-            max-width="auto"
-            offset-y
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="startDateSelected"
-                  label="à partir de la date..."
-                  {{/*  prepend-icon="mdi-calendar"  */}}
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="startDateSelected"
-                @input="startDateMenu = false"
-                :allowed-dates="datesAllowedRange"
-                :events="datesRepas"
-                event-color="primary"
-              ></v-date-picker>
-          </v-menu>
-          <v-menu
-            v-model="endDateMenu"
-            :close-on-content-click="false"
-            transition="scale-transition"
-            offset-y
-            min-width="280"
-            >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="endDateSelected"
-                label="...jusqu'à la date"
-                {{/*  prepend-icon="mdi-calendar"  */}}
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              >
-              </v-text-field>
-            </template>
-            <v-date-picker
-              v-model="endDateSelected"
-              @input="endDateMenu = false"
-              :allowed-dates="datesAllowedRange"
-              :events="datesRepas"
-              event-color="primary"
-            ></v-date-picker>
-          </v-menu>
-            <v-btn 
-              v-on:click="datesReset" 
-              x-small 
-              rounded
-              >
-              Toutes les dates
-            </v-btn>
-              
-            <v-text-field v-model="search" append-icon="mdi-magnify" label="Rechercher ingredient..."
-            single-line hide-details 
-            style="min-width:200px"></v-text-field>
-            <v-checkbox
-            v-model="showAllRow"
-            label="Afficher les quantité pour chaque recette"
-            style="min-width:200px"
-            ></v-checkbox>
-          </v-card>
-        </v-navigation-drawer>
-    
-    <div class="col-md-8 col-12 print-col-12" :class="{'no-print':!printIngredients}">
-    {{ range sort $IngredientsTypesList "iType" "desc"}}
-        <v-card outlined class="my-2 mb-lg-6 avoid-break-inside">
-          <v-card-title >Ingredient {{ .iType }} 
-            <span
-            v-if="startDate !== startDateSelected || endDate !== endDateSelected">
-               - Du [[new Date (startDateSelected).toLocaleDateString("fr")]] au [[new Date (endDateSelected).toLocaleDateString("fr")]]
-            </span>
-          </v-card-title>
-          {{/*  TODO Ingredients des recettes alternatives ?   */}}
-          <v-card-subtitle class="small">(Ne contient pas les ingrédients précisés dans les recettes alternatives)</v-card-subtitle>
-         
-          <v-data-table 
-          :items="totalsIngredientFiltered('{{ .iType }}')" :headers="totalsEachIngredientHeaders" 
-          sort-by="ingredient" 
-          disable-pagination hide-default-footer hide-default-header 
-          class="p-2 m-2" 
-          :search="search">
-            <template v-slot:item="{ item }">
-              <tr :class="{'grey lighten-5 fw-bold'  : item.total && showAllRow}" v-if="showAllRow || item.total !== undefined ">
-                <td :class="{'fw-bold' : item.total}">[[item.ingredient]]</td>
-                <td v-if="item.recette" class="print-75p100"><span class="fw-bold">[[item.recette]]</span> le [[new Date(item.dateService).toLocaleDateString("fr")]]  -
-                [[item.horaire]] <br> pour [[item.assiettesRepas]] assiettes <span class="fw-bold float-right" v-if="item.quantite && item.unit">[[item.quantite]] [[item.unit]]</span></td>
-                <td v-else :class="{'no-print' : !showAllRow }"></td>
-                <td  class="text-right">
-                  [[item.total]] <span v-if="item.total !== 'non présisé'">[[item.unitTotal]]</span>
-                </td>
-
-              </tr>
-            </template>
-          </v-data-table> 
-        </v-card>
-    {{ end }}
-      </div>
-  </div>
-</v-container>
-</v-app>
-</div> {{/* v-app end */}}
-
-
 
 <script nonce="6GwL6l4yhLQddbSv2ftKfX9sTqEkpYcmwyUPm5LEdgqF6VP27IUA5SLae8ScqZ171xC7gGVVZAOuYPJnsiUAzPadx4yFkdQ7GNHa" type="module" >
 
@@ -533,18 +101,19 @@ rel="stylesheet">
         startDateMenu: false,
         endDateMenu: false,
         showAllRow: false,
-        ingredientsTypesList: [{{ print $IngredientsTypesList }}],
+        {{/*  ingredientsTypesList: [{{ print $IngredientsTypesList }}],  */}}
         recettes: [
-        {{/* Création de la liste des recettes, et des données de chacunes, en réccupérant la liste recettesList créer par Hugo. */}} 
+        {{/* Création de la liste des recettes, et des données de chacunes, en réccupérant la liste recettesList créer par Hugo. #USELESS */}} 
           {{- range $recettesList -}}
             {
+              recetteKey: "{{.recetteKey}}",
               recette: "{{ .recette }}",
               dateService: "{{ .dateService }}",
               horaire: "{{ .horaire }}",
               typePlat: "{{ .typePlat }}",
               chef: "{{ .chef }}",
               commentaire: "{{ .commentaire }}",
-              assiettesRepas: {{ .assiettesRepas }},
+              assiettes: {{ .assiettes }},
           {{/* On reccupère l'url correspondant au nom de la recette... */}}
               {{- $url:= print .recette | urlize -}}
               {{- with site.GetPage $url -}}
@@ -553,7 +122,6 @@ rel="stylesheet">
               specialite: "{{ .Params.spécialité }}",
               temperature: "{{ .Params.temperature }}",
               preparation: "{{ .Params.preparation }}",
-              prepAlt: "{{ .Params.prepAlt }}",
               img: {{ .Params.img }}, 
               {{- $assiettesRecettes:= .Params.plate -}}
               assiettesRecettes: "{{ $assiettesRecettes }}",
@@ -591,12 +159,13 @@ rel="stylesheet">
             horaire: "{{ .horaire }}",
             typePlat: "{{ .typePlat }}",
             assiettesRecettes: {{ .assiettesRecettes }},
-            assiettesRepas: {{ .assiettesRepas }},
+            assiettes: {{ .assiettes }},
           },
           {{ end }}
           ],
-        
-        totalsEachIngredientHeaders: [
+
+              
+          totalsEachIngredientHeaders: [
           { text: 'Ingrédient', value: 'ingredient' },
           { text: 'par recette', value: 'recette'},
           { text: 'Quantité totale', value: 'total', align: 'right' },
@@ -609,24 +178,26 @@ rel="stylesheet">
           { text: "quantité", align: "end", filterable: false, value: "quantite" },
           ], 
 
-          displayDetails: true,
+        displayDetails: true,
 
-          select: ['Recettes', "Ingrédients"],
-          printable: [
-            'Recettes',
-            'Ingrédients',
-            'Affiches'
-          ], 
-          printRecettes: true,
-          printIngredients: true,
-          printAffiches: false,
+        select: ['Recettes', "Ingrédients"],
+        printable: [
+          'Recettes',
+          'Ingrédients',
+          {{/*  'Affiches'  */}}
+        ], 
 
-          printDialog: false,
+        printRecettes: true,
+        printIngredients: true,
+        {{/*  printAffiches: false,  */}}
 
-          showedSection: ['recettes', 'ingredients'],
-          isActive : null
+        printDialog: false,
 
-       
+        showedSection: ['recettes', 'ingredients'],
+        isActive : null,
+        IngredientsTypesList: [{{ range $IngredientsTypesList }} {{ .iType }}, {{ end }} ],
+      
+      
   } {{/* return */}}    
 }, {{/* data */}}
 
@@ -682,27 +253,22 @@ mounted () {
 }, // mounted() end
 
 
-
-
 computed: { 
 
+  {{/*  #USELESS #TODO : faire le calcul en dure avec Hugo  → au moins pour le produit en croix*/}}
   ingredients: function () {
-  // let ingredients = this.ingredientsRecettes; // USELESS ?!
-  return this.ingredientsRecettes.map(ingredient => {
-  let quantite = this.computeQuantite(ingredient);
-  return {
-    recette: ingredient.recette,
-    dateService: ingredient.dateService,
-    horaire: ingredient.horaire,
-    typePlat: ingredient.typePlat,
-    ingredient: ingredient.ingredient,
-    ingredientType: ingredient.ingredientType,
-    unit: ingredient.unit,
-    quantite: quantite,
-    assiettesRepas: ingredient.assiettesRepas,
-  }
-});
-},
+    return this.ingredientsRecettes.map(ingredient => {
+      let quantite = this.computeQuantite(ingredient);
+      return {
+        ... ingredient,
+        quantite: quantite,
+      }
+    });
+  },
+
+
+
+
 }, // computed end
 
 watch: {
@@ -723,6 +289,7 @@ methods: {
   showSection (el) {
     this.showedSection = el ;
     this.isActive = el ;
+    window.scrollTo(0, 200);
   },
 
   printSection (el) {
@@ -738,9 +305,9 @@ methods: {
       this.printIngredients = true;
     } else {this.printIngredients = false}
 
-    if (this.select.includes('Affiches')) {
+    {{/*  if (this.select.includes('Affiches')) {
       this.printAffiches = true;
-    } else {this.printAffiches = false}
+    } else {this.printAffiches = false}  */}}
   },
 
   print() {
@@ -770,7 +337,7 @@ methods: {
 
   computeQuantite: function (ingredient) {
    // Recalcule les quantité d'ingredients en fonctions du nombre d'assietes prévues  
-    let x = (Number(ingredient.quantite) * Number(ingredient.assiettesRepas)) / Number(ingredient.assiettesRecettes);
+    let x = (Number(ingredient.quantite));
     if (typeof ingredient.quantite != "number") {
       ingredient.quantite = '-';
     } else if (ingredient.unit == "Kg" || ingredient.unit == "litre") {
@@ -791,17 +358,28 @@ methods: {
     return quantite / 1000;
   },
 
-  totalsIngredientFiltered: function (iType) {
+  totalsIngredientFiltered: function (iType, ingredientsList) {
   // Creer un tableau des totals de chaques ingrédients lorsque leurs unités ne sont pas différentes. Si Kg et grammes: conversion en Kg avec convertToKg()
   // TODO : Diviser la fonction en plusieurs fonctions : 1 par filtre et calcul ensuite ?    
- 
-    const totals = this.ingredients.filter(i => i.ingredientType === iType && i.dateService >= this.startDateSelected && i.dateService <= this.endDateSelectedDebug);
+    let ingredients;
+    ingredients = this.ingredients;
+
+    const totals = ingredients.filter(
+      i => i.ingredientType === iType && 
+      i.dateService >= this.startDateSelected && 
+      i.dateService <= this.endDateSelectedDebug &&
+      i.ingredient.toLowerCase().includes(this.search.toLowerCase()) 
+      );
+
+    const listQuantite = new Map();
+    
     totals.forEach((item) => {
       if (!totals[item.ingredient]) { 
         totals[item.ingredient] = {
           unitTotal: item.unit,
           total: 0,
         };
+
       } 
       if (totals[item.ingredient].unitTotal === item.unit) {
         totals[item.ingredient].total += item.quantite;
@@ -813,34 +391,49 @@ methods: {
         totals[item.ingredient].unitTotal = 'Kg'
 
 
-      } else { // si les unité ne peuvent pas s'additionné / sont de différentes nature...
-        totals[item.ingredient] = {
-          total: "Incalculable...",
-          unitTotal: undefined,
+      } else { // si les unités ne peuvent pas s'additionner / sont de différentes nature...
+           if (!listQuantite.has(item.ingredient)) {
+            listQuantite.set(item.ingredient, []);
+          }
+          listQuantite.get(item.ingredient).push({ 
+            quantite: item.quantite, 
+            unit: item.unit });
+      
+          totals[item.ingredient] = {
+            total: "Incalculable...",
+            fallbackTotal: listQuantite[item.ingredient],
         }; 
       }
 
       // Arrondir a 2 décimale
-      if (typeof totals[item.ingredient].total === "number" ) {
+      if (typeof totals[item.ingredient].total === "number" && totals[item.ingredient].total > 0 ) {
         const rounded = totals[item.ingredient].total ;
         totals[item.ingredient].total = Math.round(rounded * 100) / 100;
       } else if (totals[item.ingredient].total === "Incalculable..." ) {
-        return;
+        totals[item.ingredient] = {
+          total: "Incalculable...",
+          fallbackTotal:  listQuantite[item.ingredient],
+        }; 
       } else { // si les quantité sont manquante (comme pour des épices...)
         totals[item.ingredient].total = "non présisé"
       }
 
     });
-    // renvoyer la map avec les nouveaux parametres
-    return Object.entries(totals).map(([ingredient, { unitTotal, total, ...item}]) => ({ ingredient, unitTotal, total, ...item}));
-  },
 
+    // renvoyer la map avec les nouveaux parametres
+    return Object.entries(totals).map(([ingredient, { unitTotal, total, fallbackTotal, ...item}]) => ({ ingredient, unitTotal, total, fallbackTotal, ...item}));
+  },
 
 
   ingredientTypeList () {
     return [...new Set (this.ingredients.map(ingredient => ingredient.ingredientType))];
   },
 
+
+
+  filteredResultsCount(iType) {
+    return this.totalsIngredientFiltered(iType, 'ingredients').length;
+  },
 
   datesAllowedRange: function (val) {
 // retourne toutes les dates comprisent entre la premiere et la dernieres =>
@@ -865,6 +458,502 @@ methods: {
 
 
 </script>
+
+<div id="app">
+<v-app class="">
+  {{/*  lien vers le CMS de la page  */}}
+  {{ $linkCMSPage := (path.Join "/admin/#/collections/evenement/entries/" (.Title | urlize)) }}
+  <span class="text-end no-print p-2"><a target="_blank" rel="noopener noreferrer" href="{{$linkCMSPage}}/index">Modifier</a></span>
+
+  <div class="position-sticky top-0 z-9 no-print" >
+    <v-toolbar
+        elevation="4"
+        outlined
+        rounded
+      >
+
+          {{/*  MeNu bar : ecran large  */}}
+           <div v-if="$vuetify.breakpoint.mdAndUp">
+             <v-btn 
+              class="mx-3" 
+              @click="showSection('recettes')"
+              :color="isActive === 'recettes' ? 'primary' : 'light'"
+              >Les recettes</v-btn>
+             <v-btn 
+              class="mx-3 "
+              @click="showSection('ingredients')"
+              :color="isActive === 'ingredients' ? 'primary' : 'light'"
+               >Listes des ingrédients</v-btn>
+             {{/*  <v-btn 
+              class="mx-3 " 
+              @click="showSection('affiches')"
+              :color="isActive === 'affiches' ? 'primary' : 'light'"
+             >Les affiches</v-btn>  */}}
+             <template class="no-print">
+               <v-dialog
+                v-model="printDialog"
+                scrollable
+                max-width="350px"
+                class="d-print-none"
+                >
+                <template v-slot:activator="{ on, attrs }" 
+               >
+                 <v-btn 
+                  v-bind="attrs"
+                  v-on="on"
+                  class=""
+                 >Impression / PDF
+                </v-btn>
+                </template>
+                 <v-card class="p-3 d-print-none">
+                   <v-card-title>Impression</v-card-title>
+                   <v-card-subtitle>Sélectionnez ce que vous souhaitez imprimer</v-card-subtitle>
+                       <v-switch
+                        v-model="printRecettes"
+                        label="Les recettes"
+                       >
+                       </v-switch>
+                       <v-switch
+                        v-model="printIngredients"
+                        label="Les ingrédients"
+                       >
+                       </v-switch>
+                       <v-switch
+                        v-model="showAllRow"
+                        label="avec les quantité de chaque recette"
+                        class="ml-5"
+                       >
+
+                       </v-switch>
+                       {{/*  <v-switch
+                        v-model="printAffiches"
+                        label="Les affiches"
+                       >
+                       </v-switch>  */}}
+                   <v-card-actions>
+                     <v-row>
+                       <v-col>
+                         <v-btn
+                         color="warning"
+                         @click="printDialog = false">
+                           Annuler
+                         </v-btn>
+                       </v-col>
+                       <v-col>
+                         <v-btn
+                         color="primary"
+                         @click="print"
+                         >
+                           Imprimer
+                         </v-btn>
+                       </v-col>
+                     </v-row>
+                   </v-card-actions>
+               
+                 </v-card>
+               </v-dialog>
+             </template>
+           </div>
+
+           {{/*  Menu large, petit ecran  */}}
+             <div v-if="$vuetify.breakpoint.smAndDown">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-on="on"
+                    v-bind="attrs"
+                    fab
+                    small
+                    color="primary"
+                    class="mx-3"
+                  > <v-icon>mdi-menu</v-icon>
+                  </v-btn>
+            </template>
+                  <v-list>
+                    <v-list-item>
+                      <v-btn
+                        text
+                        @click="showSection('recettes')">
+                        <a href="#Recettes">Les recettes</a>
+                      </v-btn>
+                    </v-list-item>
+                    <v-list-item>
+                      <v-btn
+                        text
+                        @click="showSection('ingredients')"
+                        >
+                        Listes des ingrédients
+                      </v-btn>
+                    </v-list-item>
+                      {{/*  TODO : les affiches !  */}}
+                    {{/*  <v-list-item >
+                      <v-btn
+                        text
+                        @click="showSection('affiches')"
+                        >
+                        Les Affiches
+                      </v-btn>  
+                    </v-list-item>  */}}
+                  </v-list> 
+              </v-menu>
+           
+        <template class="no-print">
+          <v-dialog v-model="printDialog" scrollable max-width="350px" class="d-print-none">
+            <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-on="on"
+              v-bind="attrs"
+              fab
+              small
+              > <v-icon>mdi-file</v-icon>
+            </v-btn>
+            </template>
+              <v-card class="p-3 d-print-none">
+                <v-card-title>Impression</v-card-title>
+                <v-card-subtitle>Sélectionnez ce que vous souhaitez imprimer</v-card-subtitle>
+                <v-switch v-model="printRecettes" label="Les recettes">
+                </v-switch>
+                <v-switch v-model="printIngredients" label="Les ingrédients">
+                </v-switch>
+                <v-switch v-model="showAllRow" label="avec les quantité de chaque recette" class="ml-5">
+              
+                </v-switch>
+                {{/*  <v-switch v-model="printAffiches" label="Les affiches">
+                </v-switch>  */}}
+                <v-card-actions>
+                  <v-row>
+                    <v-col>
+                      <v-btn color="warning" @click="printDialog = false">
+                        Annuler
+                      </v-btn>
+                    </v-col>
+                    <v-col>
+                      <v-btn color="primary" @click="print">
+                        Imprimer
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-card-actions>
+              
+              </v-card>
+              </v-dialog>
+             </template>
+            </div>
+            </v-toolbar>
+     </div>
+
+
+
+
+
+{{/* LES RECETTES   */}}
+
+
+    <v-container v-show="showedSection.includes('recettes') || printRecettes" :class="{ 'printonly' : !showedSection.includes('recettes')}">
+      <h3 id="Recettes" class="no-print">Les {{len $recettesList}} recettes prévues pour l'événement "{{.Page.Title}}"</h3>
+      <div class="row d-print-none p-2">
+          <v-switch
+            v-model="displayDetails"
+            label="Afficher Détails"
+            class="col-auto ms-auto card" 
+          ></v-switch>
+      </div>
+
+    <div :class="{'no-print':!printRecettes}">
+
+
+
+<div class="no-print">
+  {{/*  Variable permettant de vérifier si les recettes sont de la meme date et du meme horaire ou pas; pour gérer leur affichage / l'organisation des recettes  */}}
+  {{ $dateService := "none"}}
+  {{ $horaire := "none" }}
+    <div class="card p-4 m-2">
+      <span class="fs-4">Sommaire</span>
+      {{- range $recettesList -}}
+        <div class="">
+          {{ if and (ne (.dateService | time.Format "Monday 2 January ") $dateService) }}
+          <a href="#{{.dateService | time.Format "Monday 2 January" |urlize}}" class="fw-bolder">
+            <slot name='{{.dateService | time.Format "Monday 2 January" | urlize}}'>{{.dateService | time.Format "Monday 2 January"}}</slot>
+          </a>
+          {{ end }}
+      
+          <div class="ms-5">
+            <a href="#{{ .recetteKey }}"> <slot name="{{ .recetteKey }}"></slot>{{.recette }} → ({{.horaire}} - {{.typePlat}}) </a>
+          </div>
+        </div>
+      {{ $dateService = (.dateService | time.Format "Monday 2 January ")}}
+      
+      {{end}}
+    </div>
+</div>
+
+
+      {{ range sort $recettesList }}
+      {{/*  variables  */}}
+
+        <div class="no-print">
+          {{ if ne (.dateService | time.Format "Monday 2 January ") $dateService }}
+            <div class="h3 text-center card py-4 mx-6 bg-primary bg-opacity-10 fw-bolder"  id="{{.dateService | time.Format "Monday 2 January" |urlize}}">{{ .dateService | time.Format "Monday 2 January"}}</div>
+          {{ end }}
+          
+          {{ if ne .horaire $horaire }}
+            <div class="h4 text-center card py-3 mx-6 bg-light">{{ .horaire}} </div>
+          {{ end }}
+          
+          
+          {{ $dateService = (.dateService | time.Format "Monday 2 January ")}}
+          {{ if eq (.dateService | time.Format "Monday 2 January ") $dateService }}
+            {{ $horaire = .horaire }}
+          {{ else }}
+            {{ $horaire = "" }}
+          {{ end }}
+        </div>
+
+
+        <div class="card break-after avoid-break-inside my-4 p-2 bg-light bg-opacity-25"  >
+          <div class="card-body py-1 ">
+            <div class="py-1">
+              <div :class="{'h2 my-2': $vuetify.breakpoint.mdAndUp ,'h4 my-1 py-0' : $vuetify.breakpoint.mdAndDown || !displayDetails }" id="{{ .recetteKey }}">{{ .recette }}</div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div :class="{'fw-semibold' : $vuetify.breakpoint.mdAndUp,} "> {{ .dateService | time.Format "Monday 2 January "}} - {{ .horaire }} - {{ .typePlat }}</div>
+                <div class="fw-light">
+                Référent•es: {{ .chef }} - Nombre d'assietes: 
+                    {{ .assiettes }}
+                 </div>
+                <div>
+                  {{- $url:= print .recette | urlize -}}
+                  {{- with site.GetPage $url -}}
+                    {{ if .Params.spécialité }}
+                      <div class="small">Spécialité : {{ .Params.spécialité }}</div>
+                    {{ end }}
+                  {{ end }}
+                  {{- $url:= print .recette | urlize -}}
+                  {{- with site.GetPage $url -}}
+          
+                  {{ if .Params.materiel }}
+                    {{ range .Params.materiel }}
+                      <div class="badge bg-grey ">{{ . }}</div>
+                    {{ end }}
+                  {{ end }}
+                </div>
+          
+              </div>
+              <div class="col text-end">
+                  {{ partial "content/badge-recette.html" . }}
+              </div>
+                {{ end }} {{/* with site.GetPage $url */}}
+            </div >
+              
+        {{/*  LES INGREDIENTS  */}}
+            <div class="row" v-show="displayDetails">
+              <div class="col-md-4 print-col-30-100">
+                <h5 :class="{'text-center ': $vuetify.breakpoint.smAndUp}">Ingrédients</h5>
+                
+                {{/*  variable avant GetPage  */}}
+                {{- $assiettes:= (int .assiettes)  -}}
+                {{- $url:= print .recette | urlize -}}
+                {{/*    */}}
+                
+                {{- with site.GetPage $url -}}
+
+                {{/*  Reccupération de la variable .Params.plate avec le range suivant, pour pouvoir l'utiliser dans le calcul des quantités correspondant au nombre d'assiete du repas  */}}
+                {{- $assiettesRecettes:= (int .Params.plate) -}}
+                
+                {{- range $key, $value := .Params.ingredients -}}
+                {{ with . }}
+                <div class="card my-2 pa-2 " outlined>
+                  <div class="row">
+                    <div class="col">
+                      <span class="">{{ $key | strings.FirstUpper }} </span>
+                      
+                      {{ range $index, $element := . -}}
+                      <div class="small">
+                      {{/*  Pour obtenir les quantité correspondant au nombres d'assiettes indiquées  */}}
+                          <span class="fw-bolder">{{ .title }}</span>
+                         
+                          {{ if .quantite }}
+                            {{ if or (eq .unit "Kg") (eq .unit "litre")}}
+                              : {{ $quantiteRepas := (float (div (mul (float .quantite) $assiettes ) $assiettesRecettes))}}
+                              {{ $quantiteRepas | lang.FormatNumber 2 }}
+                            {{ else }}
+                              : {{ $quantiteRepas :=  (div (mul (float .quantite) $assiettes ) $assiettesRecettes)}}
+                              {{ math.Round $quantiteRepas }}
+                            {{ end }}
+                            {{.unit}}
+                          {{ end }}
+
+                      </div>
+                      {{ end }}
+
+                    </div>
+                  </div>
+                </div>
+                {{ end }}
+                {{ end }} {{/* range $key, $value := .Params.ingredients */}}
+          
+            
+              </div>
+          
+          
+          
+          
+        {{/*  PREPARATION  */}}
+              <div class="col-md-8 print-col-70-100">
+                <h5 class="text-center">Préparation</h5>
+                <div class=" card card-body">
+                  {{ .Params.preparation | markdownify }}
+                </div>
+          
+             
+              </div>
+                  {{ range .Params.astuces }}
+                  <div class="col-md-5 card card-body m-2 small ">
+                    Astuce: {{ .astuce }}
+                  </div>
+                  {{ end }}
+              {{ end }} {{/* with site.GetPage $url */}}
+            </div>
+          </div>
+        </div>
+    {{ end }}
+    </div>
+
+  </v-container>
+
+<!--  -->
+
+<v-container v-show="showedSection.includes('ingredients') || printIngredients" :class="{ 'printonly' : !showedSection.includes('ingredients') } ">
+<h3 class="no-print">Listes d'ingrédients et quantités</h3>
+ <div class="row" justify="space-arround">
+    <v-navigation-drawer permanent class="no-print d-print-none d-flex flex-wrap" :class="{'sidefilter' : $vuetify.breakpoint.mdAndUp}">
+        <v-card class=" p-2  ">
+        
+          <v-menu
+            v-model="startDateMenu"
+            :close-on-content-click="false"
+            transition="scale-transition"
+            min-width="280px"
+            max-width="auto"
+            offset-y
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="startDateSelected"
+                  label="à partir de la date..."
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="startDateSelected"
+                @input="startDateMenu = false"
+                :allowed-dates="datesAllowedRange"
+                :events="datesRepas"
+                event-color="primary"
+              ></v-date-picker>
+          </v-menu>
+          <v-menu
+            v-model="endDateMenu"
+            :close-on-content-click="false"
+            transition="scale-transition"
+            offset-y
+            min-width="280"
+            >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="endDateSelected"
+                label="...jusqu'à la date"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              >
+              </v-text-field>
+            </template>
+            <v-date-picker
+              v-model="endDateSelected"
+              @input="endDateMenu = false"
+              :allowed-dates="datesAllowedRange"
+              :events="datesRepas"
+              event-color="primary"
+            ></v-date-picker>
+          </v-menu>
+            <v-btn 
+              v-on:click="datesReset" 
+              x-small 
+              rounded
+              >
+              Toutes les dates
+            </v-btn>
+              
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="Rechercher ingredient..."
+            single-line hide-details 
+            style="min-width:200px"></v-text-field>
+            <v-checkbox
+            v-model="showAllRow"
+            label="Afficher les quantité pour chaque recette"
+            style="min-width:200px"
+            ></v-checkbox>
+            
+          </v-card>
+
+          
+        </v-navigation-drawer>
+    
+
+  
+
+         
+    <div class="col-md-8 col-12 print-col-12" :class="{'no-print':!printIngredients}">
+    {{ range sort $IngredientsTypesList "iType" "desc"}}
+        <v-card v-if="this.totalsIngredientFiltered('{{.iType}}', 'ingredients').length > 0"  outlined class="my-2 mb-lg-6 avoid-break-inside  grey lighten-5 ">
+          <v-card-title >Ingrédients {{ .iType }} 
+            <span
+            v-if="startDate !== startDateSelected || endDate !== endDateSelected" class="small ms-2">
+                - Du [[new Date (startDateSelected).toLocaleDateString("fr")]] au [[new Date (endDateSelected).toLocaleDateString("fr")]]
+            </span>
+          </v-card-title>
+                  
+          <v-data-table 
+          :items="totalsIngredientFiltered('{{ .iType }}', 
+          'ingredients')" :headers="totalsEachIngredientHeaders" 
+          sort-by="ingredient" 
+          disable-pagination hide-default-footer hide-default-header 
+          class="p-2 m-2 bg-white bg-opacity-75" 
+          :search="search">
+            <template v-slot:item="{ item }">
+              <tr :class="{'grey lighten-3 fw-bold'  : item.total && showAllRow}" v-if="showAllRow || item.total !== undefined ">
+                <td>[[item.ingredient]]</td>
+                <td v-if="item.recette">
+                  <span class="fw-bold">[[item.recette]]</span> le [[new Date(item.dateService).toLocaleDateString("fr")]]  -
+                  [[item.horaire]] <br> pour [[item.assiettes]] assiettes 
+                  <span class="fw-bold float-right" v-if="item.quantite && item.unit">[[item.quantite]] [[item.unit]]</span></td>
+                <td v-else :class="{'no-print' : !showAllRow }"></td>
+                <td  class="text-right">
+                [[item.total]] 
+                  <span v-if="item.total !== 'non présisé'">[[item.unitTotal]]</span>
+                  <span v-if="item.fallbackTotal">[[item.fallbackTotal]]</span>
+                </td>
+
+              </tr>
+            </template>
+          </v-data-table> 
+        </v-card>
+      {{ end }}
+
+     
+
+    </div>
+  </div>
+</v-container>
+</v-app>
+</div> {{/* v-app end */}}
+
+
 
 
 {{ end }}

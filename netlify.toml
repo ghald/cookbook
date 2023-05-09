@@ -22,7 +22,7 @@
   HUGO_ENV = "next"
 
 [[plugins]]
-  package = "netlify-plugin-submit-sitemap"
+  # package = "netlify-plugin-submit-sitemap"
 
 	[plugins.inputs]
     baseUrl = "https://hyas.netlify.app/"
@@ -36,7 +36,7 @@
 
 [dev]
   framework = "#custom"
-  command = "npm run start"
+  command = "npx netlify-cms-proxy-server && npm run start"
   targetPort = 1313
   port = 8888
   publish = "public"

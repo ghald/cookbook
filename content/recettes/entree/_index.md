@@ -1,4 +1,4 @@
 ---
 title: Entrée
-img: /images/salades.webp
+img: /images/salade.webp
 ---

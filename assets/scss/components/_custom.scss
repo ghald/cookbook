@@ -55,8 +55,6 @@ input[type="number"] {
 
 .search-wrapper {
   display: block;
-  margin: 1rem auto;
-  padding: 2rem ;
   justify-content: center;
   align-items: center;
   background-color: #f6f8fa;
@@ -120,6 +118,11 @@ input[type="number"] {
 
 /// Modifieurs 
 
+.fs-x-sm {
+  font-size: 0.65em;
+  margin: -.2em 0;
+}
+
 .fs-xx-sm {
   font-size: 0.55em
 }
@@ -128,6 +131,12 @@ input[type="number"] {
 
 .bg-red {
   background-color: rgba(156, 7, 7, 0.6);
+}
+
+
+
+.bg-dark-red {
+  background-color: $red-primary-4
 }
 
 .bg-green {
@@ -147,6 +156,7 @@ input[type="number"] {
   background-color: rgba(174, 174, 174, 0.6);
   color: black;
 }
+
 
 .bg-blue {
   background-color:rgba(25, 149, 211, 0.501)
@@ -484,12 +494,12 @@ input[type="number"] {
   h1 {
     font-size: 2rem;
     font-weight: 900;
+    margin-bottom: .75rem;
   }
 
   h2 {
     font-size: 1.75rem;
     font-weight: 900;
-
   }
 
   h3 {
@@ -682,7 +692,7 @@ input[type="number"] {
   h4
   h5,
   h6 {
-    margin-bottom: .3cm
+    margin: .3cm 0
   }
 
 

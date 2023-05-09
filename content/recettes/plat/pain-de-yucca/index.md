@@ -29,7 +29,7 @@ ingredients:
       unit: Kg
   autres:
     - title: Levure chimique
-      quantité: 51
+      quantite: 51
       unit: grammes
       commentaire: levure chimique pour les vegan et l'absence de gluten...
   epices:
@@ -50,29 +50,6 @@ preparation: >-
   * Rouler des petites boules avec la pate et les placer sur une plaque recouvert de papier sulfu.
 
   * Enfourner 8 minutes et deguster immediatement.
-prepAlt:
-  - regime:
-      - vegan
-    preparation: >-
-      Remplacer le beure par de l'huile de tournesol mélangé avec 1 CàS de pâte
-      d'amande 
-
-
-      **Féta alternative à faire la veille:**
-
-
-      * *Mixer 200 g de graines de lupin débarrassées de leur peau,* 
-
-      * *100 g de tofu lactofermenté nature,* 
-
-      * *150 ml d’huile de coco inodore  fondue,* 
-
-      * *150 ml de lait de soja,* 
-
-      * *2 c à s de jus de citron,* 
-
-      * *1 c à c de sel,* 
-
-      * *puis mettre au frigo 12H*
-publish_date: 2022-11-23T20:23:25.888Z
+prepAlt: []
+publishDate: 2022-11-23T20:23:25.888Z
 ---

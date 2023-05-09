@@ -92,5 +92,5 @@ prepAlt:
     preparation: Avant d'ajouter les langues d''oiseau prélever la chroma pour les
       sans-gluglu et incorporer des spaghettis maïs 90%-riz cassé en petits
       bouts
-publish_date: 2023-01-11T14:12:52.682Z
+publishDate: 2023-01-11T14:12:52.682Z
 ---

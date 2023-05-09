@@ -2,7 +2,7 @@
 'use strict';
 
 // bootstrap js - import the whole library
-// import 'bootstrap';
+import 'bootstrap';
 
 // example initialization from this import 
 // var scrollSpy = new bootstrap.ScrollSpy(document.body, {

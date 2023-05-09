@@ -7,7 +7,7 @@
 
 
 <div id="searchApp">
-  <div class="search-wrapper">
+  <div class="search-wrapper p-4">
     <div class="search-module">
        <input
         v-focus
@@ -116,7 +116,6 @@
   const searchAppfilters = new Vue({
     delimiters: ['[[', ']]'],
     el: '#searchApp',
-    {{/*  vuetify: new Vuetify(),  */}}
     data: () => ({
       recettes: [
 
@@ -129,8 +128,8 @@
       auteur: "{{- .Params.auteur -}}",
       specialite: "{{- .Params.spécialité -}}",
       saison: [{{- range .Params.saison -}} "{{ . }}", {{- end -}} ],
-      categories: [{{- range sort .Params.categories -}} "{{ . }}", {{- end -}}],
-      regimes: [{{- range sort .Params.regime -}} "{{ . }}", {{- end -}}],
+      categories: [ {{- range .Params.categories -}} "{{ . }}", {{- end -}}],
+      regimes: [ {{- if .Params.regime -}} {{- range sort .Params.regime -}} "{{ . }}", {{- end -}} {{- end -}} ],
       temperature: "{{ .Params.temperature }}",
       cuisson: "{{ .Params.cuisson }}",
       materiel: [{{- range .Params.materiel -}}  "{{ . }}", {{- end -}}]

@@ -51,5 +51,5 @@ preparation: >-
   * Goûter, puis assaisonner.
 
   * Mélanger le citron confit avec la pâte.
-publish_date: 2022-11-23T04:52:56.219Z
+publishDate: 2022-11-23T04:52:56.219Z
 ---

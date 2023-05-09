@@ -108,8 +108,8 @@
 {{ partial "test/all-taxonomies" . }}
 
 
-          
-          {{ range .Pages }}
+      <code>range .Pages ... range (.GetTerms "categories") </code>    
+      {{ range .Pages }}
           <div><a href="{{.Permalink}}">{{.Title}}</a></div>
         </div>
         {{ end -}}
@@ -279,7 +279,7 @@
       <div class="row mb-5 card">
         <code>range where .Site.RegularPages ".Params.Categories"
           "Tartinade" )</code>
-        {{ range where .Site.RegularPages ".Params.Categories" "Tartinade"
+        {{ range where .Site.RegularPages ".Params.Categories" "tartinade"
         }}
         <div><a href="{{.Permalink}}">{{.Title}}</a></div>
         {{ end -}}
@@ -287,24 +287,47 @@
           Categories est un array ?
         </span>
       </div>
+      <div class="row mb-5 card">
+        <highlight>range where .Site.RegularPages ".Params.temperature" "Chaud" )</highlight>
+        {{ range where .Site.RegularPages ".Params.temperature" "Chaud"
+        }}
+        <div><a href="{{.Permalink}}">{{.Title}}</a></div>
+        {{ end -}}
+        <span class="alert-warning small my-2">sans array
+        </span>
+      </div>
       <div class="row my-5 card">
         <code>range where (where .Site.Pages "Type" "plat" )
-          "Params.temperature" "=" true</code>
+          "Params.temperature" "=" Chaud</code>
         <div class="alert-info small">Affiche les pages de type plat dont le
-          paramettre "temperature" est vrai</div>
-        {{ range where (where .Site.Pages "Type" "plat" )
-        "Params.temperature" "=" true }}
+          paramettre "temperature" est Chaud</div>
+        {{ range where (where .Site.Pages "Type" "plat" ) "Params.temperature" "=" "Chaud" }}
         <div><a href="{{.Permalink}}">{{.Title}}
           </a><span class="small">Temperature : {{.Params.temperature}}</span></div>
         {{ end -}}
-      </div>pack
+      </div>
+
+      <code>range (where .Site.RegularPages "Section" "recettes" ) "Params.temperature" "=" "Chaud"</code>
+      {{ range where (where .Site.RegularPages "Section" "recettes" ) "Params.temperature" "=" "Chaud"}}
+      <div> <a href="{{.Permalink}}">{{.Title}}</a> </div>
+      {{ end }}
+      
+      <code>range .Site.Taxonomies.cuisson.oui</code>
+      {{ range .Site.Taxonomies.cuisson.oui}}
+      <div> <a href="{{.Permalink}}">{{.Title}}</a> </div>
+      {{ end }}
+      <span>→ rien : n'est pas un array</span>
+    <br>
+
+      pack
       <div class="row card mb-5">
         <code>range .Site.Taxonomies.regime.vegetarien</code>
         <span class="alert-info small">Liste les pages dont le paramettre
           "regimes" est "vegetarien")
         </span>
-        {{ range .Site.Taxonomies.regime.vegetarien }}
-        <a href="{{ .Permalink }}">{{ .Title}}</a>
+
+        {{  range .Site.Taxonomies.regime.vegetarien }}
+          <a href="{{ .Permalink }}">{{ .Title}}</a>
         {{ end }}
         <span class="alert-warning small my-2">Bug quand un pluriel est
           defini dans config.toml > taxonomies (regime =
@@ -317,13 +340,14 @@
         {{ range .Site.Taxonomies.Categories.salade }}
         <a href="{{ .Permalink }}">{{ .Title}}</a>
         {{ end }}
+        <div>→ ne fonctionne pas car Categorie n'est pas dans le taxonomie de config.toml</div>
       </div>
       <div class="row my-5 card">
         <code>range where .Site.RegularPages ".Params.Categories"
-          "intersect" (slice "Salade")</code>
+          "intersect" (slice "sans-lactose" "sans-gluten"</code>
         <div class="alert-info small"></div>
-        {{ range where .Site.RegularPages ".Params.Categories" "intersect"
-        (slice "Salade") }}
+        {{ range where .Site.RegularPages ".Params.regime" "intersect"
+        (slice "sans-lactose"  "sans-gluten" ) }}
         <div><a href="{{.Permalink}}">{{.Title}}
           </a></div>
         {{ end -}}
@@ -338,7 +362,7 @@
           $t := slice "vegan" "sans-glutten" <br>
           range where .Site.Pages ".Params.regime" "intersect" $t
         </code>
-        {{ $t := slice "vegan" "sans-glutten" }}
+        {{ $t := slice "vegan" "sans-glutten" "s" }}
         {{ range where .Site.Pages ".Params.regime" "intersect" $t }}
         <div>
           <a href="{{ .Permalink }}">{{ .Title }}</a> - <span class="small">{{.Params.regime}}</span>
@@ -352,7 +376,7 @@
           taxonomie (.Params, defini dans frontmatter des pages) 'regime'
         </div>
         {{range .Site.RegularPages }}
-        {{if .Params.regime}}
+        {{if eq .Params.regime "Froid"}}
         <div><a href="{{.Permalink}}">{{.Title}}
           </a></div>
         {{end}}
@@ -361,11 +385,12 @@
 
       
       <div class="h4">GetPage</div>
-        <div class="row mb- card">
+        <div class=" card">
         <code>              
         with .GetPage "recettes/plat/pain-de-yucca" .Title end
-        </code>
-        <div>{{with .GetPage "recettes/plat/pain-de-yucca" }} {{.Title}} {{end}}</div>
+      </code>
+      <div>{{with .GetPage "recettes/plat/pain-de-yucca" }} {{.Title}} {{end}}</div>
+    </div>
         
         <code>with .Site.GetPage "recettes/plat/pain-de-yucca" .Title end</code>
         <div>{{with .Site.GetPage "recettes/plat/pain-de-yucca" }} {{.Title}} {{end}}</div>
@@ -377,10 +402,45 @@
         <code>with site.GetPage "recettes/plat/pain-de-yucca" .Title end</code>
         <div>{{with site.GetPage "recettes/plat/pain-de-yucca" }} {{.Title}} {{end}}</div>
 
-
-
-
+        <br>
+        <h4>test</h4>
+          {{ range $key, $value := index .Site.Taxonomies.regime "vegan" }}
+          <li>{{.Title}} {{.Params.regime}}</li>
+          {{ end }}
+<br>
+        <div class="card mb-5">
+          <code>range .Site.Pages range .Data.Terms.Alphabetical </code>
+            {{ range .Site.Pages }}
+            {{ range .Data.Terms.Alphabetical }}
+            <li>
+              <a href="{{ .Page.Title | urlize}}">{{ .Page.Title }}
+                <span>{{ .Count }}</span>
+              </a>
+            </li>
+            {{ end }}
+            {{ end }}
         </div>
-      
+
+<div class="card mb-5">
+  <code> range where (where site.Pages "Type" "plat") "Params.specialite" "!=" nil</code>
+  {{ range where (where site.Pages "Type" "plat") "Params.temperature" "!=" "Froid"  }}
+  {{ if (eq .Params.cuisson "Oui") }}
+  <li>{{ .Title }}</li>
+  {{end}}
+  {{end}}
+</div>
+
+{{/*  <div class="card mb-5">
+  <code> with site.GetPage (printf "/%s" .Section) ...</code>
+  {{ with .Site.GetPage (printf "/%s" .Page.Section) }}
+  {{ $sections := .Sections }}
+  {{ range where $sections }}
+  <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+  {{ end }}
+  {{end}}
+
+</div>  */}}
+
+
 
       {{ end }}

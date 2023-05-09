@@ -1,27 +1,19 @@
 ---
-title: Taboulé libanais
 draft: false
 layout: recettes
-type: entree
-categories:
-  - Salade
 regime:
   - vegetarien
   - vegan
   - sans-lactose
 spécialité: Liban
-saison:
-  - ete
-  - automne
 temperature: Froid
-plate: 100
 ingredients:
   sucres:
     - title: Jus de citron
       quantite: 2
       unit: litre
   lof:
-    - title: huile d’olive
+    - title: huile d'olive
       quantite: 2
       unit: litre
   autres: []
@@ -33,7 +25,33 @@ ingredients:
       quantite: 10
       unit: Kg
       commentaire: grosses tomates de préférences
-  epices: []
+  epices:
+    - title: Persil (aromatique)
+      quantite: 6
+      unit: Kg
+    - title: Menthe (aromatique)
+      quantite: 10
+      unit: bottes
+  animaux: []
+  sec:
+    - title: Semoule
+      quantite: 1.2
+      unit: Kg
+ingtest:
+  ingredient-sec: []
+  ingredient-animaux:
+    - title: 0 viia
+      quantite: 4
+      unit: grammes
+title: Taboulé libanais
+type: entree
+categories:
+  - Salade
+saison:
+  - ete
+  - automne
+cuisson: Non
+plate: 100
 preparation: |-
   * Faire tremper le ble dans un grand volume d'eau et laisser 30mn. 
   * Laver le persil et couper le en FINE JULIENNE (1mm d'epaisseur)
@@ -44,11 +62,7 @@ preparation: |-
   * Reservez au frais. 
   * Mélanger le citron et l huile et incorporer 30MN avant de servir.
   * Réserver au frais.
-prepAlt:
-  - regime:
-      - sans-glutten
-    preparation: '* Remplacer la semoule par de la "semoule" (cousous) de mais-riz,
-      a raison de 1,20 kg de mais-riz pour 1 kg de semoule'
+prepAlt: []
 astuces: []
-publish_date: 2022-11-23T00:47:52.955Z
+publishDate: 2023-04-13T14:12:56.856Z
 ---

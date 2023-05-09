@@ -1,4 +1,4 @@
 ---
 title: Dessert
-img: /images/desserts.webp
+img: /images/dessert.webp
 ---

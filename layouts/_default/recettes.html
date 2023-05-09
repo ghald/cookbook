@@ -6,9 +6,10 @@
 
 <h1>{{.Title}}</h1>
 {{ if .Params.auteur }}
-<div class="text-muted fs-5">une recette de {{ .Params.auteur }}
+<span class="text-muted fs-5">une recette de {{ .Params.auteur }}</span>
 {{ end }}
-</div>
+<div class="text-muted fs-6"> publiée le {{ dateFormat "02 January 2006" (.Params.publishDate)  }}</div>
+
 
 {{/* lien vers le CMS de la page */}}
 {{ $linkCMSPage := (path.Join "/admin/#/collections/Recettes/entries/" (.Params.type) (.Title | urlize)) }}
@@ -20,25 +21,27 @@
 </div>
 
 <div class="row">
-  <div class="container">
-    <div class="m-2 p-2 fs-5 text-end">
-      {{ partial "content/badge-recette.html" . }}
-    </div>
-    <div class="m-2 p-2 text-end">
-      {{ if .Params.materiel }}
-      <span class="fw-bold">Materiel: </span>
-      {{ range .Params.materiel }}
-      <span class="badge bg-grey">{{ . }}</span>
-      {{ end }}
-      {{ end }}
+<div class="container">
+<div class="m-2 p-2 fs-5 text-end">
+{{ partial "content/badge-recette.html" . }}
+</div>
+<div class="m-2 p-2 text-end">
+{{ if .Params.materiel }}
+<span class="fw-bold">Materiel: </span>
+{{ range .Params.materiel }}
+<span class="badge bg-grey">{{ . }}</span>
+{{ end }}
+{{ end }}
     </div>
 
     <div class="no-print">
       <span id="quantityInit" , style="display:none">{{.Params.plate}}</span>
-      <form class="form-control form-control-lg">
-        <label for="amount">Nombre d'assietes à servir : </label>
-        <input type="number" id="quantityInput" name="quantityInput" value="{{.Params.plate}}">
-      </form>
+        <form>
+          <div class="input-group my-2">
+            <span class="input-group-text" for="amount">Nombre d'assietes à servir : </span>
+            <input type="number" class="form-control form-control-lg col-lg-1 col-md-2" id="quantityInput" name="quantityInput" value="{{.Params.plate}}" >
+          </div>
+        </form>
     </div>
 
 
@@ -48,7 +51,7 @@
           <div class="card-header h4 m-0">Ingrédients</div>
           <div class="card-body">
             {{ if .Params.ingredients.legumes }}
-            <div class="flex-col mb-4">
+            <div class="flex-col mb-4 ps-2">
               <div class="border-bottom fw-bolder pb-2 ">
                 Legumes ou fruits (frais)
               </div>
@@ -58,7 +61,7 @@
             </div>
             {{end}}
             {{ if .Params.ingredients.sec }}
-            <div class="flex-col mb-4">
+            <div class="flex-col mb-4 ps-2">
               <div class="border-bottom fw-bolder pb-1 ">Sec (Legumineuses, céréales...)</div>
               {{ range .Params.ingredients.sec }}
               {{partial "content/ingredients" .}}
@@ -66,7 +69,7 @@
             </div>
             {{end}}
             {{ if .Params.ingredients.lof }}
-            <div class="flex-col mb-4">
+            <div class="flex-col mb-4 ps-2">
               <div class="border-bottom fw-bolder pb-1 ">LOF (Legumineuses, céréales...)</div>
               {{ range .Params.ingredients.lof }}
               {{partial "content/ingredients" .}}
@@ -74,7 +77,7 @@
             </div>
             {{end}}
             {{ if .Params.ingredients.animaux }}
-            <div class="flex-col mb-4">
+            <div class="flex-col mb-4 ps-2">
               <div class="border-bottom fw-bolder pb-1 ">Animaux</div>
               {{ range .Params.ingredients.animaux }}
               {{partial "content/ingredients" .}}
@@ -82,7 +85,7 @@
             </div>
             {{end}}
             {{ if .Params.ingredients.autres }}
-            <div class="flex-col mb-4">
+            <div class="flex-col mb-4 ps-2">
               <div class="border-bottom fw-bolder pb-1 ">Autres</div>
               {{ range .Params.ingredients.autres }}
               {{partial "content/ingredients" .}}
@@ -90,7 +93,7 @@
             </div>
             {{end}}
             {{ if .Params.ingredients.epices }}
-            <div class="flex-col mb-4">
+            <div class="flex-col mb-4 ps-2">
               <div class="border-bottom fw-bolder pb-1 ">Epices/condiments</div>
               {{ range .Params.ingredients.epices }}
               {{partial "content/ingredients" .}}
@@ -114,8 +117,32 @@
         {{ if .Params.prepAlt }}
         {{ range .Params.prepAlt }}
         <div class=" card shadow-sm my-4 avoid-break-inside">
-          <div class="card-header h4 m-0">Alternative {{ .regime }}</div>
+          <div class="card-header m-0"><span class="h4">Alternative {{ .regime }}</span>
+            <div class="no-print my-3">
+              <form action="">
+                <div class="input-group ">
+                  <span id="quantityInitAlt" , style="display:none">{{.plateAlt}}</span>
+                  <span class="input-group-text small " for="amountAlt">Nombre d'assietes à servir :</span>
+                   <input type="number" class="form-control col-md-2" id="quantityInputAlt" name="quantityInputAlt" value="{{.plateAlt}}">
+                </div>
+              </form>
+            </div>
+          </div>
           <div class="card-body">
+         
+            <div>
+              <div class="fw-bold">Ingredients :</div>
+              <ul>
+                {{ range .ingredientsAlt}}
+                  <li class="small">{{ .title }} 
+                    {{ if .quantite }}
+                    : <span class="amountAlt", id="amountAlt">{{.quantite}}</span> {{.unit}}
+                    {{ end }}
+                     </li>
+                {{end}}
+              </ul>
+            </div>
+
             <div class="m-auto">
               {{.preparation | markdownify }}
             </div>

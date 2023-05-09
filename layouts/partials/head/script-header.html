@@ -6,6 +6,9 @@
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 
+
+
+
 {{/* Vue et Vuetify */}}
 {{/*  {{ if hugo.IsProduction }}
 {{ partial "footer/esbuild" (dict "src" "js/vendor/vue.min.js" "load" "async" "transpile" false) -}}
@@ -17,20 +20,18 @@
 {{ partial "footer/esbuild" (dict "src" "js/vendor/vuetify.js" "load" "async" "transpile" false) -}}
 {{ end }}  */}}
 
+{{ if hugo.IsProduction }}
 {{ $vuejs := resources.Get "js/vendor/vue.min.js" | resources.Fingerprint "sha512" }}
 <script src="{{- $vuejs.Permalink -}}" integrity="{{ $vuejs.Data.Integrity }}"></script>
 
 {{ $vuetify := resources.Get "js/vendor/vuetify.min.js" | resources.Fingerprint "sha512" }}
 <script src="{{- $vuetify.Permalink -}}" integrity="{{ $vuetify.Data.Integrity }}"></script>
-
-
-{{/* Vue et Vuetify */}}
-{{/*  {{ if hugo.IsProduction }}
-<script src="{{.Site.BaseURL}}js/vendor/vue.min.js"></script>
-<script src="{{.Site.BaseURL}}js/vendor/vuetify.min.js"></script>
 {{ end }}
 
 {{ if not hugo.IsProduction }}
-<script src="{{.Site.BaseURL}}js/vendor/vue.common.dev.js"></script>
-<script src="{{.Site.BaseURL}}js/vendor/vuetify.js"></script>
-{{ end }}  */}}
+{{ $vuejs := resources.Get "js/vendor/vue.common.dev.js" | resources.Fingerprint "sha512" }}
+<script src="{{- $vuejs.Permalink -}}" integrity="{{ $vuejs.Data.Integrity }}"></script>
+
+{{ $vuetify := resources.Get "js/vendor/vuetify.js" | resources.Fingerprint "sha512" }}
+<script src="{{- $vuetify.Permalink -}}" integrity="{{ $vuetify.Data.Integrity }}"></script>
+{{ end }}

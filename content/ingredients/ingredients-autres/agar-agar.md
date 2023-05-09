@@ -1,6 +1,8 @@
 ---
 title : "Agar-agar"
-alergene: 
+alergene: false
 vegetarien:
 vegan: 
+type: "autres"
+sitemap_exclude: true
 --- 

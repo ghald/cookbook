@@ -1,6 +1,10 @@
 {{ define "main" }}
+{{ if not hugo.IsProduction }}
+<p class="muted">/layout/_default/taxonomy</p>
+{{ end }}
 
-  <h5>/layout/_default/taxonomy</h5>
+<h2 class="text-center">Recettes : {{.Page.Title}}</h2>
+<p class="text-center fw-bold">{{ len .RegularPages }} recettes</p>
 <div class="row justify-content-lg-evenly">
 
 
@@ -9,28 +13,76 @@
   <div class="col-lg-4">
     <div class="card recipe-card card-recette">
       <aside>
-        <a href="{{ .Permalink }}">
+     
           {{if .Params.img}}
-          <img class="card-image img-fluid img-cover" src="/{{.Section}}/{{.Title}}/{{.Params.img }}" />
+            {{- $img := (string .Params.img)  -}}
+            {{ if strings.Contains $img "http" }}
+              <img class="card-image img-fluid img-cover" src="{{.Params.img}}" />
+            {{ else}}
+              <img class="card-image img-fluid img-cover" src="{{.Permalink}}{{.Params.img}}"/>
+            {{ end }}
           {{ else }}
-          <img class="card-image img-fluid img-cover" src="/images/{{.Params.Categories}}.webp" />
+          {{ $imagePath := "" }}
+          {{ range first 1 .Params.Categories }}
+          {{ $imagePath = . | lower }}
+          {{ end }}
+            {{ if os.FileExists (print "static/images/" $imagePath ".webp") }}
+              <img class="card-image img-fluid img-cover" src="/images/{{$imagePath}}.webp" />
+              {{ else }}
+              <img class="card-image img-fluid img-cover" src="/images/no-img.webp" />
+              
+            {{ end }}
           {{end}}
-          <div class="card-recipe-title h4 ">{{.Title}}</div>
-          <div class="card-badge-type translate-middle">{{.Params.Categories}}</div></a>
-
+          <div class="card-badge-regime">
+            {{ range .Params.regime }}
+             <span class="badge">{{ . }}</span>
+            {{ end }}
+          </div>
+          <a href="{{ .Permalink }}">
+          <div class="card-recipe-title h4 ">{{.Title}}</div></a>
+          <div class="card-badge-type">
+            {{- range first 2 .Params.Categories -}}
+             {{.}}
+            {{- end -}}
+          </div>
         </aside>
-        <div class="card-body">
+        <div class="card-body my-1 p-0">
           <a href="{{.Permalink}}" class="stretched-link"></a>
+          
+          {{- if .Description -}}
+          <p class="small">{{.Description}}</p>
+          {{- end -}}
+          {{- if .Params.materiel -}}
+            <div class="border-2 border-bottom py-2 mb-2">
+              {{ range .Params.materiel }}
+                <span class="badge fs-x-sm bg-dark-red border border-1 border-primary">{{.}}</span>
+              {{- end -}}
+            </div>
+          {{- end -}}
+          <div class="border-bottom border-2 pb-2">
 
-          {{if .Description}}
-          <p>{{.Description}}</p>
-          {{end}}
+          {{ if eq .Params.cuisson "Oui"}}
+            <span class="badge bg-orange fs-x-sm">Avec Cuisson</span>
+          {{- else -}}
+            <span class="badge bg-blue fs-x-sm">Sans Cuisson</span>
+          {{ end }}
+          {{ if eq .Params.temperature "Chaud"}}
+            <span class="badge bg-orange fs-x-sm">Servir {{ .Params.temperature }}</span>
+          {{- else -}}
+            <span class="badge bg-blue fs-x-sm">Servir {{ .Params.temperature }}</span>
+          {{ end }}
+          
+          {{ range .Params.saison }}
+            <span class="badge bg-pink fs-x-sm">{{ . }}</span>
+          {{- end -}}
+         
+          </div>
           {{if .Params.ingredients}}
-          <div class=""> 
-            {{ range .Params.ingredients.frais}} <span class="card-badge-ingredients small bg-green">{{.nom}}</span> {{end}}
-            {{ range .Params.ingredients.animaux}} <span class="card-badge-ingredients small bg-red">{{.nom}}</span> - {{end}}
-            {{ range .Params.ingredients.sec}} <span class="card-badge-ingredients small bg-grey">{{.nom}}</span> - {{end}}
-            {{ range .Params.ingredients.autres}} <span class="card-badge-ingredients small bg-orange">{{.nom}}</span> - {{end}}
+          <div class="py-2 text-center"> 
+            {{ range .Params.ingredients.legumes}} <span class="badge fs-x-sm bg-green">{{.title}}</span> {{end}}
+            {{ range .Params.ingredients.animaux}} <span class="badge fs-x-sm bg-red">{{.title}}</span>{{end}}
+            {{ range .Params.ingredients.sec}} <span class="badge fs-x-sm bg-grey">{{.title}}</span>{{end}}
+            {{ range .Params.ingredients.autres}} <span class="badge fs-x-sm bg-orange">{{.title}}</span>{{end}}
             {{end}}
           </div>
         </div>

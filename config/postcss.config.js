@@ -28,18 +28,10 @@ module.exports = {
           //'./assets/scss/components/_code.scss', //// enlevé avec v.2.03
           // './assets/scss/components/_syntax.scss',
           './node_modules/@hyas/core/assets/scss/app.scss',
+          './node_modules/vuetify/dist/vuetify.min.css',
         ]),
       ],
-      whitelist: [
-        'v-application',
-        'v-application--wrap'
-      ],
-      whitelistPatterns: () => [
-        /^v-((?!application).)*$/,
-        /^\.theme--light*/,
-        /.*-transition/
-      ],
-      whitelistPatternsChildren: [/^v-((?!application).)*$/, /^theme--light*/]
+
     }),
   ],
 }

@@ -1,6 +1,7 @@
 const autoprefixer = require('autoprefixer');
 const purgecss = require('@fullhuman/postcss-purgecss');
 const whitelister = require('purgecss-whitelister');
+const cssbyebye = require('css-byebye');
 
 module.exports = {
   plugins: [
@@ -31,7 +32,14 @@ module.exports = {
           './node_modules/vuetify/dist/vuetify.min.css',
         ]),
       ],
-
     }),
+    cssbyebye({
+      rulesToRemove: [
+        /.*\.v-application--is-rtl.*/,
+        /.*\.theme--dark.*/,
+        
+      ]
+    }),
+
   ],
 }

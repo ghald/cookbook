@@ -30,9 +30,16 @@ module.exports = {
           './node_modules/@hyas/core/assets/scss/app.scss',
         ]),
       ],
-      whitelistPatterns: [/^v-*/, /^theme-*/, /^application--*/],
-      whitelistPatternsChildren: [/^v-*/, /^theme-*/, /^application--*/],
-      whitelist: ['spacer', 'primary', 'secondary', 'accent', 'error', 'warning', 'info', 'success']
+      whitelist: [
+        'v-application',
+        'v-application--wrap'
+      ],
+      whitelistPatterns: () => [
+        /^v-((?!application).)*$/,
+        /^\.theme--light*/,
+        /.*-transition/
+      ],
+      whitelistPatternsChildren: [/^v-((?!application).)*$/, /^theme--light*/]
     }),
   ],
 }

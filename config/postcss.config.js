@@ -30,6 +30,9 @@ module.exports = {
           './node_modules/@hyas/core/assets/scss/app.scss',
         ]),
       ],
+      whitelistPatterns: [/^v-*/, /^theme-*/, /^application--*/],
+      whitelistPatternsChildren: [/^v-*/, /^theme-*/, /^application--*/],
+      whitelist: ['spacer', 'primary', 'secondary', 'accent', 'error', 'warning', 'info', 'success']
     }),
   ],
 }

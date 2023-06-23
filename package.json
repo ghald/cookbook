@@ -35,7 +35,7 @@
     "postinstall": "shx rm -rf node_modules/.bin/hugo && shx mkdir node_modules/.bin/hugo && shx cp node_modules/gethyas/node_modules/.bin/hugo/* node_modules/.bin/hugo"
   },
   "devDependencies": {
-    "@hyas/images": "^0.3.2",
+    "@hyas/images": "^1.0.2",
     "@hyas/seo": "^0.1.2",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.2",

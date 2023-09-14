@@ -1,14 +1,18 @@
 {{ define "main" }}
+{{ if not hugo.IsProduction }}
+<div class="no-print text-muted m-2">{{ hugo.Environment }}  | Layout : layouts/ingredients/list.html </div>
+{{ end }}
 
 <div class="row">
-
+{{/*  BUG → n'affiche que les legumes  */}}
   {{ range .RegularPages }}
   
   <div class="col-lg-3 col-md-4 p-1">
     <div class="card">
       <div class="card-body py-0 mt-0">
       
-        <span class="card--recipe-title">{{ .Title }}</span>
+        <div class="card--recipe-title">{{ .Title }}</div>
+        <div class="small">{{ .Params.type }}</div>
       
       </div>
       

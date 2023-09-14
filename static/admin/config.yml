@@ -133,8 +133,8 @@ collections:
           collapsed: true
           summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
           fields: 
-            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-animaux-nested', value_field: 'title', search_fields: ['title'], options_length: 10}
-            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnable pour les listes de course ! Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-animaux', value_field: 'title', search_fields: ['title'], options_length: 10}
+            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnables pour les listes de course ! "}
             - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unité']}
             - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
 
@@ -148,8 +148,8 @@ collections:
           collapsed: true
           summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
           fields: 
-            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-sec-nested', value_field: 'title', search_fields: ['title'], options_length: 10}
-            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnable pour les listes de course ! Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-sec', value_field: 'title', search_fields: ['title'], options_length: 10}
+            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnables pour les listes de course ! "}
             - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unité']}
             - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
 
@@ -163,8 +163,8 @@ collections:
           collapsed: true
           summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
           fields: 
-            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-legumes-nested', value_field: 'title', search_fields: ['title'], options_length: 10}
-            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnable pour les listes de course ! Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-legumes', value_field: 'title', search_fields: ['title'], options_length: 10}
+            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnables pour les listes de course ! "}
             - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unité']}
             - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
 
@@ -178,8 +178,8 @@ collections:
           collapsed: true
           summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
           fields: 
-            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-lof-nested', value_field: 'title', search_fields: ['title'], options_length: 10}
-            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnable pour les listes de course ! Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-lof', value_field: 'title', search_fields: ['title'], options_length: 10}
+            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnables pour les listes de course ! "}
             - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unité', 'litre','c. à soupe', 'c. à café' ]}
             - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
 
@@ -194,8 +194,8 @@ collections:
           collapsed: true
           summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
           fields:
-            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-sucres-nested', value_field: 'title', search_fields: ['title'], options_length: 10}  
-            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnable pour les listes de course ! Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3"}
+            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-sucres', value_field: 'title', search_fields: ['title'], options_length: 10}  
+            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnables pour les listes de course ! "}
             - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unités', 'litre','c. à soupe', 'c. à café']}
             - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
 
@@ -210,8 +210,8 @@ collections:
           collapsed: true
           summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
           fields: 
-            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-autres-nested', value_field: 'title', search_fields: ['title'], options_length: 10}
-            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnable pour les listes de course ! Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3", required: false}
+            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-autres', value_field: 'title', search_fields: ['title'], options_length: 10}
+            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnables pour les listes de course ! ", required: false}
             - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unité', 'litre','c. à soupe', 'c. à café'], required: false}
             - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
 
@@ -226,8 +226,8 @@ collections:
           collapsed: true
           summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
           fields: 
-            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-assaisonnement-nested', value_field: 'title', search_fields: ['title'], options_length: 10}
-            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnable pour les listes de course ! Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3", required: false}
+            - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-assaisonnement', value_field: 'title', search_fields: ['title'], options_length: 10}
+            - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnables pour les listes de course ! ", required: false}
             - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'unité', litre','c. à soupe', 'c. à café', 'bottes'], required: false}
             - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
 
@@ -242,10 +242,17 @@ collections:
         value_field: 'nom'
         search_fields: ['nom']
         options_length: 12
-    
+     
       - label: 'Préparation'
         name: 'preparation'
         widget: 'markdown'
+
+      - label: 'Préparation - A Faire la veille'
+        name: 'preparation24h'
+        widget: 'markdown'
+        required: false
+        hint: "Si la recette implique de préparer des choses en avance, le préciser ici pour que ce soit mis en avant lors de l'affichage des recettes"
+    
 
 ##### PrepAlt
       
@@ -276,7 +283,7 @@ collections:
       #       summary: '{{fields.title}}: {{fields.quantite}} {{fields.unit}}'
       #       fields:
       #         - {label: 'Nom', name: 'title', widget: 'relation', collection: 'ingredients-alternatifs', value_field: 'title', search_fields: ['title'], options_length: 10}            
-      #         - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnable pour les listes de course ! Pour les décimales, utilisez des points et non des virgules. ex: 12.3 et non 12,3", required: false}
+      #         - {label: 'Quantité (nombre)', name: 'quantite', widget: 'number', value_type: 'float', hint: "Preférer les quantité en grammes/Kg/litres, qui sont additionnables pour les listes de course ! ", required: false}
       #         - {label: 'Unité (quantité en...)', name: 'unit', widget: 'select', options: ['Kg', 'grammes', 'litre', 'unité', 'bottes', c. à soupe, c. à café], required: false}
       #         - {label: 'commentaire', name: 'commentaire', widget: 'string', required: false}
       #     - {label : 'Préparation', name: 'preparation', widget: 'markdown', required: false}
@@ -398,7 +405,8 @@ collections:
   - label: 'Ingredients'
     name: 'ingredients'
     folder: content/ingredients/
-    path: 'ingredients-{{type}}/{{slug}}'
+    path: '{{slug}}'
+    # path: 'ingredients-{{type}}/{{slug}}'
     filter: {field: "sitemap_exclude", value: true}
     create: true
     widget: 'list'
@@ -436,8 +444,8 @@ collections:
         name: "type"
         widget: "select"
         options: 
-          - { label : 'Fruits ou Legumes', value: 'legumes'} 
-          - { label : 'Sec (legumineuse ou céréal)', value: 'sec'} 
+          - { label : 'Fruits ou Legumes', value: "legumes"} 
+          - { label : 'Sec (legumineuse ou céréal)', value: "sec"} 
           - { label : 'Lof (Lait, Oeuf, Farine, Gras, Fromages...)', value: 'lof'} 
           - { label : 'Sucré', value : 'sucres'}
           - { label : 'Viande ou Poisson', value : 'animaux'}
@@ -459,23 +467,38 @@ collections:
       - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
       - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
       - {label: 'searchfield', name: 'searchfield', widget: 'hidden', default: '{{type}} - {{title}}'}
+      - {label: 'sitemap_exclude', name: 'sitemap_exclude', widget: 'hidden', default: true}
   
-
   - label: 'Ingredients legumes'
-    name: 'ingredients-legumes-nested'
-    folder: content/ingredients/legumes-et-fruits
+    name: 'ingredients-legumes'
+    folder: content/ingredients
     path: '{{slug}}'
+    filter: {field: "type", value: "legumes"}
     create: true
     hide: true 
     widget: 'list'
-    allow-add: false 
+    allow-add: true 
+    fields: 
+      - {label: 'Nom', name: 'title', widget: 'string'}
+ 
+  - label: 'Ingredients animaux'
+    name: 'ingredients-animaux'
+    folder: content/ingredients
+    path: '{{slug}}'
+    filter: {field: "type", value: "animaux"}
+    create: true
+    hide: true 
+    widget: 'list'
+    allow-add: true 
     fields: 
       - {label: 'Nom', name: 'title', widget: 'string'}
 
+ 
   - label: 'Ingredients autres'
-    name: 'ingredients-autres-nested'
-    folder: content/ingredients/ingredients-autres
+    name: 'ingredients-autres'
+    folder: content/ingredients
     path: '{{slug}}'
+    filter: {field: "type", value: "autres"}
     create: true
     hide: true 
     widget: 'list'
@@ -484,20 +507,10 @@ collections:
       - {label: 'Nom', name: 'title', widget: 'string'}
 
   - label: 'Ingredients sec'
-    name: 'ingredients-sec-nested'
-    folder: content/ingredients/ingredients-sec
+    name: 'ingredients-sec'
+    folder: content/ingredients
     path: '{{slug}}'
-    create: true
-    hide: true 
-    widget: 'list'
-    allow-add: false 
-    fields: 
-      - {label: 'Nom', name: 'title', widget: 'string'}
-
-  - label: 'Ingredients animaux'
-    name: 'ingredients-animaux-nested'
-    folder: content/ingredients/ingredients-animaux
-    path: '{{slug}}'
+    filter: {field: "type", value: "sec"}
     create: true
     hide: true 
     widget: 'list'
@@ -506,9 +519,10 @@ collections:
       - {label: 'Nom', name: 'title', widget: 'string'}
 
   - label: 'Ingredients lof'
-    name: 'ingredients-lof-nested'
-    folder: content/ingredients/ingredients-lof
+    name: 'ingredients-lof'
+    folder: content/ingredients
     path: '{{slug}}'
+    filter: {field: "type", value: "lof"}
     create: true
     hide: true 
     widget: 'list'
@@ -517,9 +531,10 @@ collections:
       - {label: 'Nom', name: 'title', widget: 'string'}
 
   - label: 'Ingredients Assaisonnement'
-    name: 'ingredients-assaisonnement-nested'
-    folder: content/ingredients/ingredients-assaisonnement
+    name: 'ingredients-assaisonnement'
+    folder: content/ingredients
     path: '{{slug}}'
+    filter: {field: "type", value: "epices"}
     create: true
     hide: true 
     widget: 'list'
@@ -528,9 +543,10 @@ collections:
       - {label: 'Nom', name: 'title', widget: 'string'}
 
   - label: 'Ingredients Sucrées'
-    name: 'ingredients-sucres-nested'
-    folder: content/ingredients/ingredients-sucres
+    name: 'ingredients-sucres'
+    folder: content/ingredients
     path: '{{slug}}'
+    filter: {field: "type", value: "sucres"}
     create: true
     hide: true 
     widget: 'list'
@@ -547,23 +563,23 @@ collections:
  
  
  
-  - label: 'Ingredients - Alternatif'
-    name: 'ingredients-alternatifs'
-    folder: content/ingredients
-    path: '{{slug}}'
-    widget: 'list'
-    allow-add: false
-    hide: true
-    nested:
-      depth: 100 # max depth to show in the collection tree
-      summary: '{{title}}' # optional summary for a tree node, defaults to the inferred title field
-    fields: 
-      - {label: 'Nom', name: 'title', widget: 'string'}
-      - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
-      - {label: 'Gluten', name: 'gluten', widget: 'boolean', default: false}
-      - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', default: false}
-      - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
-      - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
+  # - label: 'Ingredients - Alternatif'
+  #   name: 'ingredients-alternatifs'
+  #   folder: content/ingredients
+  #   path: '{{slug}}'
+  #   widget: 'list'
+  #   allow-add: false
+  #   hide: true
+  #   nested:
+  #     depth: 100 # max depth to show in the collection tree
+  #     summary: '{{title}}' # optional summary for a tree node, defaults to the inferred title field
+  #   fields: 
+  #     - {label: 'Nom', name: 'title', widget: 'string'}
+  #     - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
+  #     - {label: 'Gluten', name: 'gluten', widget: 'boolean', default: false}
+  #     - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', default: false}
+  #     - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
+  #     - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
     
 
 

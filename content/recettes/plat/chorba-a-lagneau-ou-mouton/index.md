@@ -4,8 +4,6 @@ draft: false
 img: https://img.cuisineaz.com/660x660/2016-07-15/i7543-chorba-a-l-agneau.jpeg
 layout: recettes
 type: plat
-categories:
-  - Soupe
 auteur: Sylvain
 regime:
   - sans-lactose
@@ -45,7 +43,7 @@ ingredients:
   autres:
     - title: Concentré de tomate
       quantité: 2.4
-      unit: Kg
+      unit: null
   animaux:
     - title: Agneau
       quantite: 7
@@ -56,7 +54,7 @@ ingredients:
       alergene: true
     - title: Canelle (épice)
     - title: Poivre (épice)
-      quantite: -2
+      quantite: ""
       commentaire: noir
     - title: Coriandre (épice)
       quantite: 8
@@ -92,5 +90,7 @@ prepAlt:
     preparation: Avant d'ajouter les langues d''oiseau prélever la chroma pour les
       sans-gluglu et incorporer des spaghettis maïs 90%-riz cassé en petits
       bouts
+categories:
+  - Soupe
 publishDate: 2023-01-11T14:12:52.682Z
 ---

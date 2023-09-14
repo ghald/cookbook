@@ -402,12 +402,29 @@ rel="stylesheet">
                           {{ if .quantite }}
                             {{ if or (eq .unit "Kg") (eq .unit "litre")}}
                               : {{ $quantiteRepas := (float (div (mul (float .quantite) $assiettes ) $assiettesRecettes))}}
-                              {{ $quantiteRepas | lang.FormatNumber 2 }}
+                              {{ if lt $quantiteRepas 1}}
+                                {{ mul $quantiteRepas 1000 | math.Round }} 
+                                {{ if eq .unit "litre"}}
+                                  {{ printf "ml" }}
+                                {{ else if eq .unit "Kg"}}
+                                  {{ printf "grammes"}}
+                                {{ end }}
+                              {{ else }}
+                              {{ $quantiteRepas | lang.FormatNumber 2 }} {{ .unit }}
+                              
+                                
+                              {{ end }}
+
                             {{ else }}
                               : {{ $quantiteRepas :=  (div (mul (float .quantite) $assiettes ) $assiettesRecettes)}}
-                              {{ math.Round $quantiteRepas }}
+                              {{ if gt $quantiteRepas 0.49 }}
+                              {{ math.Round $quantiteRepas }} {{.unit}}
+                              {{ else }}
+                              {{ $quantiteRepas | lang.FormatNumber 2 }} {{.unit}}
+                                
+                              {{ end }}
                             {{ end }}
-                            {{.unit}}
+                            
                           {{ end }}
 
                       </div>
@@ -429,6 +446,14 @@ rel="stylesheet">
               <div class="col-md-8 print-col-70-100">
                 <h5 class="text-center">Préparation</h5>
                 <div class=" card card-body">
+                  {{ if .Params.preparation24h }}
+              <div class="border border-danger mb-4">
+                <div class="p-2">
+                  <div class="h5 mt-0">A prévoir à l'avance !</div>
+                  <div>{{ .Params.preparation24h | markdownify }}</div>
+                </div>
+              </div>
+              {{ end }}
                   {{ .Params.preparation | markdownify }}
                 </div>
           
@@ -561,8 +586,17 @@ rel="stylesheet">
                 <td v-else :class="{'no-print' : !showAllRow }"></td>
                 <td  class="text-right">
                 [[item.total]] 
-                  <span v-if="item.total !== 'non présisé'">[[item.unitTotal]]</span>
-                  <span v-if="item.fallbackTotal">[[item.fallbackTotal]]</span>
+                <span v-if="item.total !== 'non présisé' &&  item.total !== 'Incalculable ...'">[[item.unitTotal]]</span>
+                <span v-if="Array.isArray(item.fallbackTotal)">
+                  <template v-for="(fallback, index) in item.fallbackTotal">
+                    <span>[[fallback.quantite]] [[fallback.unit]]</span>
+                    <template v-if="index !== item.fallbackTotal.length - 1">
+                      <span> + </span>
+                    </template>
+                  </template>
+                </span>
+
+
                 </td>
 
               </tr>
@@ -695,6 +729,8 @@ rel="stylesheet">
         showedSection: ['recettes', 'ingredients'],
         isActive : null,
         IngredientsTypesList: [{{ range $IngredientsTypesList }} {{ .iType }}, {{ end }} ],
+
+        filteredTest: "",
       
       
   } {{/* return */}}    
@@ -764,8 +800,6 @@ computed: {
       }
     });
   },
-
-
 
 
 }, // computed end
@@ -857,71 +891,172 @@ methods: {
     return quantite / 1000;
   },
 
-  totalsIngredientFiltered: function (iType, ingredientsList) {
-  // Creer un tableau des totals de chaques ingrédients lorsque leurs unités ne sont pas différentes. Si Kg et grammes: conversion en Kg avec convertToKg()
-  // TODO : Diviser la fonction en plusieurs fonctions : 1 par filtre et calcul ensuite ?    
+totalsIngredientFiltered: function (iType, ingredientsList) {
+  // Récupérer la liste des ingrédients
+  let ingredients = this.ingredients;
+
+  // Filtrer les ingrédients selon les critères spécifiés
+  const totals = ingredients.filter(
+    (i) =>
+      i.ingredientType === iType &&
+      i.dateService >= this.startDateSelected &&
+      i.dateService <= this.endDateSelectedDebug &&
+      i.ingredient.toLowerCase().includes(this.search.toLowerCase())
+  );
+
+  // Créer une carte pour stocker les quantités totales par ingrédient
+  const listQuantite = new Map();
+
+  // Parcourir les ingrédients filtrés
+  totals.forEach((item) => {
+    // Vérifier si l'ingrédient est déjà présent dans la carte des quantités
+    if (!listQuantite.has(item.ingredient)) {
+      // Si non, ajouter une entrée vide pour cet ingrédient
+      listQuantite.set(item.ingredient, []);
+    }
+
+    // Vérifier si une quantité avec la même unité existe déjà pour cet ingrédient
+    const existingQuantity = listQuantite
+      .get(item.ingredient)
+      .find((quantity) => quantity.unit === item.unit);
+
+    if (existingQuantity) {
+      // Si une quantité existe déjà, additionner la quantité actuelle à celle existante
+      existingQuantity.quantite += item.quantite;
+    } else {
+      // Sinon, ajouter une nouvelle quantité à la liste des quantités pour cet ingrédient
+      listQuantite.get(item.ingredient).push({
+        quantite: item.unit === 'grammes' ? this.convertToKg(item.quantite) : item.quantite,
+        unit: item.unit,
+      });
+    }
+
+    // Vérifier si l'ingrédient existe déjà dans les totaux
+    if (!totals[item.ingredient]) {
+      // Si non, initialiser les totaux pour cet ingrédient
+      totals[item.ingredient] = {
+        unitTotal: item.unit,
+        total: 0,
+      };
+    }
+
+    // Vérifier si l'unité de l'ingrédient correspond à l'unité actuelle
+    if (totals[item.ingredient].unitTotal === item.unit) {
+      // Si oui, additionner la quantité à la totalité de l'ingrédient
+      totals[item.ingredient].total += item.quantite;
+    } else if (item.unit === 'grammes' && totals[item.ingredient].unitTotal === 'Kg') {
+      // Si les unités sont différentes (grammes et Kg), convertir la quantité en Kg avant de l'ajouter à la totalité
+      const total = this.convertToKg(item.quantite);
+        totals[item.ingredient].total += total;
+        totals[item.ingredient].unitTotal = 'Kg';
+
+    } else {
+      // Si les unités ne peuvent pas s'additionner ou sont de différentes natures, ajouter la quantité à la liste des quantités alternatives
+      totals[item.ingredient] = {
+        total: 'Incalculable...',
+      };
+    }
+
+    // Arrondir à 2 décimales
+    if (typeof totals[item.ingredient].total === 'number' && totals[item.ingredient].total > 0) {
+      const rounded = totals[item.ingredient].total;
+      totals[item.ingredient].total = Math.round(rounded * 100) / 100;
+    } else if (totals[item.ingredient].total === 'Incalculable...') {
+      // Si le total est incalculable, utiliser la liste des quantités alternatives
+      totals[item.ingredient] = {
+        total: 'Incalculable...',
+        fallbackTotal: listQuantite.get(item.ingredient).map((quantity) => ({
+        quantite: Math.round(quantity.quantite * 100) / 100,
+        unit: quantity.unit,
+        })),
+      };
+    } else {
+      // Si le total n'est pas un nombre valide, le définir comme "non précisé"
+      totals[item.ingredient].total = 'non précisé';
+    }
+  });
+
+  // Retourner les totaux des ingrédients filtrés
+  return Object.entries(totals).map(([ingredient, { unitTotal, total, fallbackTotal, ...item }]) => ({
+    ingredient,
+    unitTotal,
+    total,
+    fallbackTotal,
+    ...item,
+  }));
+},
+
+
+
+
+
+
+  totalsIngredientFilteredBAK: function (iType, ingredientsList) {
+    // Crée un tableau des totaux de chaque ingrédient lorsque leurs unités ne sont pas différentes. Si Kg et grammes : conversion en Kg avec convertToKg()
+  
+    // Récupérer la liste des ingrédients
     let ingredients;
     ingredients = this.ingredients;
 
+    // Filtrer les ingrédients selon les critères spécifiés
     const totals = ingredients.filter(
       i => i.ingredientType === iType && 
       i.dateService >= this.startDateSelected && 
       i.dateService <= this.endDateSelectedDebug &&
       i.ingredient.toLowerCase().includes(this.search.toLowerCase()) 
-      );
+    );
 
+    // Créer une carte pour stocker les quantités totales par ingrédient
     const listQuantite = new Map();
-    
+  
+    // Parcourir les ingrédients filtrés
     totals.forEach((item) => {
       if (!totals[item.ingredient]) { 
         totals[item.ingredient] = {
           unitTotal: item.unit,
           total: 0,
         };
+      }
+      if (!listQuantite.has(item.ingredient)) {
+        listQuantite.set(item.ingredient, []);
+      }
 
-      } 
       if (totals[item.ingredient].unitTotal === item.unit) {
         totals[item.ingredient].total += item.quantite;
-
       } else if (item.unit === 'grammes' && totals[item.ingredient].unitTotal === 'Kg') {
         // Convertir la quantité en Kg avant de l'ajouter au total
         const total = this.convertToKg(item.quantite);
         totals[item.ingredient].total += total;
         totals[item.ingredient].unitTotal = 'Kg'
-
-
-      } else { // si les unités ne peuvent pas s'additionner / sont de différentes nature...
-           if (!listQuantite.has(item.ingredient)) {
-            listQuantite.set(item.ingredient, []);
-          }
-          listQuantite.get(item.ingredient).push({ 
-            quantite: item.quantite, 
-            unit: item.unit });
-      
-          totals[item.ingredient] = {
-            total: "Incalculable...",
-            fallbackTotal: listQuantite[item.ingredient],
-        }; 
+      } else { // si les unités ne peuvent pas s'additionner / sont de différentes natures...
+        listQuantite.get(item.ingredient).push({ 
+          quantite: item.quantite, 
+          unit: item.unit 
+        });
+           totals[item.ingredient] = {
+      total: "incalculable",
+      fallbackTotal: listQuantite.get(item.ingredient),
+      unitTotal: [totals[item.ingredient].unitTotal, item.unit],
+    }; 
       }
 
-      // Arrondir a 2 décimale
+      // Arrondir à 2 décimales
       if (typeof totals[item.ingredient].total === "number" && totals[item.ingredient].total > 0 ) {
         const rounded = totals[item.ingredient].total ;
         totals[item.ingredient].total = Math.round(rounded * 100) / 100;
-      } else if (totals[item.ingredient].total === "Incalculable..." ) {
-        totals[item.ingredient] = {
-          total: "Incalculable...",
-          fallbackTotal:  listQuantite[item.ingredient],
-        }; 
-      } else { // si les quantité sont manquante (comme pour des épices...)
-        totals[item.ingredient].total = "non présisé"
+      } else if (totals[item.ingredient].total === "incalculable" ) {
+        totals[item.ingredient].fallbackTotal = listQuantite.get(item.ingredient);
+          console.log('Ingrédient :', item.ingredient);
+          console.log('Fallback total actuel :', totals[item.ingredient].fallbackTotal);
+      } else { // si les quantités sont manquantes (comme pour des épices...)
+        totals[item.ingredient].total = "non précisé";
       }
-
     });
 
-    // renvoyer la map avec les nouveaux parametres
+    // Renvoyer la carte avec les nouveaux paramètres sous forme de tableau
     return Object.entries(totals).map(([ingredient, { unitTotal, total, fallbackTotal, ...item}]) => ({ ingredient, unitTotal, total, fallbackTotal, ...item}));
   },
+
 
 
   ingredientTypeList () {

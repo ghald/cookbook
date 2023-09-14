@@ -6,6 +6,12 @@ repas:
     date_service: 2023-05-02T11:18:26.552Z
     horaire: soir
     recettes_du_repas:
+      - recette: " Houmous de poivrons"
+        type_plat: entree
+        altAssiettes: 19
+      - recette: test incalc
+        type_plat: plat
+        altAssiettes: 100
       - recette: Gateau de sésame
         type_plat: dessert
         altAssiettes: 120

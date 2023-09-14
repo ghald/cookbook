@@ -78,10 +78,12 @@
          
           </div>
           {{if .Params.ingredients}}
-          <div class="py-2 text-center"> 
+          <div class="py-2"> 
             {{ range .Params.ingredients.legumes}} <span class="badge fs-x-sm bg-green">{{.title}}</span> {{end}}
             {{ range .Params.ingredients.animaux}} <span class="badge fs-x-sm bg-red">{{.title}}</span>{{end}}
             {{ range .Params.ingredients.sec}} <span class="badge fs-x-sm bg-grey">{{.title}}</span>{{end}}
+            {{ range .Params.ingredients.sucres}} <span class="badge fs-x-sm bg-orange">{{.title}}</span>{{end}}
+            {{ range .Params.ingredients.lof}} <span class="badge fs-x-sm bg-orange">{{.title}}</span>{{end}}
             {{ range .Params.ingredients.autres}} <span class="badge fs-x-sm bg-orange">{{.title}}</span>{{end}}
             {{end}}
           </div>

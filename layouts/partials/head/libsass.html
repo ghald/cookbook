@@ -3,7 +3,7 @@
 
 
   {{ $options := (dict "targetPath" "main.css" "transpiler" "libsass" "enableSourceMap" true "includePaths" (slice "node_modules")) -}}
-  {{ $css = resources.Get . | toCSS $options | postCSS (dict "config" "config/postcss.config.js") | resources.Fingerprint "sha512" -}}
+  {{ $css = resources.Get . | toCSS $options  | resources.Fingerprint "sha512" -}}
 
 {{ else -}}
 

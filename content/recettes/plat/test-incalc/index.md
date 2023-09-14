@@ -9,6 +9,9 @@ plate: 3
 ingredients:
   sec:
     - title: Blé
+      quantite: 23
+      unit: grammes
+    - title: Blé
       quantite: 4
       unit: Kg
     - title: Blé

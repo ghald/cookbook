@@ -22,7 +22,7 @@ ingredients:
       quantite: 14
       unit: Kg
   lof:
-    - title: huile d’olive
+    - title: huile d'olive
       quantite: 0
       unit: litre
     - title: Crème Végétale

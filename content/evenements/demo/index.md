@@ -1,6 +1,7 @@
 ---
 draft: false
 title: Demo
+sitemap_exclude: true
 repas:
   - assiettes: 95
     date_service: 2023-05-02T11:18:26.552Z
@@ -9,6 +10,7 @@ repas:
       - recette: " Houmous de poivrons"
         type_plat: entree
         altAssiettes: 19
+        chef: you
       - recette: test incalc
         type_plat: plat
         altAssiettes: 100
@@ -31,5 +33,4 @@ repas:
       - recette: Tartinade petits pois citrons confits menthe
         type_plat: entree
     horaire: soir
-sitemap_exclude: true
 ---

@@ -1,8 +1,10 @@
 node_modules
+node_modules_bak
 public
 resources
 .netlify
 .hugo_build.lock
 .vscode
 bak_part
-
+*bak*
+*useless*

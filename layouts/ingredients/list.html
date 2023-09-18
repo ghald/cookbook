@@ -3,22 +3,85 @@
 <div class="no-print text-muted m-2">{{ hugo.Environment }}  | Layout : layouts/ingredients/list.html </div>
 {{ end }}
 
-<div class="row">
-{{/*  BUG → n'affiche que les legumes  */}}
-  {{ range .RegularPages }}
-  
-  <div class="col-lg-3 col-md-4 p-1">
-    <div class="card">
-      <div class="card-body py-0 mt-0">
-      
-        <div class="card--recipe-title">{{ .Title }}</div>
-        <div class="small">{{ .Params.type }}</div>
-      
+
+<div id="app">
+   <div class="input-group p-4"> {{/* Champs de recherche */}}
+          <input
+          class="form-control"
+          type="text"
+          v-model="searchQuery"
+          placeholder="Rechercher un ingrédient"
+          />
+          <button class="btn btn-outline-secondary" type="button" @click="resetSearch">X</button>
+    </div>
+
+  <div class="container">
+    <div class="row">
+      <div 
+        class="col-lg-3 col-md-4 p-1"
+        v-for="i in filteredIngredients"
+        :key="i.id">
+        <div class="card p-1 m-1">
+          <div class="card-body py-0 mt-0">
+    
+            <div class="card--recipe-title">[[i.title]]     <span class="small" v-show="i.alergene">(alergene)</span></div>
+            <span class="small">[[i.typeIng]]
+              </span>
+          
+            
+    
+          </div>
+    
+        </div>
       </div>
-      
     </div>
   </div>
-  {{ end }}
-</div>
+
+  </div>  
+
+<script type="module">
+  const appfilters = new Vue ({
+    delimiters: ['[[', ']]'],
+    el: '#app',
+    vuetify: new Vuetify(),
+    data: () => ({
+      ingredients: [ 
+      {{- range .RegularPages -}}
+      {
+        title: "{{ .Title }}",
+        typeIng: "{{ .Type }}",
+        alergene: {{ .Params.alergene }}
+      },
+      {{ end }}
+      ],
+
+      searchQuery: ''
+
+
+    }),
+
+  computed: {
+    filteredIngredients() {
+      
+        const query = this.searchQuery.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
+        return this.ingredients.filter(i => {
+          return i.title.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').includes(query) ||
+          i.typeIng.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').includes(query)           
+      })
+    
+  }
+},
+
+  methods: {
+  
+    resetSearch: function () {
+    this.searchQuery = '' 
+  },
+}
+
+  });
+
+</script>
+
 
 {{ end }}

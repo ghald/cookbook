@@ -22,7 +22,6 @@
 
 
 
-{{/*  TODO : Ajouter explication des filtres   */}}
 <div id="app">
   <div class="container">
     {{/* <div class="my-12">
@@ -125,15 +124,13 @@
       
       <div class="col-lg-8"> {{/* Recette CARDS */}}
         <h3>{{ .Title | pluralize }}</h3>
-        <!-- TODO ? Moins gourmand ?: possibilité de remplacer in "recipes" par "recettes" : plus besoin de la computed recipes() ; et dans filteredRecipes, mettre this.recettes.filters ...-->
     
         <div class="input-group"> {{/* Champs de recherche */}}
           <input
           class="form-control"
           type="text"
           v-model="searchQuery"
-          
-          placeholder="Rechercher...  (désactive les filtres sélectionnés)"
+          placeholder="Rechercher...  (Parmis les titre, auteur, spécialité. Désactive les filtres sélectionnés)"
           />
           <button class="btn btn-outline-secondary" type="button" @click="resetSearch">X</button>
         </div>
@@ -327,10 +324,10 @@
         if(this.searchQuery.length > 2){
           this.disableFilters = true;
           return this.recipes.filter((i) => {
-            return this.searchQuery.toLowerCase().split(' ').every(
-            v => i.title.toLowerCase().includes(v) ||
-            i.auteur.toLowerCase().includes(v) ||
-            i.specialite.toLowerCase().includes(v)
+            return this.searchQuery.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').split(' ').every(
+            v => i.title.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').includes(v) ||
+            i.auteur.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').includes(v) ||
+            i.specialite.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').includes(v)
             
             );
           })

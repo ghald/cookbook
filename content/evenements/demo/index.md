@@ -31,4 +31,5 @@ repas:
       - recette: Tartinade petits pois citrons confits menthe
         type_plat: entree
     horaire: soir
+sitemap_exclude: true
 ---

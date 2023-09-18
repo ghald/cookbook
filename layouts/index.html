@@ -145,10 +145,10 @@
     computed: {
       searchFilter() {
         return this.recettes.filter((i) => {
-          return this.searchResult.toLowerCase().split(' ').every(
-            v => i.title.toLowerCase().includes(v) ||
-              i.auteur.toLowerCase().includes(v) ||
-              i.specialite.toLowerCase().includes(v))
+          return this.searchResult.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').split(' ').every(
+            v => i.title.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').includes(v) ||
+              i.auteur.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').includes(v) ||
+              i.specialite.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').includes(v))
       })
     },
   },

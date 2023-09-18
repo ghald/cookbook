@@ -343,10 +343,12 @@ rel="stylesheet">
             </div>
             <div class="row">
               <div class="col">
-                <div :class="{'fw-semibold' : $vuetify.breakpoint.mdAndUp,} "> {{ .dateService | time.Format "Monday 2 January "}} - {{ .horaire }} - {{ .typePlat }}</div>
+                <div :class="{'fw-semibold fs-5' : $vuetify.breakpoint.mdAndUp,} "> {{ .dateService | time.Format "Monday 2 January "}} - {{ .horaire }} - {{ .typePlat }}</div>
                 <div class="fw-light">
-                Référent•es: {{ .chef }} - Nombre d'assietes: 
-                    {{ .assiettes }}
+                {{if .chef}} 
+                <span>Référent•es: {{ .chef }} - </span>
+                {{end}}
+                <span>Nombre d'assietes: {{ .assiettes }}</span>
                  </div>
                 <div>
                   {{- $url:= print .recette | urlize -}}
@@ -407,7 +409,7 @@ rel="stylesheet">
                                 {{ if eq .unit "litre"}}
                                   {{ printf "ml" }}
                                 {{ else if eq .unit "Kg"}}
-                                  {{ printf "grammes"}}
+                                  {{ printf "g"}}
                                 {{ end }}
                               {{ else }}
                               {{ $quantiteRepas | lang.FormatNumber 2 }} {{ .unit }}
@@ -799,7 +801,7 @@ computed: {
         quantite: quantite,
       }
     });
-  },
+  }
 
 
 }, // computed end
@@ -811,7 +813,7 @@ watch: {
     Meme fonction dans mounted() pour l'initialisation ! Doit etre dans watch() sinon les changement de endDateSelected ne sont pas pris en compte... */ 
     const lastDateSelected = new Date(this.endDateSelected)
     this.endDateSelectedDebug = new Date(lastDateSelected.setDate(lastDateSelected.getDate() + 1 )).toISOString().substr(0, 10);
-  },
+  }
 
 
 }, // watch() end

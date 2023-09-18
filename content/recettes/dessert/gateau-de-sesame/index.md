@@ -1,10 +1,11 @@
 ---
-title: Gateau de sésame
+title: Gateau de sésame 
 draft: false
 description: "Gâteau au Sésame noir et chocolat "
 layout: recettes
 type: dessert
-categories: [Gateau]
+categories:
+  - Gateau
 regime:
   - vegetarien
 cuisson: Oui

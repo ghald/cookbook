@@ -21,6 +21,7 @@ slug:
   sanitize_replacement: "-"
 editor:
   preview: false
+search: false
 
 collections:
   - name: 'Recettes'
@@ -118,6 +119,18 @@ collections:
         widget: 'number'
         value_type: 'int'
       
+
+      ### DEVTEST
+      - label: "Related Subjects"
+        name: subject_areas
+        widget: "relation"
+        collection: "subject_areas"
+        file: "areas"
+        searchFields: ["areas.*.title"]
+        valueField: "areas.*.title"
+
+      
+      ### /DEVTEST
      
 ################################      
         ## Ingredients de la recette ##  
@@ -125,7 +138,9 @@ collections:
       - label: 'Ingredients'
         name: 'ingredients'
         widget: 'object'
-        fields: 
+        fields:
+
+
         - label: 'Viandes et Poissons'
           name: 'animaux'
           widget: 'list'
@@ -619,3 +634,21 @@ collections:
     fields:
       - {label: 'Nom', name: 'title', widget: 'string'}
       
+###########################
+
+###DEVTEST file-relation
+  - name: "subject_areas"
+    label: "Subject Areas"
+    files:
+      - name: areas
+        label: areas
+        file: data/filetest.json
+        format: json
+        fields:
+          - label: "Areas"
+            widget: "list"
+            name: "areas"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+
+              

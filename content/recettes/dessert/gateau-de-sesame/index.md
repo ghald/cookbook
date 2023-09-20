@@ -40,7 +40,7 @@ ingredients:
       quantite: 3
       unit: Kg
   epices:
-    - title: Anis étoilé
+    - title: Sel
 materiel:
   - Gastro 1/1 (Fins)
   - Four

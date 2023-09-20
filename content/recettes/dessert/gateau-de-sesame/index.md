@@ -1,5 +1,5 @@
 ---
-title: Gateau de sésame 
+title: Gateau de sésame
 draft: false
 description: "Gâteau au Sésame noir et chocolat "
 layout: recettes
@@ -40,7 +40,7 @@ ingredients:
       quantite: 3
       unit: Kg
   epices:
-    - title: Sel
+    - title: Anis étoilé
 materiel:
   - Gastro 1/1 (Fins)
   - Four

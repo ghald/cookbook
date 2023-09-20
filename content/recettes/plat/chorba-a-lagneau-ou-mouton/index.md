@@ -49,14 +49,14 @@ ingredients:
       quantite: 7
       unit: Kg
   epices:
-    - title: Cumin (épice)
+    - title: Cumin
     - title: Ras el hanout
       alergene: true
-    - title: Canelle (épice)
-    - title: Poivre (épice)
+    - title: Canelle
+    - title: Poivre
       quantite: ""
       commentaire: noir
-    - title: Coriandre (épice)
+    - title: Coriandre
       quantite: 8
       unit: bottes
       commentaire: fraiche

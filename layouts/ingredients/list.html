@@ -10,7 +10,7 @@
           class="form-control"
           type="text"
           v-model="searchQuery"
-          placeholder="Rechercher un ingrédient"
+          placeholder="Rechercher un ingrédient (ignore les majuscules et les accents)"
           />
           <button class="btn btn-outline-secondary" type="button" @click="resetSearch">X</button>
     </div>
@@ -46,10 +46,58 @@
     vuetify: new Vuetify(),
     data: () => ({
       ingredients: [ 
-      {{- range .RegularPages -}}
+      {{- range .Site.Data.ingredients.animaux.ingredients -}}
       {
-        title: "{{ .Title }}",
-        typeIng: "{{ .Type }}",
+        title: "{{ .title }}",
+        typeIng: "Viandes ou poissons",
+        alergene: {{ .Params.alergene }}
+      },
+      {{ end }}
+
+      {{- range .Site.Data.ingredients.legumes.ingredients -}}
+      {
+        title: "{{ .title }}",
+        typeIng: "Légumes ou fruits",
+        alergene: {{ .Params.alergene }}
+      },
+      {{ end }}
+
+      {{- range .Site.Data.ingredients.sec.ingredients -}}
+      {
+        title: "{{ .title }}",
+        typeIng: "Sec",
+        alergene: {{ .Params.alergene }}
+      },
+      {{ end }}
+
+      {{- range .Site.Data.ingredients.lof.ingredients -}}
+      {
+        title: "{{ .title }}",
+        typeIng: "LOF",
+        alergene: {{ .Params.alergene }}
+      },
+      {{ end }}
+
+      {{- range .Site.Data.ingredients.autres.ingredients -}}
+      {
+        title: "{{ .title }}",
+        typeIng: "Autres",
+        alergene: {{ .Params.alergene }}
+      },
+      {{ end }}
+
+      {{- range .Site.Data.ingredients.epices.ingredients -}}
+      {
+        title: "{{ .title }}",
+        typeIng: "Aromatiques, épices, condiments",
+        alergene: {{ .Params.alergene }}
+      },
+      {{ end }}
+      
+      {{- range .Site.Data.ingredients.sucres.ingredients -}}
+      {
+        title: "{{ .title }}",
+        typeIng: "Sucrée",
         alergene: {{ .Params.alergene }}
       },
       {{ end }}

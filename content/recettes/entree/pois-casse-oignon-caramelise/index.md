@@ -25,8 +25,8 @@ ingredients:
       unit: Kg
   epices:
     - title: Sel
-    - title: Cumin (épice)
-    - title: Paprika (épice)
+    - title: Cumin
+    - title: Paprika
     - title: Vinaigre balsamique
       quantite: 0.25
       unit: litre

@@ -45,9 +45,9 @@ ingredients:
       quantite: 10
       unit: litre
   epices:
-    - title: Poivre (épice)
+    - title: Poivre
     - title: Sel
-    - title: Menthe (aromatique)
+    - title: Menthe
       quantite: 300
       unit: unité
       commentaire: 300 feuilles de menthes

@@ -34,7 +34,7 @@ ingredients:
       commentaire: ""
   sucres: []
   epices:
-    - title: Menthe (aromatique)
+    - title: Menthe
       quantite: 2
       unit: bottes
 materiel:

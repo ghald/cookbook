@@ -26,10 +26,10 @@ ingredients:
       unit: Kg
       commentaire: grosses tomates de préférences
   epices:
-    - title: Persil (aromatique)
+    - title: Persil
       quantite: 6
       unit: Kg
-    - title: Menthe (aromatique)
+    - title: Menthe
       quantite: 10
       unit: bottes
   animaux: []

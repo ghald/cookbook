@@ -37,9 +37,9 @@ ingredients:
       unit: Kg
       commentaire: Pois-chiche secs
   epices:
-    - title: Cumin (épice)
+    - title: Cumin
       quantite: ""
-    - title: Coriandre (épice)
+    - title: Coriandre
       quantite: 2
       unit: bottes
       commentaire: 1 ou 2 bottes de coriandre

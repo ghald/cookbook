@@ -19,15 +19,23 @@ defaultContentLanguage = "fr"
 
 # add redirects/headers
 [outputs]
-  home = ["HTML", "REDIRECTS", "HEADERS", "JSON", "alergene"]
+  home = ["HTML", "REDIRECTS", "HEADERS"]
 
 [mediaTypes."application/json"]
   suffixes = ["json"]
 
-[outputFormats.alergene]
-  mediaType = "application/json"
-  baseName = "alergene" # generated file = <baseName>.<mediaType."application/json".suffixes[0]> = micro.json
-  isPlainText = true
+[outputFormats.JSON]
+mediaType = "application/json"
+baseName = "json"
+isPlainText = true
+notAlternative = true
+
+
+# [outputFormats.alergene]
+#   mediaType = "application/json"
+#   baseName = "alergene" # generated file = <baseName>.<mediaType."application/json".suffixes[0]> = micro.json
+#   isPlainText = true
+#   notAlternative = true
 
 # remove .{ext} from text/netlify
 [mediaTypes."text/netlify"]

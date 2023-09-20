@@ -5,6 +5,9 @@ resources
 .netlify
 .hugo_build.lock
 .vscode
+.frontmatter
+.directories
 bak_part
 *bak*
 *useless*
+frontmatter.json

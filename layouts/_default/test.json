@@ -1,5 +1,0 @@
-{{- $posts := slice -}}
-{{- range .Site.Pages -}}
-  {{- $posts = $posts | append .Params -}}
-{{- end -}}
-{{- $posts | jsonify -}}

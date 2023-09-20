@@ -31,13 +31,13 @@ ingredients:
       quantite: 2
       unit: Kg
   epices:
-    - title: Paprika (épice)
+    - title: Paprika
       quantite: 100
       unit: grammes
     - title: Sel
       quantite: ""
       unit: null
-    - title: Poivre (épice)
+    - title: Poivre
       quantite: ""
       unit: null
   sucres:

@@ -19,7 +19,7 @@ defaultContentLanguage = "fr"
 
 # add redirects/headers
 [outputs]
-  home = ["HTML", "REDIRECTS", "HEADERS", "JSON"]
+  home = ["HTML", "REDIRECTS", "HEADERS"]
 
 [mediaTypes."application/json"]
   suffixes = ["json"]

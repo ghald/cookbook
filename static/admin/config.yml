@@ -1,7 +1,6 @@
 backend:  
 ## prod →
-  name: github
-  repo: encas-parka/cookbook
+  name: git-gateway
   # branch: master # Branch to update (optional; defaults to master)
 
 # when using the default proxy server port
@@ -121,6 +120,8 @@ collections:
         name: 'plate'
         widget: 'number'
         value_type: 'int'
+
+
 
 
 

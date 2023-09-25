@@ -1,3 +1,3 @@
 ---
-title: Friture
+title: Friture (test mod open author)
 ---

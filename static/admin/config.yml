@@ -15,6 +15,9 @@ local_backend:
 # This line should *not* be indented
 publish_mode: editorial_workflow
 
+#Permettre un PR sur github sans l'acces aux dépot
+open_authoring: true
+
 media_folder: "static/images"
 public_folder: "static/images"
 slug:

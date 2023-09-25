@@ -1,4 +1,4 @@
-baseurl = "/encas-parka.github.io/cookbook/"
+baseurl = "https://encas-parka.github.io/cookbook/"
 relativeURLs = true
 
 canonifyURLs = false

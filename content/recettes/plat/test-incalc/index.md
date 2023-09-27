@@ -3,6 +3,8 @@ title: test incalc
 draft: false
 layout: recettes
 type: plat
+saison:
+  - automne
 cuisson: Oui
 temperature: Froid
 plate: 3

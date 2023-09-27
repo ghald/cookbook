@@ -708,7 +708,7 @@ collections:
                   - { label : 'Eté', value: 'ete'}
                   - { label : 'Automne', value: 'automne'}
                   - { label : 'Hiver' , value: 'hiver'}
-              - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
+              - {label: 'Alergene', name: 'alergene', widget: boolean, required: false}
               - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
       - name: ingredients_lof
@@ -733,9 +733,9 @@ collections:
                   - { label : 'Eté', value: 'ete'}
                   - { label : 'Automne', value: 'automne'}
                   - { label : 'Hiver' , value: 'hiver'}
-              - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
-              - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', default: false}
-              - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
+              - {label: 'Alergene', name: 'alergene', widget: boolean, required: false}
+              - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', required: false}
+              - {label: 'Végan', name: 'vegan', widget: 'boolean', required: false}
               - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
       - name: ingredients_sec
@@ -760,7 +760,7 @@ collections:
                   - { label : 'Eté', value: 'ete'}
                   - { label : 'Automne', value: 'automne'}
                   - { label : 'Hiver' , value: 'hiver'}
-              - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
+              - {label: 'Alergene', name: 'alergene', widget: boolean, required: false}
               - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
       - name: ingredients_animaux
@@ -785,9 +785,9 @@ collections:
                   - { label : 'Eté', value: 'ete'}
                   - { label : 'Automne', value: 'automne'}
                   - { label : 'Hiver' , value: 'hiver'}
-              - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
-              - {label: 'Végétarien', name: 'vegetarien', widget: 'hidden', default: false}
-              - {label: 'Végan', name: 'vegan', widget: 'hidden', default: false}
+              - {label: 'Alergene', name: 'alergene', widget: boolean, required: false}
+              - {label: 'Végétarien', name: 'vegetarien', widget: 'hidden', default: false, required: false}
+              - {label: 'Végan', name: 'vegan', widget: 'hidden', default: false, required: false}
               - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
       - name: ingredients_autres
@@ -812,10 +812,10 @@ collections:
                   - { label : 'Eté', value: 'ete'}
                   - { label : 'Automne', value: 'automne'}
                   - { label : 'Hiver' , value: 'hiver'}
-              - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
-              - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', default: false}
-              - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
-              - {label: 'Sans-lactose', name: 'sans-lactose', widget: 'boolean', default: false}              
+              - {label: 'Alergene', name: 'alergene', widget: boolean, required: false}
+              - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', required: false}
+              - {label: 'Végan', name: 'vegan', widget: 'boolean', required: false}
+              - {label: 'Sans-lactose', name: 'sans-lactose', widget: 'boolean', required: false}              
               - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
 
       - name: ingredients_epices
@@ -840,10 +840,10 @@ collections:
                   - { label : 'Eté', value: 'ete'}
                   - { label : 'Automne', value: 'automne'}
                   - { label : 'Hiver' , value: 'hiver'}
-              - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
-              - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', default: false}
-              - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
-              - {label: 'Sans-lactose', name: 'sans-lactose', widget: 'boolean', default: false}
+              - {label: 'Alergene', name: 'alergene', widget: boolean, required: false}
+              - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', required: false}
+              - {label: 'Végan', name: 'vegan', widget: 'boolean', required: false}
+              - {label: 'Sans-lactose', name: 'sans-lactose', widget: 'boolean', required: false}
               - {label: 'Astuces', name: 'tips', widget: 'text', required: false}
   
       - name: ingredients_sucres
@@ -868,8 +868,8 @@ collections:
                   - { label : 'Eté', value: 'ete'}
                   - { label : 'Automne', value: 'automne'}
                   - { label : 'Hiver' , value: 'hiver'}
-              - {label: 'Alergene', name: 'alergene', widget: boolean, default: false}
-              - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', default: false}
-              - {label: 'Végan', name: 'vegan', widget: 'boolean', default: false}
-              - {label: 'Sans-lactose', name: 'sans-lactose', widget: 'boolean', default: false}
+              - {label: 'Alergene', name: 'alergene', widget: boolean, required: false}
+              - {label: 'Végétarien', name: 'vegetarien', widget: 'boolean', required: false}
+              - {label: 'Végan', name: 'vegan', widget: 'boolean', required: false}
+              - {label: 'Sans-lactose', name: 'sans-lactose', widget: 'boolean', required: false}
               - {label: 'Astuces', name: 'tips', widget: 'text', required: false}

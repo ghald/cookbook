@@ -3,6 +3,8 @@ title: TEST 2
 draft: false
 layout: recettes
 type: entree
+categories:
+  - Gateau
 cuisson: Non
 temperature: Froid
 plate: 11

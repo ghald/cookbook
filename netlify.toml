@@ -1,6 +1,7 @@
 [build]
   publish = "public"
   functions = "functions"
+  ignore = "git diff --name-only $CACHED_COMMIT_REF $COMMIT_REF | tr -d '\n' | grep -q '^README.md$'"
 
 [build.environment]
   NODE_VERSION = "16.17.0"
@@ -9,8 +10,9 @@
 [context.production]
   command = "npm run build"
 
-# [context.deploy-preview]
+[context.deploy-preview]
   # command = "npm run build -- -b $DEPLOY_PRIME_URL"
+  ignore = "exit 0"
 
 [context.branch-deploy]
   command = "npm run build -- -b $DEPLOY_PRIME_URL"

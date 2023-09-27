@@ -3,6 +3,8 @@ title: TEST draft
 draft: false
 layout: recettes
 type: plat
+saison:
+  - ete
 cuisson: Oui
 temperature: Chaud
 plate: 98

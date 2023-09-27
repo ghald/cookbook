@@ -9,7 +9,7 @@
 [context.production]
   command = "npm run build"
 
-[context.deploy-preview]
+# [context.deploy-preview]
   # command = "npm run build -- -b $DEPLOY_PRIME_URL"
 
 [context.branch-deploy]

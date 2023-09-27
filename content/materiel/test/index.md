@@ -1,4 +1,4 @@
 ---
-title: TEST
+title: TEST email
 sitemap_exclude: "true"
 ---

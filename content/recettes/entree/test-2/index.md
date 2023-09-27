@@ -7,6 +7,7 @@ categories:
   - Gateau
 regime:
   - vegetarien
+spécialité: Run
 cuisson: Non
 temperature: Froid
 plate: 11

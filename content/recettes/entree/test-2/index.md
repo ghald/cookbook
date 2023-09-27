@@ -5,6 +5,8 @@ layout: recettes
 type: entree
 categories:
   - Gateau
+regime:
+  - vegetarien
 cuisson: Non
 temperature: Froid
 plate: 11
